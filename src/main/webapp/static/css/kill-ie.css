@@ -1,0 +1,12 @@
+.kill-ie-mask { position: fixed; left:0; top:0; height: 100%; width: 100%; background:#000; filter: alpha(opacity=60); z-index: 9999;}
+.kill-ie * { padding:0; margin:0;}
+.kill-ie { position: fixed; left:50%; top: 240px; width: 800px; margin-left: -400px; z-index: 10000; background: #fff; padding: 10px; line-height: 1.5; font-size: 14px; border: 1px solid #dcdcdc; }
+.kill-ie .bs-tit { text-align:center; font-size: 16px; padding: 20px; color: #FF6100;}
+.kill-ie h2 { font-size: 24px; text-align: center; padding-top: 30px; color: #FF6100; }
+.kill-ie ul { overflow: hidden; zoom: 1; padding: 10px 0; margin-left: 175px; }
+.kill-ie li { float: left; margin: 5px 20px; }
+.kill-ie li img { display: block; height: 50px;}
+.kill-ie li a:hover { color: #04b96f; }
+.kill-ie .bs-btn { margin-left: 20px; overflow: hidden; zoom: 1; }
+.kill-ie .bs-btn a { float: right; height: 36px; width: 160px; background: #04b96f; color: #fff; text-align: center; line-height: 36px;}
+.kill-ie .bs-btn a:hover { background:#099A5F; }

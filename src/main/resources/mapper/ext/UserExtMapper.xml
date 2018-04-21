@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.ext.UserExtMapper" >
+    <resultMap id="UserMap" type="ncu.study.autopaper.model.User" >
+        <constructor >
+            <idArg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <idArg column="USER_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="USER_EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="NICK_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="USER_SEX" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="USER_AGE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="USER_TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+            <arg column="USER_PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="REGISTER_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="USER_ICON" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="MODIFY_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        </constructor>
+    </resultMap>
+    <sql id="User_Column_List" >
+        USER_ID, USER_PHONE, USER_EMAIL, USER_NAME, NICK_NAME, USER_SEX, USER_AGE, USER_TYPE,
+    USER_PASSWORD, REGISTER_TIME, USER_ICON, MODIFY_TIME
+    </sql>
+
+    <select id="checkUserByPhone" resultMap="UserMap" parameterType="String" >
+        SELECT
+        <include refid="User_Column_List" />
+        from user
+        where USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+    </select>
+
+
+    <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.UserKey" >
+         select
+         <include refid="Base_Column_List" />
+         from user
+         where USER_ID = #{userId,jdbcType=INTEGER}
+         and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+     </select>
+     <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.UserKey" >
+         delete from user
+         where USER_ID = #{userId,jdbcType=INTEGER}
+         and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+     </delete>
+     <insert id="insert" parameterType="ncu.study.autopaper.model.User" >
+         insert into user (USER_ID, USER_PHONE, USER_NAME,
+         NICK_NAME, USER_SEX, USER_AGE,
+         USER_TYPE, USER_PASSWORD, REGISTER_TIME,
+         USER_ICON, MODIFY_TIME)
+         values (#{userId,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+         #{nickName,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userAge,jdbcType=INTEGER},
+         #{userType,jdbcType=CHAR}, #{userPassword,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP},
+         #{userIcon,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+     </insert>
+     <insert id="insertSelective" parameterType="ncu.study.autopaper.model.User" >
+         insert into user
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+             <if test="userId != null" >
+                 USER_ID,
+             </if>
+             <if test="userPhone != null" >
+                 USER_PHONE,
+             </if>
+             <if test="userName != null" >
+                 USER_NAME,
+             </if>
+             <if test="nickName != null" >
+                 NICK_NAME,
+             </if>
+             <if test="userSex != null" >
+                 USER_SEX,
+             </if>
+             <if test="userAge != null" >
+                 USER_AGE,
+             </if>
+             <if test="userType != null" >
+                 USER_TYPE,
+             </if>
+             <if test="userPassword != null" >
+                 USER_PASSWORD,
+             </if>
+             <if test="registerTime != null" >
+                 REGISTER_TIME,
+             </if>
+             <if test="userIcon != null" >
+                 USER_ICON,
+             </if>
+             <if test="modifyTime != null" >
+                 MODIFY_TIME,
+             </if>
+         </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides="," >
+             <if test="userId != null" >
+                 #{userId,jdbcType=INTEGER},
+             </if>
+             <if test="userPhone != null" >
+                 #{userPhone,jdbcType=VARCHAR},
+             </if>
+             <if test="userName != null" >
+                 #{userName,jdbcType=VARCHAR},
+             </if>
+             <if test="nickName != null" >
+                 #{nickName,jdbcType=VARCHAR},
+             </if>
+             <if test="userSex != null" >
+                 #{userSex,jdbcType=INTEGER},
+             </if>
+             <if test="userAge != null" >
+                 #{userAge,jdbcType=INTEGER},
+             </if>
+             <if test="userType != null" >
+                 #{userType,jdbcType=CHAR},
+             </if>
+             <if test="userPassword != null" >
+                 #{userPassword,jdbcType=VARCHAR},
+             </if>
+             <if test="registerTime != null" >
+                 #{registerTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="userIcon != null" >
+                 #{userIcon,jdbcType=VARCHAR},
+             </if>
+             <if test="modifyTime != null" >
+                 #{modifyTime,jdbcType=TIMESTAMP},
+             </if>
+         </trim>
+     </insert>
+     <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.User" >
+         update user
+         <set >
+             <if test="userName != null" >
+                 USER_NAME = #{userName,jdbcType=VARCHAR},
+             </if>
+             <if test="nickName != null" >
+                 NICK_NAME = #{nickName,jdbcType=VARCHAR},
+             </if>
+             <if test="userSex != null" >
+                 USER_SEX = #{userSex,jdbcType=INTEGER},
+             </if>
+             <if test="userAge != null" >
+                 USER_AGE = #{userAge,jdbcType=INTEGER},
+             </if>
+             <if test="userType != null" >
+                 USER_TYPE = #{userType,jdbcType=CHAR},
+             </if>
+             <if test="userPassword != null" >
+                 USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+             </if>
+             <if test="registerTime != null" >
+                 REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP},
+             </if>
+             <if test="userIcon != null" >
+                 USER_ICON = #{userIcon,jdbcType=VARCHAR},
+             </if>
+             <if test="modifyTime != null" >
+                 MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+             </if>
+         </set>
+         where USER_ID = #{userId,jdbcType=INTEGER}
+         and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+     </update>
+     <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.User" >
+         update user
+         set USER_NAME = #{userName,jdbcType=VARCHAR},
+         NICK_NAME = #{nickName,jdbcType=VARCHAR},
+         USER_SEX = #{userSex,jdbcType=INTEGER},
+         USER_AGE = #{userAge,jdbcType=INTEGER},
+         USER_TYPE = #{userType,jdbcType=CHAR},
+         USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+         REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP},
+         USER_ICON = #{userIcon,jdbcType=VARCHAR},
+         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+         where USER_ID = #{userId,jdbcType=INTEGER}
+         and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+     </update>-->
+</mapper>

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.QuestionMapper" >
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Question" >
+    <constructor >
+      <idArg column="QUESTION_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QUESTION_TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_CLASS" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_DIFFICULTY" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="POINT_NUMBER" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="POINT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SOURCE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USETIMES" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_SCORE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="QUESTION_TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEACHING_MATERIAL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GRADE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CHAPTER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SINGGLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ANSWER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ANALYSIS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_HOT" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="OWNNER" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="QUESTION_COMMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    QUESTION_ID, QUESTION_TYPE, QUESTION_CLASS, QUESTION_DIFFICULTY, POINT_NUMBER, POINT, 
+    SOURCE, USETIMES, TYPE, QUESTION_SCORE, QUESTION_TIME, TEACHING_MATERIAL, GRADE, 
+    CHAPTER, SINGGLE, ANSWER, ANALYSIS, QUESTION_HOT, OWNNER, CREATE_TIME, UPDATE_TIME, 
+    QUESTION_COMMENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.QuestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.QuestionExample" >
+    delete from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.Question" >
+    insert into question (QUESTION_ID, QUESTION_TYPE, QUESTION_CLASS, 
+      QUESTION_DIFFICULTY, POINT_NUMBER, POINT, 
+      SOURCE, USETIMES, TYPE, 
+      QUESTION_SCORE, QUESTION_TIME, TEACHING_MATERIAL, 
+      GRADE, CHAPTER, SINGGLE, 
+      ANSWER, ANALYSIS, QUESTION_HOT, 
+      OWNNER, CREATE_TIME, UPDATE_TIME, 
+      QUESTION_COMMENT)
+    values (#{questionId,jdbcType=BIGINT}, #{questionType,jdbcType=CHAR}, #{questionClass,jdbcType=CHAR}, 
+      #{questionDifficulty,jdbcType=INTEGER}, #{pointNumber,jdbcType=INTEGER}, #{point,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{usetimes,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
+      #{questionScore,jdbcType=INTEGER}, #{questionTime,jdbcType=INTEGER}, #{teachingMaterial,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{chapter,jdbcType=VARCHAR}, #{singgle,jdbcType=VARCHAR}, 
+      #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, #{questionHot,jdbcType=BIGINT}, 
+      #{ownner,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{questionComment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Question" >
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        QUESTION_ID,
+      </if>
+      <if test="questionType != null" >
+        QUESTION_TYPE,
+      </if>
+      <if test="questionClass != null" >
+        QUESTION_CLASS,
+      </if>
+      <if test="questionDifficulty != null" >
+        QUESTION_DIFFICULTY,
+      </if>
+      <if test="pointNumber != null" >
+        POINT_NUMBER,
+      </if>
+      <if test="point != null" >
+        POINT,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="usetimes != null" >
+        USETIMES,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="questionScore != null" >
+        QUESTION_SCORE,
+      </if>
+      <if test="questionTime != null" >
+        QUESTION_TIME,
+      </if>
+      <if test="teachingMaterial != null" >
+        TEACHING_MATERIAL,
+      </if>
+      <if test="grade != null" >
+        GRADE,
+      </if>
+      <if test="chapter != null" >
+        CHAPTER,
+      </if>
+      <if test="singgle != null" >
+        SINGGLE,
+      </if>
+      <if test="answer != null" >
+        ANSWER,
+      </if>
+      <if test="analysis != null" >
+        ANALYSIS,
+      </if>
+      <if test="questionHot != null" >
+        QUESTION_HOT,
+      </if>
+      <if test="ownner != null" >
+        OWNNER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="questionComment != null" >
+        QUESTION_COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionType != null" >
+        #{questionType,jdbcType=CHAR},
+      </if>
+      <if test="questionClass != null" >
+        #{questionClass,jdbcType=CHAR},
+      </if>
+      <if test="questionDifficulty != null" >
+        #{questionDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="pointNumber != null" >
+        #{pointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="usetimes != null" >
+        #{usetimes,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="questionScore != null" >
+        #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionTime != null" >
+        #{questionTime,jdbcType=INTEGER},
+      </if>
+      <if test="teachingMaterial != null" >
+        #{teachingMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter != null" >
+        #{chapter,jdbcType=VARCHAR},
+      </if>
+      <if test="singgle != null" >
+        #{singgle,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="analysis != null" >
+        #{analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="questionHot != null" >
+        #{questionHot,jdbcType=BIGINT},
+      </if>
+      <if test="ownner != null" >
+        #{ownner,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionComment != null" >
+        #{questionComment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.QuestionExample" resultType="java.lang.Integer" >
+    select count(*) from question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update question
+    <set >
+      <if test="record.questionId != null" >
+        QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionType != null" >
+        QUESTION_TYPE = #{record.questionType,jdbcType=CHAR},
+      </if>
+      <if test="record.questionClass != null" >
+        QUESTION_CLASS = #{record.questionClass,jdbcType=CHAR},
+      </if>
+      <if test="record.questionDifficulty != null" >
+        QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="record.pointNumber != null" >
+        POINT_NUMBER = #{record.pointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.point != null" >
+        POINT = #{record.point,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        SOURCE = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usetimes != null" >
+        USETIMES = #{record.usetimes,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.questionScore != null" >
+        QUESTION_SCORE = #{record.questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.questionTime != null" >
+        QUESTION_TIME = #{record.questionTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.teachingMaterial != null" >
+        TEACHING_MATERIAL = #{record.teachingMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        GRADE = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapter != null" >
+        CHAPTER = #{record.chapter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.singgle != null" >
+        SINGGLE = #{record.singgle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answer != null" >
+        ANSWER = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.analysis != null" >
+        ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionHot != null" >
+        QUESTION_HOT = #{record.questionHot,jdbcType=BIGINT},
+      </if>
+      <if test="record.ownner != null" >
+        OWNNER = #{record.ownner,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.questionComment != null" >
+        QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update question
+    set QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      QUESTION_TYPE = #{record.questionType,jdbcType=CHAR},
+      QUESTION_CLASS = #{record.questionClass,jdbcType=CHAR},
+      QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
+      POINT_NUMBER = #{record.pointNumber,jdbcType=INTEGER},
+      POINT = #{record.point,jdbcType=VARCHAR},
+      SOURCE = #{record.source,jdbcType=VARCHAR},
+      USETIMES = #{record.usetimes,jdbcType=BIGINT},
+      TYPE = #{record.type,jdbcType=CHAR},
+      QUESTION_SCORE = #{record.questionScore,jdbcType=INTEGER},
+      QUESTION_TIME = #{record.questionTime,jdbcType=INTEGER},
+      TEACHING_MATERIAL = #{record.teachingMaterial,jdbcType=VARCHAR},
+      GRADE = #{record.grade,jdbcType=VARCHAR},
+      CHAPTER = #{record.chapter,jdbcType=VARCHAR},
+      SINGGLE = #{record.singgle,jdbcType=VARCHAR},
+      ANSWER = #{record.answer,jdbcType=VARCHAR},
+      ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
+      QUESTION_HOT = #{record.questionHot,jdbcType=BIGINT},
+      OWNNER = #{record.ownner,jdbcType=BIGINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Question" >
+    update question
+    <set >
+      <if test="questionType != null" >
+        QUESTION_TYPE = #{questionType,jdbcType=CHAR},
+      </if>
+      <if test="questionClass != null" >
+        QUESTION_CLASS = #{questionClass,jdbcType=CHAR},
+      </if>
+      <if test="questionDifficulty != null" >
+        QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="pointNumber != null" >
+        POINT_NUMBER = #{pointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="point != null" >
+        POINT = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="usetimes != null" >
+        USETIMES = #{usetimes,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="questionScore != null" >
+        QUESTION_SCORE = #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionTime != null" >
+        QUESTION_TIME = #{questionTime,jdbcType=INTEGER},
+      </if>
+      <if test="teachingMaterial != null" >
+        TEACHING_MATERIAL = #{teachingMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        GRADE = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="chapter != null" >
+        CHAPTER = #{chapter,jdbcType=VARCHAR},
+      </if>
+      <if test="singgle != null" >
+        SINGGLE = #{singgle,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        ANSWER = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="analysis != null" >
+        ANALYSIS = #{analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="questionHot != null" >
+        QUESTION_HOT = #{questionHot,jdbcType=BIGINT},
+      </if>
+      <if test="ownner != null" >
+        OWNNER = #{ownner,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionComment != null" >
+        QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Question" >
+    update question
+    set QUESTION_TYPE = #{questionType,jdbcType=CHAR},
+      QUESTION_CLASS = #{questionClass,jdbcType=CHAR},
+      QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
+      POINT_NUMBER = #{pointNumber,jdbcType=INTEGER},
+      POINT = #{point,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      USETIMES = #{usetimes,jdbcType=BIGINT},
+      TYPE = #{type,jdbcType=CHAR},
+      QUESTION_SCORE = #{questionScore,jdbcType=INTEGER},
+      QUESTION_TIME = #{questionTime,jdbcType=INTEGER},
+      TEACHING_MATERIAL = #{teachingMaterial,jdbcType=VARCHAR},
+      GRADE = #{grade,jdbcType=VARCHAR},
+      CHAPTER = #{chapter,jdbcType=VARCHAR},
+      SINGGLE = #{singgle,jdbcType=VARCHAR},
+      ANSWER = #{answer,jdbcType=VARCHAR},
+      ANALYSIS = #{analysis,jdbcType=VARCHAR},
+      QUESTION_HOT = #{questionHot,jdbcType=BIGINT},
+      OWNNER = #{ownner,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR}
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </update>
+</mapper>

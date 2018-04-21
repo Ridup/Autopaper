@@ -1,0 +1,261 @@
+package ncu.study.autopaper.controller;
+
+import ncu.study.autopaper.model.Student;
+import ncu.study.autopaper.model.Teacher;
+import ncu.study.autopaper.model.User;
+import ncu.study.autopaper.service.UserCenterService;
+import ncu.study.autopaper.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+/**
+ * @author Ridup
+ * @version FleName:  UserCenterController.java   v0.1  2018/4/17 17:01  Exp $
+ */
+@Controller
+@RequestMapping("/ucenter")
+public class UserCenterController {
+
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private UserCenterService userCenterService;
+
+    @RequestMapping("/redirect.do")
+    public String redirect(RedirectAttributes attributes){
+        //TODO  登陆提示问题
+        String tips = "请重新登陆222";
+        attributes.addFlashAttribute("tips",tips);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value={"/","/index.do"})
+    public ModelAndView index(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                if (user.getUserType().equals("1")){
+                    Teacher teacher = new Teacher();
+                    teacher  = userCenterService.getTeacherInfo(user.getUserId());
+                    modelAndView.addObject("teacher", teacher);
+                }
+                if (user.getUserType().equals("2")){
+                    Student student = new Student();
+                    student = userCenterService.getStudentInfo(user.getUserId());
+                    modelAndView.addObject("student", student);
+                }
+                modelAndView.setViewName("user/ucenter");
+                modelAndView.addObject("ucenter_position", "index");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return  modelAndView;
+    }
+    @ResponseBody
+    @RequestMapping("/userbaseinfo.do")
+    public User userbaseinfo(User user){
+        return null;
+    }
+
+    @RequestMapping(value="/download_record.do")
+    public ModelAndView download_record(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/download_record");
+                modelAndView.addObject("ucenter_position","download_record");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/generate_record.do")
+    public ModelAndView generate_record(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/generate_record");
+                modelAndView.addObject("ucenter_position","generate_record");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/test_record.do")
+    public ModelAndView test_record(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/test_record");
+                modelAndView.addObject("ucenter_position","test_record");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/error_record.do")
+    public ModelAndView error_record(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/error_record");
+                modelAndView.addObject("ucenter_position","error_record");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/question_in_record.do")
+    public ModelAndView question_in_record(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/question_in_record");
+                modelAndView.addObject("ucenter_position","question_in_record");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/error_question.do")
+    public ModelAndView error_question(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/error_question");
+                modelAndView.addObject("ucenter_position","error_question");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/u_question.do")
+    public ModelAndView u_question(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/u_question");
+                modelAndView.addObject("ucenter_position","u_question");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/u_paper.do")
+    public ModelAndView u_paper(HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView();
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if (obj != null) {
+                //查询用户信息并与展示
+                User user = userCenterService.getUserInfo(obj.getUserPhone());
+                modelAndView.addObject("user", user);
+                modelAndView.setViewName("user/u_paper");
+                modelAndView.addObject("ucenter_position","u_paper");
+            } else {
+                //超时重登
+                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            }
+        }else {
+            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+        }
+        return modelAndView;
+    }
+
+
+
+
+
+
+
+
+
+}

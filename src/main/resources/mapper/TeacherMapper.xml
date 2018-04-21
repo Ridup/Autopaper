@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Teacher" >
+    <constructor >
+      <idArg column="TEACHER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEACHER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_SEX" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEACHER_AGE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEACHER_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_ADDR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_SCHOOL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_NO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_TC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACHER_GRADE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEACH_VERSION" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEACHER_ID, TEACHER_NAME, TEACHER_SEX, TEACHER_AGE, TEACHER_PHONE, TEACHER_ADDR, 
+    TEACHER_SCHOOL, TEACHER_NO, TEACHER_TC, TEACHER_GRADE, TEACH_VERSION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.Teacher" >
+    insert into teacher (TEACHER_ID, TEACHER_NAME, TEACHER_SEX, 
+      TEACHER_AGE, TEACHER_PHONE, TEACHER_ADDR, 
+      TEACHER_SCHOOL, TEACHER_NO, TEACHER_TC, 
+      TEACHER_GRADE, TEACH_VERSION)
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{teacherSex,jdbcType=INTEGER}, 
+      #{teacherAge,jdbcType=INTEGER}, #{teacherPhone,jdbcType=VARCHAR}, #{teacherAddr,jdbcType=VARCHAR}, 
+      #{teacherSchool,jdbcType=VARCHAR}, #{teacherNo,jdbcType=VARCHAR}, #{teacherTc,jdbcType=VARCHAR}, 
+      #{teacherGrade,jdbcType=VARCHAR}, #{teachVersion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        TEACHER_ID,
+      </if>
+      <if test="teacherName != null" >
+        TEACHER_NAME,
+      </if>
+      <if test="teacherSex != null" >
+        TEACHER_SEX,
+      </if>
+      <if test="teacherAge != null" >
+        TEACHER_AGE,
+      </if>
+      <if test="teacherPhone != null" >
+        TEACHER_PHONE,
+      </if>
+      <if test="teacherAddr != null" >
+        TEACHER_ADDR,
+      </if>
+      <if test="teacherSchool != null" >
+        TEACHER_SCHOOL,
+      </if>
+      <if test="teacherNo != null" >
+        TEACHER_NO,
+      </if>
+      <if test="teacherTc != null" >
+        TEACHER_TC,
+      </if>
+      <if test="teacherGrade != null" >
+        TEACHER_GRADE,
+      </if>
+      <if test="teachVersion != null" >
+        TEACH_VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        #{teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="teacherAge != null" >
+        #{teacherAge,jdbcType=INTEGER},
+      </if>
+      <if test="teacherPhone != null" >
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAddr != null" >
+        #{teacherAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSchool != null" >
+        #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNo != null" >
+        #{teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTc != null" >
+        #{teacherTc,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherGrade != null" >
+        #{teacherGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="teachVersion != null" >
+        #{teachVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teacherId != null" >
+        TEACHER_ID = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherName != null" >
+        TEACHER_NAME = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherSex != null" >
+        TEACHER_SEX = #{record.teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherAge != null" >
+        TEACHER_AGE = #{record.teacherAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherPhone != null" >
+        TEACHER_PHONE = #{record.teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherAddr != null" >
+        TEACHER_ADDR = #{record.teacherAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherSchool != null" >
+        TEACHER_SCHOOL = #{record.teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherNo != null" >
+        TEACHER_NO = #{record.teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherTc != null" >
+        TEACHER_TC = #{record.teacherTc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherGrade != null" >
+        TEACHER_GRADE = #{record.teacherGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachVersion != null" >
+        TEACH_VERSION = #{record.teachVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set TEACHER_ID = #{record.teacherId,jdbcType=INTEGER},
+      TEACHER_NAME = #{record.teacherName,jdbcType=VARCHAR},
+      TEACHER_SEX = #{record.teacherSex,jdbcType=INTEGER},
+      TEACHER_AGE = #{record.teacherAge,jdbcType=INTEGER},
+      TEACHER_PHONE = #{record.teacherPhone,jdbcType=VARCHAR},
+      TEACHER_ADDR = #{record.teacherAddr,jdbcType=VARCHAR},
+      TEACHER_SCHOOL = #{record.teacherSchool,jdbcType=VARCHAR},
+      TEACHER_NO = #{record.teacherNo,jdbcType=VARCHAR},
+      TEACHER_TC = #{record.teacherTc,jdbcType=VARCHAR},
+      TEACHER_GRADE = #{record.teacherGrade,jdbcType=VARCHAR},
+      TEACH_VERSION = #{record.teachVersion,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Teacher" >
+    update teacher
+    <set >
+      <if test="teacherName != null" >
+        TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        TEACHER_SEX = #{teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="teacherAge != null" >
+        TEACHER_AGE = #{teacherAge,jdbcType=INTEGER},
+      </if>
+      <if test="teacherPhone != null" >
+        TEACHER_PHONE = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAddr != null" >
+        TEACHER_ADDR = #{teacherAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSchool != null" >
+        TEACHER_SCHOOL = #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNo != null" >
+        TEACHER_NO = #{teacherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTc != null" >
+        TEACHER_TC = #{teacherTc,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherGrade != null" >
+        TEACHER_GRADE = #{teacherGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="teachVersion != null" >
+        TEACH_VERSION = #{teachVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Teacher" >
+    update teacher
+    set TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      TEACHER_SEX = #{teacherSex,jdbcType=INTEGER},
+      TEACHER_AGE = #{teacherAge,jdbcType=INTEGER},
+      TEACHER_PHONE = #{teacherPhone,jdbcType=VARCHAR},
+      TEACHER_ADDR = #{teacherAddr,jdbcType=VARCHAR},
+      TEACHER_SCHOOL = #{teacherSchool,jdbcType=VARCHAR},
+      TEACHER_NO = #{teacherNo,jdbcType=VARCHAR},
+      TEACHER_TC = #{teacherTc,jdbcType=VARCHAR},
+      TEACHER_GRADE = #{teacherGrade,jdbcType=VARCHAR},
+      TEACH_VERSION = #{teachVersion,jdbcType=VARCHAR}
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.PaperTestMapper" >
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.PaperTest" >
+    <constructor >
+      <idArg column="TEST_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="USER_TYPE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="PAPER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="WRONG_QUESTIONS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ANSWER_TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEST_SCORE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COST_TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TEST_ANSWER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="START_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="END_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEST_ID, USER_ID, USER_TYPE, PAPER_ID, WRONG_QUESTIONS, ANSWER_TIME, TEST_SCORE, 
+    COST_TIME, TEST_ANSWER, START_TIME, END_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.PaperTestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from paper_test
+    where TEST_ID = #{testId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paper_test
+    where TEST_ID = #{testId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperTestExample" >
+    delete from paper_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.PaperTest" >
+    insert into paper_test (TEST_ID, USER_ID, USER_TYPE, 
+      PAPER_ID, WRONG_QUESTIONS, ANSWER_TIME, 
+      TEST_SCORE, COST_TIME, TEST_ANSWER, 
+      START_TIME, END_TIME)
+    values (#{testId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userType,jdbcType=CHAR}, 
+      #{paperId,jdbcType=INTEGER}, #{wrongQuestions,jdbcType=VARCHAR}, #{answerTime,jdbcType=INTEGER}, 
+      #{testScore,jdbcType=INTEGER}, #{costTime,jdbcType=INTEGER}, #{testAnswer,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.PaperTest" >
+    insert into paper_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        TEST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userType != null" >
+        USER_TYPE,
+      </if>
+      <if test="paperId != null" >
+        PAPER_ID,
+      </if>
+      <if test="wrongQuestions != null" >
+        WRONG_QUESTIONS,
+      </if>
+      <if test="answerTime != null" >
+        ANSWER_TIME,
+      </if>
+      <if test="testScore != null" >
+        TEST_SCORE,
+      </if>
+      <if test="costTime != null" >
+        COST_TIME,
+      </if>
+      <if test="testAnswer != null" >
+        TEST_ANSWER,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=CHAR},
+      </if>
+      <if test="paperId != null" >
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="wrongQuestions != null" >
+        #{wrongQuestions,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTime != null" >
+        #{answerTime,jdbcType=INTEGER},
+      </if>
+      <if test="testScore != null" >
+        #{testScore,jdbcType=INTEGER},
+      </if>
+      <if test="costTime != null" >
+        #{costTime,jdbcType=INTEGER},
+      </if>
+      <if test="testAnswer != null" >
+        #{testAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.PaperTestExample" resultType="java.lang.Integer" >
+    select count(*) from paper_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paper_test
+    <set >
+      <if test="record.testId != null" >
+        TEST_ID = #{record.testId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userType != null" >
+        USER_TYPE = #{record.userType,jdbcType=CHAR},
+      </if>
+      <if test="record.paperId != null" >
+        PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wrongQuestions != null" >
+        WRONG_QUESTIONS = #{record.wrongQuestions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerTime != null" >
+        ANSWER_TIME = #{record.answerTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.testScore != null" >
+        TEST_SCORE = #{record.testScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.costTime != null" >
+        COST_TIME = #{record.costTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.testAnswer != null" >
+        TEST_ANSWER = #{record.testAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paper_test
+    set TEST_ID = #{record.testId,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      USER_TYPE = #{record.userType,jdbcType=CHAR},
+      PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      WRONG_QUESTIONS = #{record.wrongQuestions,jdbcType=VARCHAR},
+      ANSWER_TIME = #{record.answerTime,jdbcType=INTEGER},
+      TEST_SCORE = #{record.testScore,jdbcType=INTEGER},
+      COST_TIME = #{record.costTime,jdbcType=INTEGER},
+      TEST_ANSWER = #{record.testAnswer,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.PaperTest" >
+    update paper_test
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        USER_TYPE = #{userType,jdbcType=CHAR},
+      </if>
+      <if test="paperId != null" >
+        PAPER_ID = #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="wrongQuestions != null" >
+        WRONG_QUESTIONS = #{wrongQuestions,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTime != null" >
+        ANSWER_TIME = #{answerTime,jdbcType=INTEGER},
+      </if>
+      <if test="testScore != null" >
+        TEST_SCORE = #{testScore,jdbcType=INTEGER},
+      </if>
+      <if test="costTime != null" >
+        COST_TIME = #{costTime,jdbcType=INTEGER},
+      </if>
+      <if test="testAnswer != null" >
+        TEST_ANSWER = #{testAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TEST_ID = #{testId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperTest" >
+    update paper_test
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      USER_TYPE = #{userType,jdbcType=CHAR},
+      PAPER_ID = #{paperId,jdbcType=INTEGER},
+      WRONG_QUESTIONS = #{wrongQuestions,jdbcType=VARCHAR},
+      ANSWER_TIME = #{answerTime,jdbcType=INTEGER},
+      TEST_SCORE = #{testScore,jdbcType=INTEGER},
+      COST_TIME = #{costTime,jdbcType=INTEGER},
+      TEST_ANSWER = #{testAnswer,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP}
+    where TEST_ID = #{testId,jdbcType=INTEGER}
+  </update>
+</mapper>
