@@ -157,6 +157,14 @@
         var tips = $("#tips").val();
         if(tips!=null&&tips!=""){
             layer.alert("<span style='margin-left: 70px;text-align: center;'>"+tips+"</span>");
+        }else{
+            var param = window.location.search.substr(1,4);
+            if(param=="tips"){
+                var tips = window.location.search.substring(6);
+                console.log(tips);
+                if(tips=="e01"){contentTips="请重新登陆！";}
+                layer.alert("<span style='margin-left: 70px;text-align: center;color:#e65439'>"+contentTips+"</span>");
+            }
         }
         if(loginUser!=null&&loginUser!=""){
             $(".loginbox").hide();
@@ -1032,7 +1040,7 @@
                 <a href="http://21cnjy.com/qqconnect?jump_url=http://zujuan.21cnjy.com/?1=1"><i class="icona-qqloginbtn"> </i></a>
             </div>
             <div class="login-reg">
-                <a target="_blank" href="http://passport.21cnjy.com/site/register?jump_url=http://zujuan.21cnjy.com/?1=1">免费注册<i class="icona-right-arrow"></i></a>
+                <a target="_blank" href="<%=request.getContextPath()%>/user/register.do">免费注册<i class="icona-right-arrow"></i></a>
             </div>
         </div>
     </div>

@@ -11,4 +11,5 @@ public interface UserService {
     public User login(String userPhone, String userPassword);
     public Boolean checkRegistor(String userPhone);
     public User register(UserRegisterParam param);
+    public  int updatetUser(User user);
 }

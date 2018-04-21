@@ -1,5 +1,6 @@
 package ncu.study.autopaper.controller;
 
+import ncu.study.autopaper.common.result.JsonResult;
 import ncu.study.autopaper.model.Student;
 import ncu.study.autopaper.model.Teacher;
 import ncu.study.autopaper.model.User;
@@ -7,6 +8,7 @@ import ncu.study.autopaper.service.UserCenterService;
 import ncu.study.autopaper.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * @author Ridup
@@ -29,13 +32,6 @@ public class UserCenterController {
     @Resource
     private UserCenterService userCenterService;
 
-    @RequestMapping("/redirect.do")
-    public String redirect(RedirectAttributes attributes){
-        //TODO  登陆提示问题
-        String tips = "请重新登陆222";
-        attributes.addFlashAttribute("tips",tips);
-        return "redirect:/";
-    }
 
     @RequestMapping(value={"/","/index.do"})
     public ModelAndView index(HttpServletRequest request){
@@ -61,17 +57,52 @@ public class UserCenterController {
                 modelAndView.addObject("ucenter_position", "index");
             } else {
                 //超时重登
-                modelAndView.setViewName("redirect:/ucenter/redirect.do");
+                modelAndView.setViewName("redirect:/?tips=e01");
             }
         }else {
-            modelAndView.setViewName("redirect:/ucenter/redirect.do");
+            modelAndView.setViewName("redirect:/");
         }
         return  modelAndView;
     }
     @ResponseBody
-    @RequestMapping("/userbaseinfo.do")
-    public User userbaseinfo(User user){
-        return null;
+    @RequestMapping(value = "/userbaseinfo.do",method = RequestMethod.POST)
+    public JsonResult userbaseinfo(HttpServletRequest request,User user){
+        JsonResult jsonResult = new JsonResult(false);
+        HttpSession session = request.getSession(false);
+        if (session!=null) {
+            User obj = (User) session.getAttribute("loginUser");
+            if(obj!=null){
+                if (user!=null){
+                    user.setUserType(obj.getUserType());
+                    user.setUserId(obj.getUserId());
+                    user.setUserPhone(obj.getUserPhone());
+                    user.setUserPassword(obj.getUserPassword());
+                    user.setRegisterTime(obj.getRegisterTime());
+                    user.setModifyTime(new Date());
+                    int status = userService.updatetUser(user);
+                    if(status==1) {
+                        jsonResult.setSuccess(true);
+                    }else{
+                        jsonResult.setCode("X03");
+                        jsonResult.setMsg("保存失败！");
+                    }
+                }else{
+                    jsonResult.setCode("X02");
+                    jsonResult.setMsg("请输入数据！");
+                }
+            }else{
+                jsonResult.setCode("X01");
+                jsonResult.setMsg("请重新登陆！");
+            }
+        }else {
+            jsonResult.setCode("X01");
+            jsonResult.setMsg("请重新登陆！");
+        }
+
+
+
+
+        return jsonResult;
     }
 
     @RequestMapping(value="/download_record.do")

@@ -42,43 +42,45 @@ $(document).ready(function(){
     });
     $("#editinfo").click(function () {
         var nickName = $("#nickName").val();
-        var userType = $("#userTyp").val();
         var userSex = $("#userSex").val();
         var userAge = $("#userAge").val();
         var userName = $("#userName").val();
+
 //todo Ajax
         var localObj = window.location;
         var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+        if(nickName!=""&&userSex!=""&&userAge!=""&&userName!="") {
+            $.ajax({
+                url: server_context + '/ucenter/userbaseinfo.do',
+                type: 'POST', //GET
+                async: true,    //或false,是否异步
+                data: {
+                    nickName: nickName, userSex: userSex, userAge: userAge, userName: userName
+                },
+                timeout: 5000,    //超时时间
+                dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
 
-        $.ajax({
-            url:server_context+'/ucenter/userbaseinfo.do',
-            type:'POST', //GET
-            async:true,    //或false,是否异步
-            data:{
-                name:'yang',age:25
-            },
-            timeout:5000,    //超时时间
-            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-            beforeSend:function(xhr){
-                console.log(xhr)
-                console.log('发送前')
-            },
-            success:function(data,textStatus,jqXHR){
-                console.log(data)
-                console.log(textStatus)
-                console.log(jqXHR)
-            },
-            error:function(xhr,textStatus){
-                console.log('错误')
-                console.log(xhr)
-                console.log(textStatus)
-            },
-            complete:function(){
-                console.log('结束')
-            }
-        })
-        $("#editinfodiv").hide();
-        $("#viewinfodiv").show();
+                success: function (data, textStatus, jqXHR) {
+
+                    if (data.success) {
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>保存成功！</span>");
+                    } else {
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>" + data.msg + "</span>");
+                    }
+                    console.log("data:" + data);
+                    console.log(textStatus);
+                    console.log(jqXHR);
+                    /*   $("#editinfodiv").hide();
+                       $("#viewinfodiv").show();*/
+                },
+                error: function (xhr, textStatus) {
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+            });
+        }else{
+
+        }
+
     });
 
 
