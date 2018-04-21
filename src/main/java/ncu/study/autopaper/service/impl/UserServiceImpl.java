@@ -14,6 +14,8 @@ import ncu.study.autopaper.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -93,5 +95,32 @@ public class UserServiceImpl implements UserService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public int updatetUser(User user) {
+        int statu = 0;
+        String userType = user.getUserType();
+        statu = userMapper.updateByPrimaryKeySelective(user);
+        if (userType!=null&&EnumUserType.find(userType)==EnumUserType.teacher){
+            Teacher teacher = new Teacher();
+            teacher.setTeacherId(user.getUserId());
+            teacher.setTeacherPhone(user.getUserPhone());
+            teacher.setTeacherAge(user.getUserAge());
+            teacher.setTeacherName(user.getUserName());
+            teacher.setTeacherSex(user.getUserSex());
+            statu = teacherMapper.updateByPrimaryKeySelective(teacher);
+        }else if(userType!=null&&EnumUserType.find(userType)==EnumUserType.student){
+            Student student = new Student();
+            student.setStudentId(user.getUserId());
+            student.setStudentPhone(user.getUserPhone());
+            student.setStudentAge(user.getUserAge());
+            student.setStudentName(user.getUserName());
+            student.setStudentSex(user.getUserSex());
+            statu = studentMapper.updateByPrimaryKeySelective(student);
+        }else{
+            statu = 0;
+        }
+        return statu;
     }
 }

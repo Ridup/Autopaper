@@ -314,6 +314,14 @@
                                 <label>真实姓名：</label>
                                 <span><c:out value="${user.userName}" default="未知"/> </span>
                             </div>
+                            <div class="form-line ">
+                                <label>注册时间：</label>
+                                <span><c:out value="${user.registerTime}" default="未知"/> </span>
+                            </div>
+                            <div class="form-line ">
+                                <label>修改时间：</label>
+                                <span><c:out value="${user.modifyTime}" default="未知"/> </span>
+                            </div>
                         </div>
                         <%--基本信息改界面————————————————————————————————————————————————--%>
                         <div class="ucenter_border editinfo" id="editinfodiv" style="display: none">
@@ -325,7 +333,7 @@
                                     <div class="fm-warn"><p></p><i></i></div>
                                 </div>
                             </div>
-                            <div class="form-line">
+                            <%--<div class="form-line">
                                 <label>用户身份：</label>
                                 <input type="hidden" name="userTyp" id="userTyp" value="${user.userType}">
                                 <c:if test="${user.userType=='1'}">
@@ -348,7 +356,7 @@
                                 <input type="radio" name="" style="display: none;" value="2"> 学生
                                 </span>
                                 </c:if>
-                            </div>
+                            </div>--%>
                             <div class="form-line">
                                 <label>性别：</label>
                                 <input type="hidden" name="userSex" id="userSex" value="${user.userSex}">
