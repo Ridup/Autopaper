@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.QuestionCommentMapper" >
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.QuestionComment" >
+    <constructor >
+      <idArg column="QUESTION_COMMENT_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="USER_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QUESTION_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QUESTION_COMMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_COMMENT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="QUESTION_COMMENT_PRAISE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    QUESTION_COMMENT_ID, USER_ID, QUESTION_ID, QUESTION_COMMENT, QUESTION_COMMENT_TIME, 
+    QUESTION_COMMENT_PRAISE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.QuestionCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from question_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_comment
+    where QUESTION_COMMENT_ID = #{questionCommentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_comment
+    where QUESTION_COMMENT_ID = #{questionCommentId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.QuestionCommentExample" >
+    delete from question_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.QuestionComment" >
+    insert into question_comment (QUESTION_COMMENT_ID, USER_ID, QUESTION_ID, 
+      QUESTION_COMMENT, QUESTION_COMMENT_TIME, 
+      QUESTION_COMMENT_PRAISE)
+    values (#{questionCommentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, 
+      #{questionComment,jdbcType=VARCHAR}, #{questionCommentTime,jdbcType=TIMESTAMP}, 
+      #{questionCommentPraise,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.QuestionComment" >
+    insert into question_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionCommentId != null" >
+        QUESTION_COMMENT_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="questionId != null" >
+        QUESTION_ID,
+      </if>
+      <if test="questionComment != null" >
+        QUESTION_COMMENT,
+      </if>
+      <if test="questionCommentTime != null" >
+        QUESTION_COMMENT_TIME,
+      </if>
+      <if test="questionCommentPraise != null" >
+        QUESTION_COMMENT_PRAISE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionCommentId != null" >
+        #{questionCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionComment != null" >
+        #{questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="questionCommentTime != null" >
+        #{questionCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionCommentPraise != null" >
+        #{questionCommentPraise,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.QuestionCommentExample" resultType="java.lang.Integer" >
+    select count(*) from question_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update question_comment
+    <set >
+      <if test="record.questionCommentId != null" >
+        QUESTION_COMMENT_ID = #{record.questionCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionId != null" >
+        QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionComment != null" >
+        QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionCommentTime != null" >
+        QUESTION_COMMENT_TIME = #{record.questionCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.questionCommentPraise != null" >
+        QUESTION_COMMENT_PRAISE = #{record.questionCommentPraise,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update question_comment
+    set QUESTION_COMMENT_ID = #{record.questionCommentId,jdbcType=BIGINT},
+      USER_ID = #{record.userId,jdbcType=BIGINT},
+      QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
+      QUESTION_COMMENT_TIME = #{record.questionCommentTime,jdbcType=TIMESTAMP},
+      QUESTION_COMMENT_PRAISE = #{record.questionCommentPraise,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.QuestionComment" >
+    update question_comment
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="questionId != null" >
+        QUESTION_ID = #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionComment != null" >
+        QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="questionCommentTime != null" >
+        QUESTION_COMMENT_TIME = #{questionCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionCommentPraise != null" >
+        QUESTION_COMMENT_PRAISE = #{questionCommentPraise,jdbcType=INTEGER},
+      </if>
+    </set>
+    where QUESTION_COMMENT_ID = #{questionCommentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionComment" >
+    update question_comment
+    set USER_ID = #{userId,jdbcType=BIGINT},
+      QUESTION_ID = #{questionId,jdbcType=BIGINT},
+      QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
+      QUESTION_COMMENT_TIME = #{questionCommentTime,jdbcType=TIMESTAMP},
+      QUESTION_COMMENT_PRAISE = #{questionCommentPraise,jdbcType=INTEGER}
+    where QUESTION_COMMENT_ID = #{questionCommentId,jdbcType=BIGINT}
+  </update>
+</mapper>

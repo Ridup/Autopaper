@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.QuestionBuggetMapper" >
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.QuestionBugget" >
+    <constructor >
+      <idArg column="QUESTION_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QUESTION_COMMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_COUNT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QUESTION_SCORE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="POINT" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    QUESTION_ID, QUESTION_COMMENT, QUESTION_COUNT, QUESTION_TYPE, QUESTION_SCORE, POINT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.QuestionBuggetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from question_bugget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_bugget
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_bugget
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.QuestionBuggetExample" >
+    delete from question_bugget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.QuestionBugget" >
+    insert into question_bugget (QUESTION_ID, QUESTION_COMMENT, QUESTION_COUNT, 
+      QUESTION_TYPE, QUESTION_SCORE, POINT
+      )
+    values (#{questionId,jdbcType=BIGINT}, #{questionComment,jdbcType=VARCHAR}, #{questionCount,jdbcType=VARCHAR}, 
+      #{questionType,jdbcType=VARCHAR}, #{questionScore,jdbcType=VARCHAR}, #{point,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.QuestionBugget" >
+    insert into question_bugget
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        QUESTION_ID,
+      </if>
+      <if test="questionComment != null" >
+        QUESTION_COMMENT,
+      </if>
+      <if test="questionCount != null" >
+        QUESTION_COUNT,
+      </if>
+      <if test="questionType != null" >
+        QUESTION_TYPE,
+      </if>
+      <if test="questionScore != null" >
+        QUESTION_SCORE,
+      </if>
+      <if test="point != null" >
+        POINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionComment != null" >
+        #{questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="questionCount != null" >
+        #{questionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null" >
+        #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="questionScore != null" >
+        #{questionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.QuestionBuggetExample" resultType="java.lang.Integer" >
+    select count(*) from question_bugget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update question_bugget
+    <set >
+      <if test="record.questionId != null" >
+        QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionComment != null" >
+        QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionCount != null" >
+        QUESTION_COUNT = #{record.questionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionType != null" >
+        QUESTION_TYPE = #{record.questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionScore != null" >
+        QUESTION_SCORE = #{record.questionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        POINT = #{record.point,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update question_bugget
+    set QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
+      QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
+      QUESTION_COUNT = #{record.questionCount,jdbcType=VARCHAR},
+      QUESTION_TYPE = #{record.questionType,jdbcType=VARCHAR},
+      QUESTION_SCORE = #{record.questionScore,jdbcType=VARCHAR},
+      POINT = #{record.point,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.QuestionBugget" >
+    update question_bugget
+    <set >
+      <if test="questionComment != null" >
+        QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
+      </if>
+      <if test="questionCount != null" >
+        QUESTION_COUNT = #{questionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null" >
+        QUESTION_TYPE = #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="questionScore != null" >
+        QUESTION_SCORE = #{questionScore,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        POINT = #{point,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionBugget" >
+    update question_bugget
+    set QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
+      QUESTION_COUNT = #{questionCount,jdbcType=VARCHAR},
+      QUESTION_TYPE = #{questionType,jdbcType=VARCHAR},
+      QUESTION_SCORE = #{questionScore,jdbcType=VARCHAR},
+      POINT = #{point,jdbcType=VARCHAR}
+    where QUESTION_ID = #{questionId,jdbcType=BIGINT}
+  </update>
+</mapper>
