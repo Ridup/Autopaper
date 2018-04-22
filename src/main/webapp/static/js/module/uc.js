@@ -49,7 +49,7 @@ $(document).ready(function(){
 //todo Ajax
         var localObj = window.location;
         var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
-        if(nickName!=""&&userSex!=""&&userAge!=""&&userName!="") {
+        if(nickName!=null&&userSex!=null&&userAge!=null&&userName!=null&&nickName!=""&&userSex!=""&&userAge!=""&&userName!="") {
             $.ajax({
                 url: server_context + '/ucenter/userbaseinfo.do',
                 type: 'POST', //GET
@@ -63,7 +63,8 @@ $(document).ready(function(){
                 success: function (data, textStatus, jqXHR) {
 
                     if (data.success) {
-                        layer.alert("<span style='margin-left: 70px;text-align: center;'>保存成功！</span>");
+                        window.location.reload();
+
                     } else {
                         layer.alert("<span style='margin-left: 70px;text-align: center;'>" + data.msg + "</span>");
                     }
@@ -78,7 +79,7 @@ $(document).ready(function(){
                 }
             });
         }else{
-
+            layer.alert("<span style='margin-left: 70px;text-align: center;'>请完善信息！</span>");
         }
 
     });

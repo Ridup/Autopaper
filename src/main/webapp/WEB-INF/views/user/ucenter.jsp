@@ -1,6 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class=" XL">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -316,11 +317,12 @@
                             </div>
                             <div class="form-line ">
                                 <label>注册时间：</label>
-                                <span><c:out value="${user.registerTime}" default="未知"/> </span>
+                                <span><fmt:formatDate value="${user.registerTime }" pattern="yyyy-MM-dd HH:mm:ss"/> </span>
                             </div>
                             <div class="form-line ">
                                 <label>修改时间：</label>
-                                <span><c:out value="${user.modifyTime}" default="未知"/> </span>
+                                <span>
+                                    <fmt:formatDate value="${user.modifyTime }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
                             </div>
                         </div>
                         <%--基本信息改界面————————————————————————————————————————————————--%>
