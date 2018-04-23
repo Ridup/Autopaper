@@ -20,7 +20,7 @@ public class UserDaoExtTest {
     private UserExtMapper userExtMapper;
     @Test
     public void test() throws Exception{
-        User user = userExtMapper.checkUserByPhone("18214990000");
+        User user = userExtMapper.checkUserByPhone("18114990001");
         System.out.println("响应1："+new Gson().toJson(user));
     }
 }

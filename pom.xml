@@ -251,11 +251,11 @@
 
 
         <!--HSJRY-->
-        <dependency>
+       <!-- <dependency>
             <groupId>hsjry.lang</groupId>
             <artifactId>hsjry-lang-log</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
 
 

@@ -222,7 +222,7 @@
                 </script>
             </div>
         </div>
-        <div class="contactbox">
+        <%--<div class="contactbox">
             <a class="link-into" href="https://zujuan.21cnjy.com/payment/vip" target="_blank">
                 <img src="<%=request.getContextPath()%>/static/images/VIP.gif">
                 <strong>购买VIP</strong>
@@ -231,7 +231,7 @@
                 <img src="<%=request.getContextPath()%>/static/images/xwt.gif">
                 <strong>开通学校服务</strong>
             </a>
-        </div>
+        </div>--%>
     </div>
 </div>
 <!--头部搜索部分结束-->
@@ -663,7 +663,7 @@
         <!--主体部分右半部分开始-->
         <div class="con-right">
             <div class="section-zt">
-                <h3><i class="iconb-ts"></i>专题推荐<a href="https://zujuan.21cnjy.com/subject" target="_blank">更多&gt;</a></h3>
+                <h3><i class="iconb-ts"></i>推荐<a href="https://zujuan.21cnjy.com/subject" target="_blank">更多&gt;</a></h3>
 
                 <div class="sidebar-zt">
                     <table>
@@ -710,13 +710,13 @@
                     <h3><i class="iconb-gg"></i>公告</h3>
                     <ul>
 
-                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/notice?id=42" title="组卷编辑页面，全新改版" target="_blank">组卷编辑页面，全新改版</a>
+                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/notice?id=42" title="组卷编辑页面" target="_blank">组卷编辑页面</a>
                             <span class="gg-time">2017-4-11</span>
                         </li>
-                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/vip" title="组卷VIP震撼上线！包月低至16元" target="_blank">组卷VIP震撼上线！包月低至1...</a>
+                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/vip" title="组卷" target="_blank">组卷</a>
                             <span class="gg-time">2016-9-12</span>
                         </li>
-                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/notice?id=41" title="双向细目表组卷上线公告" target="_blank">双向细目表组卷上线公告</a>
+                        <li><i class="icona-ellipse"></i><a href="http://zujuan.21cnjy.com/help/notice?id=41" title="双向细目表组卷" target="_blank">双向细目表组卷</a>
                             <span class="gg-time">2017-3-31</span>
                         </li>
                     </ul>
