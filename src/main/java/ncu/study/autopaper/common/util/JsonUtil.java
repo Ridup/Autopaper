@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hsjry.lang.log.Log;
-import com.hsjry.lang.log.TenantLog;
+/*import com.hsjry.lang.log.Log;
+import com.hsjry.lang.log.TenantLog;*/
 
 public class JsonUtil {
 
-    private static Log  logger = TenantLog.get(JsonUtil.class);
+    /*private static Log  logger = TenantLog.get(JsonUtil.class);*/
     private static Gson gson   = new Gson();
 
     /**
@@ -23,7 +23,7 @@ public class JsonUtil {
         try {
             return gson.toJson(obj);
         } catch (Exception e) {
-            logger.error("{} to json error", obj.getClass(), e);
+/*            logger.error("{} to json error", obj.getClass(), e);*/
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class JsonUtil {
         try {
             return gson.fromJson(json, clazz);
         } catch (Exception e) {
-            logger.error("json to {} error", clazz, e);
+            /*logger.error("json to {} error", clazz, e);*/
             return null;
         }
     }
@@ -55,7 +55,7 @@ public class JsonUtil {
         try {
             return gson.fromJson(json, typeOfT);
         } catch (Exception e) {
-            logger.error("parse json error : {}", json , e);
+           /* logger.error("parse json error : {}", json , e);*/
             return null;
         }
 

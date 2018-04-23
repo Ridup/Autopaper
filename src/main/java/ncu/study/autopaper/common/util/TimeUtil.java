@@ -7,15 +7,15 @@ import java.util.Date;
 
 
 
-import com.hsjry.lang.log.Log;
-import com.hsjry.lang.log.TenantLog;
+/*import com.hsjry.lang.log.Log;
+import com.hsjry.lang.log.TenantLog;*/
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.crypto.Data;
 
 public class TimeUtil {
 
-    private static Log   log             = TenantLog.get(TimeUtil.class);
+/*    private static Log   log             = TenantLog.get(TimeUtil.class);*/
 
     /**
      * yyyyMMddHHmmss
@@ -64,7 +64,7 @@ public class TimeUtil {
             } catch (Exception e2) {
             }
 
-            log.error("{} {} parse error", date, format);
+     /*       log.error("{} {} parse error", date, format);*/
         }
         return null;
     }

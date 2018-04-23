@@ -1,8 +1,11 @@
+/*
 package ncu.study.autopaper.common.util;
 
 import com.alibaba.druid.filter.config.ConfigTools;
 import com.google.common.base.Charsets;
-import com.hsjry.lang.log.TenantLog;
+*/
+/*import com.hsjry.lang.log.TenantLog;*//*
+
 import com.jcraft.jsch.*;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
 
@@ -10,45 +13,67 @@ import java.io.*;
 import java.util.Properties;
 import java.util.Vector;
 
+*/
 /**
  * SFTP服务器文件操作接口
  *
  * @author Ridup
  * @version $Id: SFTPUploadFileCore.java, v 0.1 Nov 22, 2017 6:55:24 PM Ridup Exp $
- */
+ *//*
+
 public class SftpHandlerFileUtil {
 
-    private TenantLog logger = TenantLog.get(getClass());
+*/
+/*    private TenantLog logger = TenantLog.get(getClass());*//*
+
 
     private Session sshSession;
 
-    /** 用户名 */
+    */
+/** 用户名 *//*
+
     private String userName;
 
-    /** 密码 */
+    */
+/** 密码 *//*
+
     private String password;
 
-    /** FTP服务器IP地址 */
+    */
+/** FTP服务器IP地址 *//*
+
     private String ftpIp;
 
-    /** FTP服务器存在文件路径 */
+    */
+/** FTP服务器存在文件路径 *//*
+
     private String serverFilePath;
 
-    /** 本地存放文件路径 */
+    */
+/** 本地存放文件路径 *//*
+
     private String localFilePath;
 
-    /** 端口号 默认为:22 */
+    */
+/** 端口号 默认为:22 *//*
+
     private int port = 22;
 
-    /** 上传的临时文件的后缀 */
+    */
+/** 上传的临时文件的后缀 *//*
+
     private String afterfix = ".temp";
 
     private ChannelSftp sftpClient = null;
 
-    /** 获取文件重试次数 */
+    */
+/** 获取文件重试次数 *//*
+
     private int errorTimes = 3;
 
-    /** 获取文件 间隔时间单位:毫秒 */
+    */
+/** 获取文件 间隔时间单位:毫秒 *//*
+
     private Long waitTime = 60000L;
 
     public SftpHandlerFileUtil(String ftpIp, int port, String userName, String password,
@@ -64,32 +89,44 @@ public class SftpHandlerFileUtil {
     public SftpHandlerFileUtil() {
     }
 
-    /**
+    */
+/**
      * 连接ftp获取ChannelSftp
-     */
+     *//*
+
     private ChannelSftp connectFtpServer() throws IOException {
         ChannelSftp sftp;
         try {
             JSch jsch = new JSch();
             jsch.getSession(userName, ftpIp, port);
             sshSession = jsch.getSession(userName, ftpIp, port);
-            logger.debug("Session created.");
+*/
+/*            logger.debug("Session created.");*//*
+
             // 密码进行解密，如果需要，可以执行当前类中的main方法进行密码的加密
             String pwd = ConfigTools.decrypt(password);
             sshSession.setPassword(pwd);
             Properties sshConfig = new Properties();
             sshConfig.put("StrictHostKeyChecking", "no");
             sshSession.setConfig(sshConfig);
-            logger.debug("Session connected before");
+*/
+/*            logger.debug("Session connected before");*//*
+
             sshSession.connect(5000);
-            logger.debug("Session connected.");
-            logger.debug("Opening Channel.");
+*/
+/*            logger.debug("Session connected.");
+            logger.debug("Opening Channel.");*//*
+
             Channel channel = sshSession.openChannel("sftp");
             channel.connect();
             sftp = (ChannelSftp) channel;
-            logger.debug("连接SFTP服务器 " + ftpIp + "成功.");
+            */
+/*logger.debug("连接SFTP服务器 " + ftpIp + "成功.");*//*
+
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+           */
+/* logger.error(e.getMessage(), e);*//*
+
             return null;
         }
         this.sftpClient = sftp;
@@ -101,9 +138,11 @@ public class SftpHandlerFileUtil {
         return sftp;
     }
 
-    /**
+    */
+/**
      * 断开与对方FTP Server的连接
-     */
+     *//*
+
     private void disconnectFtpServer() {
         try {
             if (sftpClient != null) {
@@ -113,13 +152,17 @@ public class SftpHandlerFileUtil {
                 sshSession.disconnect();
             }
         } catch (Exception e) {
-            logger.error("断开SFTP服务器失败", e);
+           */
+/* logger.error("断开SFTP服务器失败", e);*//*
+
         }
     }
 
-    /**
+    */
+/**
      * 进入文件目录
-     */
+     *//*
+
     public boolean changeWorkingDirectory(String fileDir) {
         try {
             if (fileDir.trim().length() > 0) {
@@ -134,22 +177,28 @@ public class SftpHandlerFileUtil {
                     sftpClient.mkdir(fileDir);
                     sftpClient.cd(fileDir);
                 } catch (SftpException e1) {
-                    logger.error("", e); 
+                 */
+/*   logger.error("", e); *//*
+
                     return false;
                 }
                 return true;
             }
             else {
-                logger.error(e.getMessage(), e);
+              */
+/*  logger.error(e.getMessage(), e);*//*
+
                 return false;
             }
             
         }
     }
 
-    /**
+    */
+/**
      * 获取文件InputStream字节流
-     */
+     *//*
+
     public InputStream getInputStream(String fileName) {
         InputStream in;
         for (int i = 0; i < errorTimes; i++) {
@@ -174,9 +223,11 @@ public class SftpHandlerFileUtil {
         return null;
     }
 
-    /**
+    */
+/**
      * 获取文件byte数组
-     */
+     *//*
+
     public byte[] getFileBytes(String fileName) {
         InputStream fis = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -218,13 +269,15 @@ public class SftpHandlerFileUtil {
         return bos.toByteArray();
     }
 
-    /**
+    */
+/**
      * 
      * 获取文件byte数组
      * @param directory  serverFilePath相对路径
      * @param fileName  文件名
      * @return
-     */
+     *//*
+
     public byte[] getFileBytes(String directory, String fileName) {
         InputStream fis = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -262,12 +315,15 @@ public class SftpHandlerFileUtil {
         return bos.toByteArray();
     }
 
-    /**
+    */
+/**
     *
     * @param downLoadFileName 需要下载的文件名
     * @param localFileName 保存到本地的文件名
-    */
-   /*public boolean downLoadFile(String downLoadFileName, String localFileName) throws IOException {
+    *//*
+
+   */
+/*public boolean downLoadFile(String downLoadFileName, String localFileName) throws IOException {
        for (int i = 0; i < errorTimes; i++) {
            logger.debug("开始第" + (i + 1) + "下载;下载的文件名为:" + downLoadFileName + ";本地的文件名为:"
                      + localFileName);
@@ -293,7 +349,8 @@ public class SftpHandlerFileUtil {
            }
        }
        return false;
-   }*/
+   }*//*
+
    
     public InputStream downLoadFile(String filePath, String fileName) {
     	InputStream in;
@@ -322,16 +379,20 @@ public class SftpHandlerFileUtil {
         return null;
     	
     }
-    /**
+    */
+/**
      * 下载文件并返回输入流
-     */
+     *//*
+
     public InputStream downLoadFile(String downLoadFileName) {
         return downLoadFile(serverFilePath, downLoadFileName);
     }
 
-    /**
+    */
+/**
      * 下载文件到本地目录
-     */
+     *//*
+
     public void downLoadFile(String downLoadFileName, OutputStream out) throws IOException {
         // 连接FTP服务器
         connectFtpServer();
@@ -345,13 +406,15 @@ public class SftpHandlerFileUtil {
         disconnectFtpServer();
     }
 
-    /**
+    */
+/**
      * 将byte[]上传到sftp，作为文件。注意:从String生成byte[]是，要指定字符集。
      *
      * @param directory 上传到sftp目录
      * @param sftpFileName 文件在sftp端的命名
      * @param byteArr 要上传的字节数组
-     */
+     *//*
+
     public String upLoadFile(String directory, String sftpFileName, byte[] byteArr) {
 
         try {
@@ -368,12 +431,14 @@ public class SftpHandlerFileUtil {
         return directory + File.separator + sftpFileName;
     }
 
-    /**
+    */
+/**
      * 将输入流的数据上传到sftp作为文件
      *
      * @param sftpFileName sftp端文件名
      * @param input 输入流
-     */
+     *//*
+
     public String upLoadFile(String sftpFileName, InputStream input) {
         try {
             // 连接FTP服务器
@@ -390,11 +455,13 @@ public class SftpHandlerFileUtil {
 
     }
 
-    /**
+    */
+/**
      * @param src 原文件
      * @param dirName 文件夹名称
      * @param dest 目标文件名
-     */
+     *//*
+
     public void upLoadFile(String src, String dirName, String dest) throws IOException {
         // 连接FTP服务器
         connectFtpServer();
@@ -504,3 +571,4 @@ public class SftpHandlerFileUtil {
         System.out.println(ConfigTools.encrypt("userjbhsftp"));
     }
 }
+*/

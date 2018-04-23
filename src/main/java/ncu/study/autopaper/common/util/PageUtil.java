@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import com.hsjry.lang.log.TenantLog;
+/*import com.hsjry.lang.log.TenantLog;*/
 import ncu.study.autopaper.common.common.Page;
 
 public class PageUtil {
 	
-	private static TenantLog log = TenantLog.get(PageUtil.class);
+/*	private static TenantLog log = TenantLog.get(PageUtil.class);*/
 	
     /**
      * 计算开始条目
@@ -121,11 +121,11 @@ public class PageUtil {
                         result = -result;
                     }
                 } catch (IllegalAccessException iae) {
-                    log.error("排序失败", iae);
+                    /*log.error("排序失败", iae);*/
                 } catch (InvocationTargetException ite) {
-                    log.error("排序失败", ite);
+                    /*log.error("排序失败", ite);*/
                 } catch (IntrospectionException e) {
-                    log.error("排序失败", e);
+                   /* log.error("排序失败", e);*/
                 }
                 return result;
             }
