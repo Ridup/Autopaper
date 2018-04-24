@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html class=" XL">
@@ -115,6 +116,7 @@
                     <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
+
                     <li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/u_question.do" target="_blank">我的收藏</a></li>
@@ -135,8 +137,10 @@
         <div class="webhelp">
             <a href="<%=request.getContextPath()%>" class="help"><i class="icona-home"></i>网站首页</a>
             <span class="split"></span>
-            <a href="<%=request.getContextPath()%>/ucenter/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
+            <c:if test="${loginUser.userType=='1'}">
+            <a href="<%=request.getContextPath()%>/question/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
             <span class="split"></span>
+            </c:if>
             <a href="<%=request.getContextPath()%>/main/help.do" class="help" target="_blank"><i class="icona-help"></i>帮助中心(可请求一个操作文档)</a>
             <span class="split"></span>
             <div class="loginbox">
@@ -901,7 +905,7 @@
 
 
 
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/extends/kefu-utf8.min.js"></script>
+<%--<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/extends/kefu-utf8.min.js"></script>--%>
 <!--
 咨询
 <style type="text/css">

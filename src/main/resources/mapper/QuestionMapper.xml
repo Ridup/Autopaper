@@ -14,9 +14,10 @@
       <arg column="TYPE" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="QUESTION_SCORE" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="QUESTION_TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="TEACHING_MATERIAL" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="GRADE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="CHAPTER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GRADE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COURSE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VERSION_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CHAPTER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SINGGLE" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ANSWER" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ANALYSIS" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -87,8 +88,8 @@
   </sql>
   <sql id="Base_Column_List" >
     QUESTION_ID, QUESTION_TYPE, QUESTION_CLASS, QUESTION_DIFFICULTY, POINT_NUMBER, POINT, 
-    SOURCE, USETIMES, TYPE, QUESTION_SCORE, QUESTION_TIME, TEACHING_MATERIAL, GRADE, 
-    CHAPTER, SINGGLE, ANSWER, ANALYSIS, QUESTION_HOT, OWNNER, CREATE_TIME, UPDATE_TIME, 
+    SOURCE, USETIMES, TYPE, QUESTION_SCORE, QUESTION_TIME, GRADE_NAME, COURSE_NAME, VERSION_NAME, 
+    CHAPTER_NAME, SINGGLE, ANSWER, ANALYSIS, QUESTION_HOT, OWNNER, CREATE_TIME, UPDATE_TIME, 
     QUESTION_COMMENT
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.QuestionExample" >
@@ -125,19 +126,19 @@
     insert into question (QUESTION_ID, QUESTION_TYPE, QUESTION_CLASS, 
       QUESTION_DIFFICULTY, POINT_NUMBER, POINT, 
       SOURCE, USETIMES, TYPE, 
-      QUESTION_SCORE, QUESTION_TIME, TEACHING_MATERIAL, 
-      GRADE, CHAPTER, SINGGLE, 
-      ANSWER, ANALYSIS, QUESTION_HOT, 
-      OWNNER, CREATE_TIME, UPDATE_TIME, 
-      QUESTION_COMMENT)
+      QUESTION_SCORE, QUESTION_TIME, GRADE_NAME, 
+      COURSE_NAME, VERSION_NAME, CHAPTER_NAME, 
+      SINGGLE, ANSWER, ANALYSIS, 
+      QUESTION_HOT, OWNNER, CREATE_TIME, 
+      UPDATE_TIME, QUESTION_COMMENT)
     values (#{questionId,jdbcType=BIGINT}, #{questionType,jdbcType=CHAR}, #{questionClass,jdbcType=CHAR}, 
       #{questionDifficulty,jdbcType=INTEGER}, #{pointNumber,jdbcType=INTEGER}, #{point,jdbcType=VARCHAR}, 
       #{source,jdbcType=VARCHAR}, #{usetimes,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
-      #{questionScore,jdbcType=INTEGER}, #{questionTime,jdbcType=INTEGER}, #{teachingMaterial,jdbcType=VARCHAR}, 
-      #{grade,jdbcType=VARCHAR}, #{chapter,jdbcType=VARCHAR}, #{singgle,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, #{questionHot,jdbcType=BIGINT}, 
-      #{ownner,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{questionComment,jdbcType=VARCHAR})
+      #{questionScore,jdbcType=INTEGER}, #{questionTime,jdbcType=INTEGER}, #{gradeName,jdbcType=VARCHAR}, 
+      #{courseName,jdbcType=VARCHAR}, #{versionName,jdbcType=VARCHAR}, #{chapterName,jdbcType=VARCHAR}, 
+      #{singgle,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, 
+      #{questionHot,jdbcType=BIGINT}, #{ownner,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{questionComment,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Question" >
     insert into question
@@ -175,14 +176,17 @@
       <if test="questionTime != null" >
         QUESTION_TIME,
       </if>
-      <if test="teachingMaterial != null" >
-        TEACHING_MATERIAL,
+      <if test="gradeName != null" >
+        GRADE_NAME,
       </if>
-      <if test="grade != null" >
-        GRADE,
+      <if test="courseName != null" >
+        COURSE_NAME,
       </if>
-      <if test="chapter != null" >
-        CHAPTER,
+      <if test="versionName != null" >
+        VERSION_NAME,
+      </if>
+      <if test="chapterName != null" >
+        CHAPTER_NAME,
       </if>
       <if test="singgle != null" >
         SINGGLE,
@@ -243,14 +247,17 @@
       <if test="questionTime != null" >
         #{questionTime,jdbcType=INTEGER},
       </if>
-      <if test="teachingMaterial != null" >
-        #{teachingMaterial,jdbcType=VARCHAR},
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
       </if>
-      <if test="grade != null" >
-        #{grade,jdbcType=VARCHAR},
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
       </if>
-      <if test="chapter != null" >
-        #{chapter,jdbcType=VARCHAR},
+      <if test="versionName != null" >
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterName != null" >
+        #{chapterName,jdbcType=VARCHAR},
       </if>
       <if test="singgle != null" >
         #{singgle,jdbcType=VARCHAR},
@@ -320,14 +327,17 @@
       <if test="record.questionTime != null" >
         QUESTION_TIME = #{record.questionTime,jdbcType=INTEGER},
       </if>
-      <if test="record.teachingMaterial != null" >
-        TEACHING_MATERIAL = #{record.teachingMaterial,jdbcType=VARCHAR},
+      <if test="record.gradeName != null" >
+        GRADE_NAME = #{record.gradeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.grade != null" >
-        GRADE = #{record.grade,jdbcType=VARCHAR},
+      <if test="record.courseName != null" >
+        COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
       </if>
-      <if test="record.chapter != null" >
-        CHAPTER = #{record.chapter,jdbcType=VARCHAR},
+      <if test="record.versionName != null" >
+        VERSION_NAME = #{record.versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapterName != null" >
+        CHAPTER_NAME = #{record.chapterName,jdbcType=VARCHAR},
       </if>
       <if test="record.singgle != null" >
         SINGGLE = #{record.singgle,jdbcType=VARCHAR},
@@ -371,9 +381,10 @@
       TYPE = #{record.type,jdbcType=CHAR},
       QUESTION_SCORE = #{record.questionScore,jdbcType=INTEGER},
       QUESTION_TIME = #{record.questionTime,jdbcType=INTEGER},
-      TEACHING_MATERIAL = #{record.teachingMaterial,jdbcType=VARCHAR},
-      GRADE = #{record.grade,jdbcType=VARCHAR},
-      CHAPTER = #{record.chapter,jdbcType=VARCHAR},
+      GRADE_NAME = #{record.gradeName,jdbcType=VARCHAR},
+      COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
+      VERSION_NAME = #{record.versionName,jdbcType=VARCHAR},
+      CHAPTER_NAME = #{record.chapterName,jdbcType=VARCHAR},
       SINGGLE = #{record.singgle,jdbcType=VARCHAR},
       ANSWER = #{record.answer,jdbcType=VARCHAR},
       ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
@@ -419,14 +430,17 @@
       <if test="questionTime != null" >
         QUESTION_TIME = #{questionTime,jdbcType=INTEGER},
       </if>
-      <if test="teachingMaterial != null" >
-        TEACHING_MATERIAL = #{teachingMaterial,jdbcType=VARCHAR},
+      <if test="gradeName != null" >
+        GRADE_NAME = #{gradeName,jdbcType=VARCHAR},
       </if>
-      <if test="grade != null" >
-        GRADE = #{grade,jdbcType=VARCHAR},
+      <if test="courseName != null" >
+        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
       </if>
-      <if test="chapter != null" >
-        CHAPTER = #{chapter,jdbcType=VARCHAR},
+      <if test="versionName != null" >
+        VERSION_NAME = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterName != null" >
+        CHAPTER_NAME = #{chapterName,jdbcType=VARCHAR},
       </if>
       <if test="singgle != null" >
         SINGGLE = #{singgle,jdbcType=VARCHAR},
@@ -467,9 +481,10 @@
       TYPE = #{type,jdbcType=CHAR},
       QUESTION_SCORE = #{questionScore,jdbcType=INTEGER},
       QUESTION_TIME = #{questionTime,jdbcType=INTEGER},
-      TEACHING_MATERIAL = #{teachingMaterial,jdbcType=VARCHAR},
-      GRADE = #{grade,jdbcType=VARCHAR},
-      CHAPTER = #{chapter,jdbcType=VARCHAR},
+      GRADE_NAME = #{gradeName,jdbcType=VARCHAR},
+      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      VERSION_NAME = #{versionName,jdbcType=VARCHAR},
+      CHAPTER_NAME = #{chapterName,jdbcType=VARCHAR},
       SINGGLE = #{singgle,jdbcType=VARCHAR},
       ANSWER = #{answer,jdbcType=VARCHAR},
       ANALYSIS = #{analysis,jdbcType=VARCHAR},
