@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.CoursesInfo" >
     <constructor >
       <idArg column="COURSE_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="COURSE" jdbcType="CHAR" javaType="java.lang.String" />
-      <arg column="COURSE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="GRADE" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="GRADE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COURSE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="COURSE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="VERSION" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="VERSION_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CHAPTER" jdbcType="CHAR" javaType="java.lang.String" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    COURSE_ID, COURSE, COURSE_NAME, GRADE, GRADE_NAME, VERSION, VERSION_NAME, CHAPTER, 
+    COURSE_ID, GRADE, GRADE_NAME, COURSE, COURSE_NAME, VERSION, VERSION_NAME, CHAPTER, 
     CHAPTER_NAME, POINT, POINT_NAME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.CoursesInfoExample" >
@@ -109,12 +109,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="ncu.study.autopaper.model.CoursesInfo" >
-    insert into courses_info (COURSE_ID, COURSE, COURSE_NAME, 
-      GRADE, GRADE_NAME, VERSION, 
+    insert into courses_info (COURSE_ID, GRADE, GRADE_NAME, 
+      COURSE, COURSE_NAME, VERSION, 
       VERSION_NAME, CHAPTER, CHAPTER_NAME, 
       POINT, POINT_NAME)
-    values (#{courseId,jdbcType=INTEGER}, #{course,jdbcType=CHAR}, #{courseName,jdbcType=VARCHAR}, 
-      #{grade,jdbcType=CHAR}, #{gradeName,jdbcType=VARCHAR}, #{version,jdbcType=CHAR}, 
+    values (#{courseId,jdbcType=INTEGER}, #{grade,jdbcType=CHAR}, #{gradeName,jdbcType=VARCHAR}, 
+      #{course,jdbcType=CHAR}, #{courseName,jdbcType=VARCHAR}, #{version,jdbcType=CHAR}, 
       #{versionName,jdbcType=VARCHAR}, #{chapter,jdbcType=CHAR}, #{chapterName,jdbcType=VARCHAR}, 
       #{point,jdbcType=CHAR}, #{pointName,jdbcType=VARCHAR})
   </insert>
@@ -124,17 +124,17 @@
       <if test="courseId != null" >
         COURSE_ID,
       </if>
-      <if test="course != null" >
-        COURSE,
-      </if>
-      <if test="courseName != null" >
-        COURSE_NAME,
-      </if>
       <if test="grade != null" >
         GRADE,
       </if>
       <if test="gradeName != null" >
         GRADE_NAME,
+      </if>
+      <if test="course != null" >
+        COURSE,
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME,
       </if>
       <if test="version != null" >
         VERSION,
@@ -159,17 +159,17 @@
       <if test="courseId != null" >
         #{courseId,jdbcType=INTEGER},
       </if>
-      <if test="course != null" >
-        #{course,jdbcType=CHAR},
-      </if>
-      <if test="courseName != null" >
-        #{courseName,jdbcType=VARCHAR},
-      </if>
       <if test="grade != null" >
         #{grade,jdbcType=CHAR},
       </if>
       <if test="gradeName != null" >
         #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="course != null" >
+        #{course,jdbcType=CHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="version != null" >
         #{version,jdbcType=CHAR},
@@ -203,17 +203,17 @@
       <if test="record.courseId != null" >
         COURSE_ID = #{record.courseId,jdbcType=INTEGER},
       </if>
-      <if test="record.course != null" >
-        COURSE = #{record.course,jdbcType=CHAR},
-      </if>
-      <if test="record.courseName != null" >
-        COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
-      </if>
       <if test="record.grade != null" >
         GRADE = #{record.grade,jdbcType=CHAR},
       </if>
       <if test="record.gradeName != null" >
         GRADE_NAME = #{record.gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course != null" >
+        COURSE = #{record.course,jdbcType=CHAR},
+      </if>
+      <if test="record.courseName != null" >
+        COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
       </if>
       <if test="record.version != null" >
         VERSION = #{record.version,jdbcType=CHAR},
@@ -241,10 +241,10 @@
   <update id="updateByExample" parameterType="map" >
     update courses_info
     set COURSE_ID = #{record.courseId,jdbcType=INTEGER},
-      COURSE = #{record.course,jdbcType=CHAR},
-      COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
       GRADE = #{record.grade,jdbcType=CHAR},
       GRADE_NAME = #{record.gradeName,jdbcType=VARCHAR},
+      COURSE = #{record.course,jdbcType=CHAR},
+      COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
       VERSION = #{record.version,jdbcType=CHAR},
       VERSION_NAME = #{record.versionName,jdbcType=VARCHAR},
       CHAPTER = #{record.chapter,jdbcType=CHAR},
@@ -258,17 +258,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.CoursesInfo" >
     update courses_info
     <set >
-      <if test="course != null" >
-        COURSE = #{course,jdbcType=CHAR},
-      </if>
-      <if test="courseName != null" >
-        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
-      </if>
       <if test="grade != null" >
         GRADE = #{grade,jdbcType=CHAR},
       </if>
       <if test="gradeName != null" >
         GRADE_NAME = #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="course != null" >
+        COURSE = #{course,jdbcType=CHAR},
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
       </if>
       <if test="version != null" >
         VERSION = #{version,jdbcType=CHAR},
@@ -293,10 +293,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.CoursesInfo" >
     update courses_info
-    set COURSE = #{course,jdbcType=CHAR},
-      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
-      GRADE = #{grade,jdbcType=CHAR},
+    set GRADE = #{grade,jdbcType=CHAR},
       GRADE_NAME = #{gradeName,jdbcType=VARCHAR},
+      COURSE = #{course,jdbcType=CHAR},
+      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
       VERSION = #{version,jdbcType=CHAR},
       VERSION_NAME = #{versionName,jdbcType=VARCHAR},
       CHAPTER = #{chapter,jdbcType=CHAR},

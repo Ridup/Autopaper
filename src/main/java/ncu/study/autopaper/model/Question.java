@@ -25,11 +25,13 @@ public class Question {
 
     private Integer questionTime;
 
-    private String teachingMaterial;
+    private String gradeName;
 
-    private String grade;
+    private String courseName;
 
-    private String chapter;
+    private String versionName;
+
+    private String chapterName;
 
     private String singgle;
 
@@ -47,7 +49,7 @@ public class Question {
 
     private String questionComment;
 
-    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String teachingMaterial, String grade, String chapter, String singgle, String answer, String analysis, Long questionHot, Long ownner, Date createTime, Date updateTime, String questionComment) {
+    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String singgle, String answer, String analysis, Long questionHot, Long ownner, Date createTime, Date updateTime, String questionComment) {
         this.questionId = questionId;
         this.questionType = questionType;
         this.questionClass = questionClass;
@@ -59,9 +61,10 @@ public class Question {
         this.type = type;
         this.questionScore = questionScore;
         this.questionTime = questionTime;
-        this.teachingMaterial = teachingMaterial;
-        this.grade = grade;
-        this.chapter = chapter;
+        this.gradeName = gradeName;
+        this.courseName = courseName;
+        this.versionName = versionName;
+        this.chapterName = chapterName;
         this.singgle = singgle;
         this.answer = answer;
         this.analysis = analysis;
@@ -164,28 +167,36 @@ public class Question {
         this.questionTime = questionTime;
     }
 
-    public String getTeachingMaterial() {
-        return teachingMaterial;
+    public String getGradeName() {
+        return gradeName;
     }
 
-    public void setTeachingMaterial(String teachingMaterial) {
-        this.teachingMaterial = teachingMaterial == null ? null : teachingMaterial.trim();
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName == null ? null : gradeName.trim();
     }
 
-    public String getGrade() {
-        return grade;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade == null ? null : grade.trim();
+    public void setCourseName(String courseName) {
+        this.courseName = courseName == null ? null : courseName.trim();
     }
 
-    public String getChapter() {
-        return chapter;
+    public String getVersionName() {
+        return versionName;
     }
 
-    public void setChapter(String chapter) {
-        this.chapter = chapter == null ? null : chapter.trim();
+    public void setVersionName(String versionName) {
+        this.versionName = versionName == null ? null : versionName.trim();
+    }
+
+    public String getChapterName() {
+        return chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName == null ? null : chapterName.trim();
     }
 
     public String getSinggle() {

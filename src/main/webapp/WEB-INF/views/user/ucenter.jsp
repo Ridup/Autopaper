@@ -117,7 +117,7 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
-                        <li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li>
+                        <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/myfavorite.do" target="_blank">我的收藏</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/index.do" target="_blank">个人信息</a></li>
@@ -131,8 +131,10 @@
             <div class="header-nav">
                 <a href="<%=request.getContextPath()%>" class="help"><i class="icona-home"></i>网站首页</a>
                 <span class="split"></span>
-                <a href="<%=request.getContextPath()%>/ucenter/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
-                <span class="split"></span>
+                <c:if test="${loginUser.userType=='1'}">
+                    <a href="<%=request.getContextPath()%>/question/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
+                    <span class="split"></span>
+                </c:if>
                 <a href="<%=request.getContextPath()%>/main/help.do" class="help" target="_blank"><i class="icona-help"></i>帮助中心(可请求一个操作文档)</a>
                 <span class="split"></span>
             </div>
@@ -201,7 +203,7 @@
                     <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" id="generate_record"><i class="icona-zjjl"></i>组卷记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" id="test_record"><i class="icona-csjl"></i>测试记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" id="error_record"><i class="dj-error"></i>纠错记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" id="question_in_record"><i class="dj-error"></i>试题录入记录</a></li>
+                    <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" id="error_question"><i class="icona-ctb"></i>错题本</a></li>
                     <li>
                         <div class="mt"><span href="javascript:;"><i class="icona-shoucang2"></i>我的收藏</span><b class="icona-right2"></b></div>
@@ -402,97 +404,97 @@
                     <fieldset>
                         <legend class="form-title">账户安全</legend>
                         <div class="ucenter_border viewinfo">
-                        <div class="form-line">
-                            <label>修改密码：</label>
-                            <div class="inputbox reg-form-input">
-                                <input type="password" value="${user.userPassword}" name="userPassword" id="userPassword" class="f-fl" disabled>
-                            </div>
-                            <span id="editpassword"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改密码]</a></span>
-                            <span id="savepassword" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存密码]</a></span>
-                        </div>
-                        <div class="form-line">
-                            <label>绑定手机：</label>
-                            <div class="inputbox reg-form-input">
-                                <input type="text" value="${user.userPhone}" name="userPhone" id="userPhone" class="f-fl" disabled>
-                            </div>
-                            <span id="edituserPhone"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改手机]</a></span>
-                            <span id="saveuserPhone" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存手机]</a></span>
-                        </div>
-                        <div class="form-line">
-                            <label>绑定邮箱：</label>
-                            <c:if test="${user.userEmail!=null&&user.userEmail!=''}">
-                            <div class="inputbox reg-form-input">
-                                <input type="text" value="${user.userEmail}" name="userEmail"  class="f-fl userEmail" disabled>
-                            </div>
-                            <span id="edituserEmail"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改邮箱]</a></span>
-                            <span id="saveuserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存邮箱]</a></span>
-                            </c:if>
-                            <c:if test="${user.userEmail==null||user.userEmail==''}">
-                                <div class="inputbox reg-form-input" id="userEmailinput" style="display: none">
-                                    <input type="text" value="${user.userEmail}" name="userEmail" class="f-fl userEmail" disabled>
+                            <div class="form-line">
+                                <label>修改密码：</label>
+                                <div class="inputbox reg-form-input">
+                                    <input type="password" value="${user.userPassword}" name="userPassword" id="userPassword" class="f-fl" disabled>
                                 </div>
-                                <span id="edituserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改邮箱]</a></span>
-                                <span id="saveuserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存邮箱]</a></span>
-                            <span id="createEmails"><span style="color:red;">未绑定</span><a href="javascript:void(0)" id="createEmail">[绑定]</a></span>
-                            </c:if>
-                        </div>
+                                <span id="editpassword"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改密码]</a></span>
+                                <span id="savepassword" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存密码]</a></span>
+                            </div>
+                            <div class="form-line">
+                                <label>绑定手机：</label>
+                                <div class="inputbox reg-form-input">
+                                    <input type="text" value="${user.userPhone}" name="userPhone" id="userPhone" class="f-fl" disabled>
+                                </div>
+                                <span id="edituserPhone"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改手机]</a></span>
+                                <span id="saveuserPhone" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存手机]</a></span>
+                            </div>
+                            <div class="form-line">
+                                <label>绑定邮箱：</label>
+                                <c:if test="${user.userEmail!=null&&user.userEmail!=''}">
+                                    <div class="inputbox reg-form-input">
+                                        <input type="text" value="${user.userEmail}" name="userEmail"  class="f-fl userEmail" disabled>
+                                    </div>
+                                    <span id="edituserEmail"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改邮箱]</a></span>
+                                    <span id="saveuserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存邮箱]</a></span>
+                                </c:if>
+                                <c:if test="${user.userEmail==null||user.userEmail==''}">
+                                    <div class="inputbox reg-form-input" id="userEmailinput" style="display: none">
+                                        <input type="text" value="${user.userEmail}" name="userEmail" class="f-fl userEmail" disabled>
+                                    </div>
+                                    <span id="edituserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-bianji"></i>[修改邮箱]</a></span>
+                                    <span id="saveuserEmail" style="display: none"><a href="javascript:void(0)"><i class="icona-save2"></i>[保存邮箱]</a></span>
+                                    <span id="createEmails"><span style="color:red;">未绑定</span><a href="javascript:void(0)" id="createEmail">[绑定]</a></span>
+                                </c:if>
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend class="form-title">其他信息</legend>
                         <div class="ucenter_border viewinfo">
-                        <c:if test="${teacher!=null}">
-                        <div class="form-line ">
-                            <label>所在学校：</label>
-                            <span><c:out value="${teacher.teacherSchool}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line ">
-                            <label>所在地址：</label>
-                            <span><c:out value="${teacher.teacherAddr}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>教师编号：</label>
-                            <span><c:out value="${teacher.teacherNo}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>教授年级：</label>
-                            <span><c:out value="${teacher.teacherGrade}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>学科：</label>
-                            <span><c:out value="${teacher.teacherTc}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>版本：</label>
-                            <span><c:out value="${teacher.teachVersion}" default="未知"/> </span>
-                        </div>
-                        </c:if>
-                        <c:if test="${student!=null}">
-                        <div class="form-line ">
-                            <label>所在学校：</label>
-                            <span><c:out value="${student.studentSchool}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line ">
-                            <label>所在地址：</label>
-                            <span><c:out value="${student.studentAddr}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>学号：</label>
-                            <span><c:out value="${student.studentNo}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>年级：</label>
-                            <span><c:out value="${student.studentGrade}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>学科：</label>
-                            <span><c:out value="${student.studentCourse}" default="未知"/> </span>
-                        </div>
-                        <div class="form-line">
-                            <label>版本：</label>
-                            <span><c:out value="${student.studentVersion}" default="未知"/> </span>
-                        </div>
-                        </c:if>
+                            <c:if test="${teacher!=null}">
+                                <div class="form-line ">
+                                    <label>所在学校：</label>
+                                    <span><c:out value="${teacher.teacherSchool}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line ">
+                                    <label>所在地址：</label>
+                                    <span><c:out value="${teacher.teacherAddr}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>教师编号：</label>
+                                    <span><c:out value="${teacher.teacherNo}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>教授年级：</label>
+                                    <span><c:out value="${teacher.teacherGrade}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>学科：</label>
+                                    <span><c:out value="${teacher.teacherTc}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>版本：</label>
+                                    <span><c:out value="${teacher.teachVersion}" default="未知"/> </span>
+                                </div>
+                            </c:if>
+                            <c:if test="${student!=null}">
+                                <div class="form-line ">
+                                    <label>所在学校：</label>
+                                    <span><c:out value="${student.studentSchool}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line ">
+                                    <label>所在地址：</label>
+                                    <span><c:out value="${student.studentAddr}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>学号：</label>
+                                    <span><c:out value="${student.studentNo}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>年级：</label>
+                                    <span><c:out value="${student.studentGrade}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>学科：</label>
+                                    <span><c:out value="${student.studentCourse}" default="未知"/> </span>
+                                </div>
+                                <div class="form-line">
+                                    <label>版本：</label>
+                                    <span><c:out value="${student.studentVersion}" default="未知"/> </span>
+                                </div>
+                            </c:if>
                         </div>
                     </fieldset>
 

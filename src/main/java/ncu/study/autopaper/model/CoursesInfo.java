@@ -3,13 +3,13 @@ package ncu.study.autopaper.model;
 public class CoursesInfo {
     private Integer courseId;
 
-    private String course;
-
-    private String courseName;
-
     private String grade;
 
     private String gradeName;
+
+    private String course;
+
+    private String courseName;
 
     private String version;
 
@@ -23,12 +23,12 @@ public class CoursesInfo {
 
     private String pointName;
 
-    public CoursesInfo(Integer courseId, String course, String courseName, String grade, String gradeName, String version, String versionName, String chapter, String chapterName, String point, String pointName) {
+    public CoursesInfo(Integer courseId, String grade, String gradeName, String course, String courseName, String version, String versionName, String chapter, String chapterName, String point, String pointName) {
         this.courseId = courseId;
-        this.course = course;
-        this.courseName = courseName;
         this.grade = grade;
         this.gradeName = gradeName;
+        this.course = course;
+        this.courseName = courseName;
         this.version = version;
         this.versionName = versionName;
         this.chapter = chapter;
@@ -49,22 +49,6 @@ public class CoursesInfo {
         this.courseId = courseId;
     }
 
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course == null ? null : course.trim();
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName == null ? null : courseName.trim();
-    }
-
     public String getGrade() {
         return grade;
     }
@@ -79,6 +63,22 @@ public class CoursesInfo {
 
     public void setGradeName(String gradeName) {
         this.gradeName = gradeName == null ? null : gradeName.trim();
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course == null ? null : course.trim();
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName == null ? null : courseName.trim();
     }
 
     public String getVersion() {

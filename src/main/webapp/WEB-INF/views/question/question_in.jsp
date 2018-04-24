@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html class=" XL">
 <head>
@@ -12,7 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/static/images/favicon.ico">
     <meta name="csrf-param" content="_csrf">
     <meta name="csrf-token" content="CuLu_5_b5pKzlDz2vF0s8oF0235xNpoeksCnr1yLttF6kZu71aqP2ur7bb3oDnq4yRajGAJwxUHc8sTBZO3Ygg==">
-    <title>下载记录</title>
+    <title>试题录入</title>
     <script src="<%=request.getContextPath()%>/static/js/extends/hm.js"></script>
     <script>
         (function(doc, win) {
@@ -70,6 +69,9 @@
     <script src="<%=request.getContextPath()%>/static/js/extends/util.min.js"></script>
     <style>html, * {-webkit-user-select:text!important; -moz-user-select:text!important;}</style>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/layer.css" id="layuicss-skinlayercss">
+    <%--layui--%>
+    <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
 </head>
 
 
@@ -131,7 +133,7 @@
                 <a href="<%=request.getContextPath()%>" class="help"><i class="icona-home"></i>网站首页</a>
                 <span class="split"></span>
                 <c:if test="${loginUser.userType=='1'}">
-                    <a href="<%=request.getContextPath()%>/ucenter/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
+                    <a href="<%=request.getContextPath()%>/question/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
                     <span class="split"></span>
                 </c:if>
                 <a href="<%=request.getContextPath()%>/main/help.do" class="help" target="_blank"><i class="icona-help"></i>帮助中心(可请求一个操作文档)</a>
@@ -164,64 +166,22 @@
     });
 </script>
 
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer
+            ,form = layui.form;
+
+        layer.msg('Hello World');
+    });
+</script>
+
 <input type="hidden" value="${ucenter_position}" id="ucenter_position"/>
 
 <!--顶部导航结束（公用）-->
 
 <%--中部内容开始--%>
 <div class="g-bd1 f-cb g-container">
-    <%--右部开始--%>
-    <div class="g-sd1">
-        <div class="user-msg">
-            <%--用户头开始--%>
-            <div class="msg-box">
-                <div class="user-pic">
-                    <div class="pic-border">
-                        <img src="<%=request.getContextPath()%>/static/images/10.png">
-                    </div>
-                </div>
-
-                <div class="user-id">
-                    <p class="user-idname">${user.nickName}</p>
-                    <c:if test="${user.userType=='1'}">
-                        <p class="user-level"><i class="icona-lv-gold"></i>教师</p>
-                    </c:if>
-                    <c:if test="${user.userType=='2'}">
-                        <p class="user-level"><i class="icona-lv-gold"></i>学生</p>
-                    </c:if>
-                </div>
-            </div>
-            <div class="points">
-                <ul>
-                    <li><p><span>0</span>积分</p></li>
-                    <li><p class="line-border"><span>0</span>积分</p></li>
-                </ul>
-            </div>
-            <%--用户头结束--%>
-
-            <%--右部下--%>
-            <div class="user-using">
-                <ul>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" id="download_record"><i class="icona-download3"></i>下载记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" id="generate_record"><i class="icona-zjjl"></i>组卷记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" id="test_record"><i class="icona-csjl"></i>测试记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" id="error_record"><i class="dj-error"></i>纠错记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" id="question_in_record"><i class="icona-dtk"></i>试题录入记录</a></li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" id="error_question"><i class="icona-ctb"></i>错题本</a></li>
-                    <li>
-                        <div class="mt"><span href="javascript:;"><i class="icona-shoucang2"></i>我的收藏</span><b class="icona-right2"></b></div>
-                        <div class="mc">
-                            <p><a href="<%=request.getContextPath()%>/ucenter/u_question.do" id="u_question"><i class="icona-ellipsesm"></i>试题收藏</a></p>
-                            <p><a href="<%=request.getContextPath()%>/ucenter/u_paper.do" id="u_paper"><i class="icona-ellipsesm"></i>试卷收藏</a></p>
-                        </div>
-                    </li>
-                    <li><a href="<%=request.getContextPath()%>/ucenter/index.do" id="index"><i class="icona-set"></i>个人信息</a></li>
-                </ul>
-            </div>
-            <%--右部下--%>
-        </div>
-    </div>
-    <%--右部结束--%>
     <script>
         $(function(){
 
@@ -256,28 +216,243 @@
         setTimeout(umenu_slider, 0);
     </script>
 
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/main.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/base.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/ucenter.css">
+
+    <div class="user-con">
+        <%--  内容开始！！！--%>
+
+        <script>
 
 
+            function questionTypeChoose(val){
+                var questionType = $("#questionType").val();
+                if (questionType!=null&&questionType!=""){
+                    $("."+questionType).removeClass("type-active");
+                }
+                if(val=='101'){
+                    $("#answerSelection").show();
+                }else{
+                    $("#answerSelection").hide();
+                }
+                $("."+val).addClass("type-active");
+                $("#questionType").val(val);
+            }
+
+            function questionClassChoose(val){
+                var questionClass = $("#questionClass").val();
+                if (questionClass!=null&&questionClass!=""){
+                    $("."+questionClass).removeClass("type-active");
+                }
+                $("."+val).addClass("type-active");
+                $("#questionClass").val(val);
+            }
+        </script>
+
+        <h1>试题录入</h1>
+        <div class="ucenter_border" style="padding: 0px;">
+            <form id="w0" class="layui-form layui-form-pane" action="<%=request.getContextPath()%>/question/question_insert.do" method="post" style="margin: 0px;padding: 0px;">
+
+                <%--  <fieldset></fieldset>--%>
+                <div class="search-type d-search-type g-container" style="width: 1175px">
+                    <div class="type-items">
+                        <div class="type-tit">题型：</div>
+                        <div class="type-conbox">
+                            <div class="type-con">
+                                <div class="con-items">
+                                    <input type="hidden" name="questionType" id="questionType" lay-verify="required">
+                                    <a href="javascript:void(0)" onclick="questionTypeChoose('101');" class="101">单选题</a>
+                                    <a href="javascript:void(0)" onclick="questionTypeChoose(102);" class="102">判断题</a>
+                                    <a href="javascript:void(0)" onclick="questionTypeChoose(103);" class="103">填空题</a>
+                                    <a href="javascript:void(0)" onclick="questionTypeChoose(104);" class="104">简答题</a>
+                                    <a href="javascript:void(0)" onclick="questionTypeChoose(105);" class="105">作文</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="type-items">
+                        <div class="type-tit">题类：</div>
+                        <div class="type-conbox">
+                            <div class="type-con">
+                                <div class="con-items">
+                                    <input type="hidden" name="questionClass" id="questionClass" lay-verify="required">
+                                    <a href="javascript:void(0)" onclick="questionClassChoose(201);" class="201">常考题</a>
+                                    <a href="javascript:void(0)" onclick="questionClassChoose(202);" class="202">模拟题</a>
+                                    <a href="javascript:void(0)" onclick="questionClassChoose(203);" class="203">升学题</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%--class="layui-inline"：定义外层行内
+                class="layui-input-inline"：定义内层行内--%>
+
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">试题难度</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="questionDifficulty" lay-verify="required">
+                                <option value=""></option>
+                                <option value="1">难度1</option>
+                                <option value="2">难度2</option>
+                                <option value="3">难度3</option>
+                                <option value="4">难度4</option>
+                                <option value="5">难度5</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label">答题时间</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <input type="text" name="questionTime" required  lay-verify="required\number" placeholder="请答题时间分钟数" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">题目分数</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <input type="text" name="questionScore" required  lay-verify="required\number" placeholder="请题目分数" autocomplete="off" class="layui-input">
+                        </div>
+                        <label class="layui-form-label">类型</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="type" lay-verify="required">
+                                <option value=""></option>
+                                <option value="0">客观题</option>
+                                <option value="1">主观题</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年级名称</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="gradeName" lay-verify="required">
+                                <option value=""></option>
+                                <option value="0">客观题</option>
+                                <option value="1">主观题</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label">学科名称</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="courseName" lay-verify="required">
+                                <option value=""></option>
+                                <option value="0">客观题</option>
+                                <option value="1">主观题</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label">教材名称</label>
+                        <div class="layui-input-inline" style="width: 150px">
+                            <select name="versionName" lay-verify="required">
+                                <option value=""></option>
+                                <option value="0">客观题</option>
+                                <option value="1">主观题</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
 
-    <div class="g-mn1">
-        <div class="g-mn1c">
-            <div class="user-con">
-                <%--  内容开始！！！--%>
-                <h1>下载记录</h1>
-                <form id="w0" class="form-info" action="https://zujuan.21cnjy.com/ucenter" method="post">
-                </form>
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">章节名称</h2>
+                        <div class="layui-colla-content layui-show" >
+                            <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary" checked>
+                            <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary">
+                        </div>
+
+                    </div>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">章节名称</h2>
+                        <div class="layui-colla-content ">
+                            <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary" checked>
+                            <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary">
+                        </div>
+                    </div>
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">章节名称</h2>
+                        <div class="layui-colla-content">
+                            <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary" checked>
+                            <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary">
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+                    layui.use('element', function(){
+                        var element = layui.element;
+
+                        //…
+                    });
+                </script>
 
 
+                <%-- 单选选项集合--%>
+                <div id="answerSelection" style="margin-top: 10px;display: none">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选项A：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="answerA" required  lay-verify="required" placeholder="请输入选项A" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选项B：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="answerB" required  lay-verify="required" placeholder="请输入选项B" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选项C：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="answerC" required  lay-verify="required" placeholder="请输入选项C" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选项D：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="answerD" required  lay-verify="required" placeholder="请输入选项D" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
 
 
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">试题答案</label>
+                        <div class="layui-input-block">
+                            <textarea name="answer" required lay-verify="required" placeholder="请输入试题答案" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
 
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">试题解析</label>
+                        <div class="layui-input-block">
+                            <textarea name="analysis" required lay-verify="required" placeholder="请输入试题解析" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
 
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">题干</label>
+                        <div class="layui-input-block">
+                            <textarea name="questionComment" required lay-verify="required" placeholder="请输入题干" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
 
-
-                <%--  内容结束！！！--%>
-            </div>
+                    <div class="layui-form-item" style="text-align: center">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+            </form>
         </div>
+
+
+
+
+
+
+
+
+        <%--  内容结束！！！--%>
     </div>
 </div>
 <%--中部内容结束--%>
