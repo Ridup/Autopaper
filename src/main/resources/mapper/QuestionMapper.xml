@@ -18,11 +18,14 @@
       <arg column="COURSE_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="VERSION_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CHAPTER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="SINGGLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SELECTION_A" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SELECTION_B" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SELECTION_C" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SELECTION_D" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ANSWER" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ANALYSIS" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="QUESTION_HOT" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="OWNNER" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="OWNNER" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="QUESTION_COMMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -89,8 +92,8 @@
   <sql id="Base_Column_List" >
     QUESTION_ID, QUESTION_TYPE, QUESTION_CLASS, QUESTION_DIFFICULTY, POINT_NUMBER, POINT, 
     SOURCE, USETIMES, TYPE, QUESTION_SCORE, QUESTION_TIME, GRADE_NAME, COURSE_NAME, VERSION_NAME, 
-    CHAPTER_NAME, SINGGLE, ANSWER, ANALYSIS, QUESTION_HOT, OWNNER, CREATE_TIME, UPDATE_TIME, 
-    QUESTION_COMMENT
+    CHAPTER_NAME, SELECTION_A, SELECTION_B, SELECTION_C, SELECTION_D, ANSWER, ANALYSIS, 
+    QUESTION_HOT, OWNNER, CREATE_TIME, UPDATE_TIME, QUESTION_COMMENT
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.QuestionExample" >
     select
@@ -128,7 +131,8 @@
       SOURCE, USETIMES, TYPE, 
       QUESTION_SCORE, QUESTION_TIME, GRADE_NAME, 
       COURSE_NAME, VERSION_NAME, CHAPTER_NAME, 
-      SINGGLE, ANSWER, ANALYSIS, 
+      SELECTION_A, SELECTION_B, SELECTION_C, 
+      SELECTION_D, ANSWER, ANALYSIS, 
       QUESTION_HOT, OWNNER, CREATE_TIME, 
       UPDATE_TIME, QUESTION_COMMENT)
     values (#{questionId,jdbcType=BIGINT}, #{questionType,jdbcType=CHAR}, #{questionClass,jdbcType=CHAR}, 
@@ -136,8 +140,9 @@
       #{source,jdbcType=VARCHAR}, #{usetimes,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
       #{questionScore,jdbcType=INTEGER}, #{questionTime,jdbcType=INTEGER}, #{gradeName,jdbcType=VARCHAR}, 
       #{courseName,jdbcType=VARCHAR}, #{versionName,jdbcType=VARCHAR}, #{chapterName,jdbcType=VARCHAR}, 
-      #{singgle,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, 
-      #{questionHot,jdbcType=BIGINT}, #{ownner,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{selectionA,jdbcType=VARCHAR}, #{selectionB,jdbcType=VARCHAR}, #{selectionC,jdbcType=VARCHAR}, 
+      #{selectionD,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{analysis,jdbcType=VARCHAR}, 
+      #{questionHot,jdbcType=BIGINT}, #{ownner,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{questionComment,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Question" >
@@ -188,8 +193,17 @@
       <if test="chapterName != null" >
         CHAPTER_NAME,
       </if>
-      <if test="singgle != null" >
-        SINGGLE,
+      <if test="selectionA != null" >
+        SELECTION_A,
+      </if>
+      <if test="selectionB != null" >
+        SELECTION_B,
+      </if>
+      <if test="selectionC != null" >
+        SELECTION_C,
+      </if>
+      <if test="selectionD != null" >
+        SELECTION_D,
       </if>
       <if test="answer != null" >
         ANSWER,
@@ -259,8 +273,17 @@
       <if test="chapterName != null" >
         #{chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="singgle != null" >
-        #{singgle,jdbcType=VARCHAR},
+      <if test="selectionA != null" >
+        #{selectionA,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionB != null" >
+        #{selectionB,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionC != null" >
+        #{selectionC,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionD != null" >
+        #{selectionD,jdbcType=VARCHAR},
       </if>
       <if test="answer != null" >
         #{answer,jdbcType=VARCHAR},
@@ -272,7 +295,7 @@
         #{questionHot,jdbcType=BIGINT},
       </if>
       <if test="ownner != null" >
-        #{ownner,jdbcType=BIGINT},
+        #{ownner,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -339,8 +362,17 @@
       <if test="record.chapterName != null" >
         CHAPTER_NAME = #{record.chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="record.singgle != null" >
-        SINGGLE = #{record.singgle,jdbcType=VARCHAR},
+      <if test="record.selectionA != null" >
+        SELECTION_A = #{record.selectionA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selectionB != null" >
+        SELECTION_B = #{record.selectionB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selectionC != null" >
+        SELECTION_C = #{record.selectionC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selectionD != null" >
+        SELECTION_D = #{record.selectionD,jdbcType=VARCHAR},
       </if>
       <if test="record.answer != null" >
         ANSWER = #{record.answer,jdbcType=VARCHAR},
@@ -352,7 +384,7 @@
         QUESTION_HOT = #{record.questionHot,jdbcType=BIGINT},
       </if>
       <if test="record.ownner != null" >
-        OWNNER = #{record.ownner,jdbcType=BIGINT},
+        OWNNER = #{record.ownner,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -385,11 +417,14 @@
       COURSE_NAME = #{record.courseName,jdbcType=VARCHAR},
       VERSION_NAME = #{record.versionName,jdbcType=VARCHAR},
       CHAPTER_NAME = #{record.chapterName,jdbcType=VARCHAR},
-      SINGGLE = #{record.singgle,jdbcType=VARCHAR},
+      SELECTION_A = #{record.selectionA,jdbcType=VARCHAR},
+      SELECTION_B = #{record.selectionB,jdbcType=VARCHAR},
+      SELECTION_C = #{record.selectionC,jdbcType=VARCHAR},
+      SELECTION_D = #{record.selectionD,jdbcType=VARCHAR},
       ANSWER = #{record.answer,jdbcType=VARCHAR},
       ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
       QUESTION_HOT = #{record.questionHot,jdbcType=BIGINT},
-      OWNNER = #{record.ownner,jdbcType=BIGINT},
+      OWNNER = #{record.ownner,jdbcType=INTEGER},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR}
@@ -442,8 +477,17 @@
       <if test="chapterName != null" >
         CHAPTER_NAME = #{chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="singgle != null" >
-        SINGGLE = #{singgle,jdbcType=VARCHAR},
+      <if test="selectionA != null" >
+        SELECTION_A = #{selectionA,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionB != null" >
+        SELECTION_B = #{selectionB,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionC != null" >
+        SELECTION_C = #{selectionC,jdbcType=VARCHAR},
+      </if>
+      <if test="selectionD != null" >
+        SELECTION_D = #{selectionD,jdbcType=VARCHAR},
       </if>
       <if test="answer != null" >
         ANSWER = #{answer,jdbcType=VARCHAR},
@@ -455,7 +499,7 @@
         QUESTION_HOT = #{questionHot,jdbcType=BIGINT},
       </if>
       <if test="ownner != null" >
-        OWNNER = #{ownner,jdbcType=BIGINT},
+        OWNNER = #{ownner,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -485,11 +529,14 @@
       COURSE_NAME = #{courseName,jdbcType=VARCHAR},
       VERSION_NAME = #{versionName,jdbcType=VARCHAR},
       CHAPTER_NAME = #{chapterName,jdbcType=VARCHAR},
-      SINGGLE = #{singgle,jdbcType=VARCHAR},
+      SELECTION_A = #{selectionA,jdbcType=VARCHAR},
+      SELECTION_B = #{selectionB,jdbcType=VARCHAR},
+      SELECTION_C = #{selectionC,jdbcType=VARCHAR},
+      SELECTION_D = #{selectionD,jdbcType=VARCHAR},
       ANSWER = #{answer,jdbcType=VARCHAR},
       ANALYSIS = #{analysis,jdbcType=VARCHAR},
       QUESTION_HOT = #{questionHot,jdbcType=BIGINT},
-      OWNNER = #{ownner,jdbcType=BIGINT},
+      OWNNER = #{ownner,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR}

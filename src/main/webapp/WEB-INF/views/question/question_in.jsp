@@ -72,6 +72,46 @@
     <%--layui--%>
     <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
+
+    <script type="text/javascript">
+        $(function () {
+            function Init(node) {
+                return node.html("<option>---请选择---</option>");
+            }
+            var db = ${coursesJson};
+            console.log(db);
+            //初始化select节点
+            $.each(db, function (changShang) {
+                $("#gradeName").append("<option value='"+changShang+"'>" + changShang + "</option>");
+            })
+            //一级变动
+            $("#gradeName").change(function () {
+                //清空二三级
+                Init($("#courseName"));
+                Init($("#versionName"));
+                $.each(db,function (cs,pps) {
+                    if ($("#gradeName option:selected").text() == cs) {
+                        $.each(pps, function (pp, xhs) {
+                            $("#courseName").append("<option value='"+pp+"'>"  + pp + "</option>");
+                        });
+                        $("#courseName").change(function () {
+                            Init($("#versionName"));
+                            $.each(pps, function (pp,xhs) {
+                                if ($("#courseName option:selected").text()==pp) {
+                                    $.each(xhs, function () {
+                                        $("#versionName").append("<option value='"+this+"'>"  + this + "</option>");
+                                    })
+                                }
+                            })
+                        })
+                    }
+                })
+            })
+
+        })
+    </script>
+
+
 </head>
 
 
@@ -172,7 +212,7 @@
         var layer = layui.layer
             ,form = layui.form;
 
-        layer.msg('Hello World');
+
     });
 </script>
 
@@ -184,6 +224,26 @@
 <div class="g-bd1 f-cb g-container">
     <script>
         $(function(){
+            var localObj = window.location;
+            var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+            if("${tips}"!=null&&"${tips}"!=""){
+                //第三方扩展皮肤
+
+                layer.alert('${tips}', {
+                    icon: ${insertStatus},
+                    skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                },function () {
+                    window.location.replace(server_context+"/question/question_in.do");
+                });
+
+     /*           setTimeout(function () {
+
+                },2000)*/
+
+                /*layer.msg('Hello World');*/
+
+
+            }
 
             var toNote = '';
             if(toNote){
@@ -225,6 +285,9 @@
 
         <script>
 
+            var localObj = window.location;
+            var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+
 
             function questionTypeChoose(val){
                 var questionType = $("#questionType").val();
@@ -233,8 +296,31 @@
                 }
                 if(val=='101'){
                     $("#answerSelection").show();
+                    $("#commonAnswer").hide();
+                    $("#judgmentAnswer").hide();
+                    $("#commonAnswer textarea").removeAttr("lay-verify");
+                    $("#judgmentAnswer input[radio]").removeAttr("lay-verify");
+                    $("#singleAnswer").show();
+                    $("#answerSelection input[text]").attr("lay-verify","required");
+                    $("#singleAnswer input[radio]").attr("lay-verify","required");
+                }else if (val=='102'){
+                    $("#judgmentAnswer").show();
+                    $("#commonAnswer").hide();
+                    $("#answerSelection").hide();
+                    $("#singleAnswer").hide();
+                    $("#commonAnswer textarea").removeAttr("lay-verify");
+                    $("#singleAnswer input[radio]").removeAttr("lay-verify");
+                    $("#answerSelection input[text]").removeAttr("lay-verify");
+                    $("#judgmentAnswer input[radio]").attr("lay-verify","required");
                 }else{
                     $("#answerSelection").hide();
+                    $("#singleAnswer").hide();
+                    $("#judgmentAnswer").hide();
+                    $("#commonAnswer").show();
+                    $("#commonAnswer textarea").attr("lay-verify","required");
+                    $("#answerSelection input[text]").removeAttr("lay-verify");
+                    $("#singleAnswer input[radio]").removeAttr("lay-verify");
+                    $("#judgmentAnswer input[radio]").removeAttr("lay-verify");
                 }
                 $("."+val).addClass("type-active");
                 $("#questionType").val(val);
@@ -248,6 +334,62 @@
                 $("."+val).addClass("type-active");
                 $("#questionClass").val(val);
             }
+
+
+            function  queryPoints() {
+
+                console.log($('#gradeName').val());
+                var gradeName = $('#gradeName').val();
+                var courseName = $('#courseName').val();
+                var versionName = $('#versionName').val();
+
+                $("#chapterList").empty();
+
+                //查询知识点
+                $.ajax({
+                    url: server_context + '/question/question_point.do',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        gradeName: gradeName, courseName: courseName, versionName: versionName
+                    },
+                    timeout: 5000,    //超时时间
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+
+                    success: function (data, textStatus, jqXHR) {
+                        console.log("data:" + data);
+                        console.log(data[0].chapter);
+                        console.log(data[0].pointPojoList);
+                        if (data != null) {
+                            layui.use(['form', 'layer'], function () {
+                                $ = layui.jquery;
+                                var form = layui.form;
+                                for (var i = 0; i < data.length; i++) {
+
+                                    var points = "";
+                                    for (var n = 0; n < data[i].pointPojoList.length; n++) {
+                                        points = points + "<input type=\"checkbox\" name=\"point\" title=\"" + data[i].pointPojoList[n].pointName + "\" value=\"" + data[i].pointPojoList[n].courseId + "\" lay-skin=\"primary\">";
+                                    }
+                                    var pointHtml = "<div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">" +"<input type=\"checkbox\" name=\"chapterName\" value=\""+ data[i].chapter+"\" lay-skin=\"primary\">"+ data[i].chapter + "<i class=\"layui-icon layui-colla-icon\"></i></h2><div class=\"layui-colla-content layui-show\" >" + points + "</div></div>";
+                                    $('#chapterList').append(pointHtml);
+                                }
+                                form.render();
+                            });
+                        }else{
+                            layer.alert("<span style='margin-left: 70px;text-align: center;'>未查到数据！</span>");
+                        }
+                    },
+
+
+
+
+                    error: function (xhr, textStatus) {
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                    }
+                });
+
+            }
+
         </script>
 
         <h1>试题录入</h1>
@@ -304,11 +446,11 @@
                         </div>
                         <label class="layui-form-label">答题时间</label>
                         <div class="layui-input-inline" style="width: 150px">
-                            <input type="text" name="questionTime" required  lay-verify="required\number" placeholder="请答题时间分钟数" autocomplete="off" class="layui-input">
+                            <input type="text" name="questionTime"   lay-verify="required|number" placeholder="请答题时间分钟数" autocomplete="off" class="layui-input">
                         </div>
                         <label class="layui-form-label">题目分数</label>
                         <div class="layui-input-inline" style="width: 150px">
-                            <input type="text" name="questionScore" required  lay-verify="required\number" placeholder="请题目分数" autocomplete="off" class="layui-input">
+                            <input type="text" name="questionScore"   lay-verify="required|number" placeholder="请题目分数" autocomplete="off" class="layui-input">
                         </div>
                         <label class="layui-form-label">类型</label>
                         <div class="layui-input-inline" style="width: 150px">
@@ -325,55 +467,53 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">年级名称</label>
                         <div class="layui-input-inline" style="width: 150px">
-                            <select name="gradeName" lay-verify="required">
-                                <option value=""></option>
-                                <option value="0">客观题</option>
-                                <option value="1">主观题</option>
+                            <select name="gradeName" lay-verify="required" id="gradeName" lay-ignore style="width: 150px;height: 38px;">
+                                <option>---请选择---</option>
                             </select>
                         </div>
                         <label class="layui-form-label">学科名称</label>
                         <div class="layui-input-inline" style="width: 150px">
-                            <select name="courseName" lay-verify="required">
-                                <option value=""></option>
-                                <option value="0">客观题</option>
-                                <option value="1">主观题</option>
+                            <select name="courseName" lay-verify="required" id="courseName" lay-ignore style="width: 150px;height: 38px;">
+                                <option>---请选择---</option>
                             </select>
                         </div>
                         <label class="layui-form-label">教材名称</label>
                         <div class="layui-input-inline" style="width: 150px">
-                            <select name="versionName" lay-verify="required">
-                                <option value=""></option>
-                                <option value="0">客观题</option>
-                                <option value="1">主观题</option>
+                            <select name="versionName" lay-verify="required" id="versionName" lay-ignore style="width: 150px;height: 38px;">
+                                <option>---请选择---</option>
                             </select>
                         </div>
+                        <a href="javascript:void (0)" class="layui-btn" onclick="queryPoints()">确认</a>
                     </div>
                 </div>
 
 
-                <div class="layui-collapse">
-                    <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">章节名称</h2>
+                <div class="layui-collapse" id="chapterList">
+
+                    <%--<div class="layui-colla-item">
+                        <h2 class="layui-colla-title"><input type="checkbox" name="chapterName" value="章节名称" lay-skin="primary">章节名称</h2>
                         <div class="layui-colla-content layui-show" >
                             <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary" checked>
                             <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary">
                         </div>
+                    </div>--%>
 
-                    </div>
-                    <div class="layui-colla-item">
+                    <%--<div class="layui-colla-item">
                         <h2 class="layui-colla-title">章节名称</h2>
                         <div class="layui-colla-content ">
                             <input type="checkbox" name="point" title="知识点名称" value="知识点id" lay-skin="primary" checked>
                             <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary">
                         </div>
                     </div>
+
                     <div class="layui-colla-item">
                         <h2 class="layui-colla-title">章节名称</h2>
                         <div class="layui-colla-content">
                             <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary" checked>
                             <input type="checkbox" name="point" title="知识点名称"  value="知识点id" lay-skin="primary">
                         </div>
-                    </div>
+                    </div>--%>
+
                 </div>
 
                 <script>
@@ -386,64 +526,77 @@
                 </script>
 
 
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">题干</label>
+                    <div class="layui-input-block">
+                        <textarea name="questionComment"  lay-verify="required" placeholder="请输入题干" class="layui-textarea"></textarea>
+                    </div>
+                </div>
                 <%-- 单选选项集合--%>
                 <div id="answerSelection" style="margin-top: 10px;display: none">
                     <div class="layui-form-item">
                         <label class="layui-form-label">选项A：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="answerA" required  lay-verify="required" placeholder="请输入选项A" autocomplete="off" class="layui-input">
+                            <input type="text" name="selectionA"   placeholder="请输入选项A" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">选项B：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="answerB" required  lay-verify="required" placeholder="请输入选项B" autocomplete="off" class="layui-input">
+                            <input type="text" name="selectionB"    placeholder="请输入选项B" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">选项C：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="answerC" required  lay-verify="required" placeholder="请输入选项C" autocomplete="off" class="layui-input">
+                            <input type="text" name="selectionC"    placeholder="请输入选项C" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">选项D：</label>
                         <div class="layui-input-block">
-                            <input type="text" name="answerD" required  lay-verify="required" placeholder="请输入选项D" autocomplete="off" class="layui-input">
+                            <input type="text" name="selectionD"    placeholder="请输入选项D" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
 
 
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">试题答案</label>
-                        <div class="layui-input-block">
-                            <textarea name="answer" required lay-verify="required" placeholder="请输入试题答案" class="layui-textarea"></textarea>
-                        </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">试题答案</label>
+                    <div class="layui-input-block" id="commonAnswer">
+                        <textarea name="answer"  lay-verify="required" placeholder="请输入试题答案" class="layui-textarea"></textarea>
                     </div>
+                    <div class="layui-input-block" style="display: none" id="singleAnswer">
+                        <input type="radio" name="answer" value="A" title="选项A">
+                        <input type="radio" name="answer" value="B" title="选项B">
+                        <input type="radio" name="answer" value="C" title="选项C">
+                        <input type="radio" name="answer" value="D" title="选项D">
+                    </div>
+                    <div class="layui-input-block" style="display: none" id="judgmentAnswer">
+                        <input type="radio" name="answer" value="Y" title="对">
+                        <input type="radio" name="answer" value="N" title="错">
+                    </div>
+                </div>
 
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">试题解析</label>
-                        <div class="layui-input-block">
-                            <textarea name="analysis" required lay-verify="required" placeholder="请输入试题解析" class="layui-textarea"></textarea>
-                        </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">试题解析</label>
+                    <div class="layui-input-block">
+                        <textarea name="analysis"  lay-verify="required" placeholder="请输入试题解析" class="layui-textarea"></textarea>
                     </div>
+                </div>
 
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">题干</label>
-                        <div class="layui-input-block">
-                            <textarea name="questionComment" required lay-verify="required" placeholder="请输入题干" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
 
-                    <div class="layui-form-item" style="text-align: center">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
+
+                <div class="layui-form-item" style="text-align: center">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
+                </div>
             </form>
         </div>
+
+
 
 
 
