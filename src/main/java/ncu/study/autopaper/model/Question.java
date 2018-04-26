@@ -33,7 +33,13 @@ public class Question {
 
     private String chapterName;
 
-    private String singgle;
+    private String selectionA;
+
+    private String selectionB;
+
+    private String selectionC;
+
+    private String selectionD;
 
     private String answer;
 
@@ -41,7 +47,7 @@ public class Question {
 
     private Long questionHot;
 
-    private Long ownner;
+    private Integer ownner;
 
     private Date createTime;
 
@@ -49,7 +55,7 @@ public class Question {
 
     private String questionComment;
 
-    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String singgle, String answer, String analysis, Long questionHot, Long ownner, Date createTime, Date updateTime, String questionComment) {
+    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String selectionA, String selectionB, String selectionC, String selectionD, String answer, String analysis, Long questionHot, Integer ownner, Date createTime, Date updateTime, String questionComment) {
         this.questionId = questionId;
         this.questionType = questionType;
         this.questionClass = questionClass;
@@ -65,7 +71,10 @@ public class Question {
         this.courseName = courseName;
         this.versionName = versionName;
         this.chapterName = chapterName;
-        this.singgle = singgle;
+        this.selectionA = selectionA;
+        this.selectionB = selectionB;
+        this.selectionC = selectionC;
+        this.selectionD = selectionD;
         this.answer = answer;
         this.analysis = analysis;
         this.questionHot = questionHot;
@@ -199,12 +208,36 @@ public class Question {
         this.chapterName = chapterName == null ? null : chapterName.trim();
     }
 
-    public String getSinggle() {
-        return singgle;
+    public String getSelectionA() {
+        return selectionA;
     }
 
-    public void setSinggle(String singgle) {
-        this.singgle = singgle == null ? null : singgle.trim();
+    public void setSelectionA(String selectionA) {
+        this.selectionA = selectionA == null ? null : selectionA.trim();
+    }
+
+    public String getSelectionB() {
+        return selectionB;
+    }
+
+    public void setSelectionB(String selectionB) {
+        this.selectionB = selectionB == null ? null : selectionB.trim();
+    }
+
+    public String getSelectionC() {
+        return selectionC;
+    }
+
+    public void setSelectionC(String selectionC) {
+        this.selectionC = selectionC == null ? null : selectionC.trim();
+    }
+
+    public String getSelectionD() {
+        return selectionD;
+    }
+
+    public void setSelectionD(String selectionD) {
+        this.selectionD = selectionD == null ? null : selectionD.trim();
     }
 
     public String getAnswer() {
@@ -231,11 +264,11 @@ public class Question {
         this.questionHot = questionHot;
     }
 
-    public Long getOwnner() {
+    public Integer getOwnner() {
         return ownner;
     }
 
-    public void setOwnner(Long ownner) {
+    public void setOwnner(Integer ownner) {
         this.ownner = ownner;
     }
 

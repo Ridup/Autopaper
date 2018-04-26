@@ -36,7 +36,11 @@ public class jsonTest {
     public void test1(){
         JsonObject object = new JsonObject();
 
-
+List<String> strings = new ArrayList<>();
+        strings.add("13213");
+        strings.add("13213ewqe");
+        strings.add("13213ewqewqeq");
+        System.out.print(strings.toString());
         JsonObject lan1=new JsonObject();
         lan1.addProperty("数学", "人教版,师范");
 
