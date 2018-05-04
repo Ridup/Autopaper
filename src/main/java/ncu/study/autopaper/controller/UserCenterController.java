@@ -58,10 +58,10 @@ public class UserCenterController {
                 modelAndView.addObject("ucenter_position", "index");
             } else {
                 //超时重登
-                modelAndView.setViewName("redirect:/?tips=e01");
+                modelAndView.setViewName("redirect:/index.do?tips=e01");
             }
         } else {
-            modelAndView.setViewName("redirect:/");
+            modelAndView.setViewName("redirect:/index.do");
         }
         return modelAndView;
     }
