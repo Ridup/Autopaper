@@ -58,7 +58,7 @@ public class UserController {
                 attr.addFlashAttribute("msg",msg);
                 HttpSession session = request.getSession(true);
                 session.setAttribute("loginUser",user);
-                return "redirect:/";
+                return "redirect:/index.do";
             }else if(user.getUserType()=="0"){
                 msg = "管理员无法登陆！";
                 attr.addFlashAttribute("msg",msg);
@@ -122,7 +122,7 @@ public class UserController {
     @RequestMapping("/logout.do")
     public String logout(HttpServletRequest request,HttpServletResponse response){
         request.getSession().removeAttribute("loginUser");
-        return "redirect:/";
+        return "redirect:/index.do";
     }
 
 }

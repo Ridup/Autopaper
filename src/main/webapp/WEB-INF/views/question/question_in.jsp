@@ -151,7 +151,7 @@
         </div>
         <div class="header-logo-sd f-fr">
             <div class="user f-fr f-pr topbar-dropmap">
-                <a href="<%=request.getContextPath()%>/ucenter/" target="_blank">${user.nickName}<i class="icona-tri ml"></i></a>
+                <a href="<%=request.getContextPath()%>/ucenter/" target="_blank">${loginUser.nickName}<i class="icona-tri ml"></i></a>
                 <div class="drop-bd" style="display: none;">
                     <ul>
                         <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" target="_blank">下载记录</a></li>

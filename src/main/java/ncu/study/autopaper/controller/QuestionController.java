@@ -36,6 +36,12 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
+
+    @RequestMapping(value = "/search.do")
+    public ModelAndView search() {
+        return null;
+    }
+
     @RequestMapping(value = "/question_in.do")
     public ModelAndView questionIn(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
@@ -68,10 +74,10 @@ public class QuestionController {
                 modelAndView.setViewName("/question/question_in");
             } else {
                 //超时重登
-                modelAndView.setViewName("redirect:/?tips=e01");
+                modelAndView.setViewName("redirect:/index.do?tips=e01");
             }
         } else {
-            modelAndView.setViewName("redirect:/");
+            modelAndView.setViewName("redirect:/index.do");
         }
         return modelAndView;
     }
@@ -97,20 +103,20 @@ public class QuestionController {
                 question.setCreateTime(new Date());
                 question.setUpdateTime(new Date());
                 int status = questionService.insertQuestionInfo(question);
-                if (status==1){
-                    modelAndView.addObject("tips","试题录入成功！");
-                    modelAndView.addObject("insertStatus","6");
-                }else {
-                    modelAndView.addObject("tips","系统异常，请重试");
-                    modelAndView.addObject("insertStatus","5");
+                if (status == 1) {
+                    modelAndView.addObject("tips", "试题录入成功！");
+                    modelAndView.addObject("insertStatus", "6");
+                } else {
+                    modelAndView.addObject("tips", "系统异常，请重试");
+                    modelAndView.addObject("insertStatus", "5");
                 }
                 modelAndView.setViewName("/question/question_in");
             } else {
                 //超时重登
-                modelAndView.setViewName("redirect:/?tips=e01");
+                modelAndView.setViewName("redirect:/index.do?tips=e01");
             }
         } else {
-            modelAndView.setViewName("redirect:/");
+            modelAndView.setViewName("redirect:/index.do");
         }
         return modelAndView;
     }
