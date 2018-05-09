@@ -7,7 +7,7 @@ import ncu.study.autopaper.model.PaperFavKey;
 import org.apache.ibatis.annotations.Param;
 
 public interface PaperFavMapper {
-    int countByExample(PaperFavExample example);
+    long countByExample(PaperFavExample example);
 
     int deleteByExample(PaperFavExample example);
 

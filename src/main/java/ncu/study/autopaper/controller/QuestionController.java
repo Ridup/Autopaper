@@ -2,16 +2,18 @@ package ncu.study.autopaper.controller;
 
 
 import com.google.gson.*;
-import ncu.study.autopaper.common.pojo.CoursePojo;
-import ncu.study.autopaper.common.pojo.GradePojo;
-import ncu.study.autopaper.common.pojo.PointPojo;
-import ncu.study.autopaper.common.pojo.PointsPojo;
+import ncu.study.autopaper.common.enums.EnumQuestionClass;
+import ncu.study.autopaper.common.enums.EnumQuestionDifficulty;
+import ncu.study.autopaper.common.enums.EnumQuestionStatus;
+import ncu.study.autopaper.common.enums.EnumQuestionType;
+import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.common.result.JsonResult;
 import ncu.study.autopaper.model.CoursesInfo;
 import ncu.study.autopaper.model.Question;
 import ncu.study.autopaper.model.User;
 import ncu.study.autopaper.service.CoursesInfoService;
 import ncu.study.autopaper.service.QuestionService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +38,91 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
-
+    //带着条件首次进入试题查询
     @RequestMapping(value = "/search.do")
-    public ModelAndView search() {
-        return null;
+    public ModelAndView search(HttpServletRequest request, GradePojo gradePojo, CoursePojo coursePojo, String questionType, String content) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        List<CoursesPojo> allCourses = coursesInfoService.getAllCourses();
+        if (allCourses != null) {
+            modelAndView.addObject("allCourses", allCourses);
+        }
+        if (gradePojo != null && coursePojo != null) {
+            //将搜索条件存入session
+            coursesInfoService.setCurrentCourse(request, gradePojo, coursePojo);
+        }
+        if (content != null && content != "") {
+            String a = new String(content.getBytes("iso-8859-1"), "utf-8");
+            content = a;
+        }
+
+        HttpSession session = request.getSession();
+        GradePojo currentGrade = (GradePojo) session.getAttribute("currentGrade");
+        CoursePojo currentCourse = (CoursePojo) session.getAttribute("currentCourse");
+        int count = questionService.getSearchCount(currentGrade, currentCourse, questionType, content);
+        List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
+        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content,0);
+        if(questions!=null){
+            for(Question question:questions){
+                QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
+                BeanUtils.copyProperties(question,questionResponsePojo);
+                questionResponsePojo.setEnumQuestionClass(EnumQuestionClass.find(question.getQuestionClass()));
+                questionResponsePojo.setEnumQuestionDifficulty(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()));
+                questionResponsePojo.setEnumQuestionStatus(EnumQuestionStatus.find(question.getStatus()));
+                questionResponsePojo.setEnumQuestionType(EnumQuestionType.find(question.getQuestionType()));
+                questionResponsePojos.add(questionResponsePojo);
+            }
+        }
+
+        //将搜索条件出入session
+        modelAndView.addObject("currentContent", content);
+        modelAndView.addObject("currentQuestionType", questionType);
+        modelAndView.addObject("currentGrade", currentGrade);
+        modelAndView.addObject("currentCourse", currentCourse);
+
+        modelAndView.addObject("count", count);
+        modelAndView.addObject("questions", questionResponsePojos);
+        modelAndView.setViewName("/question/question_search");
+        return modelAndView;
     }
+
+    //试题分页查询
+    @ResponseBody
+    @RequestMapping(value = "searchPage.do")
+    public JsonResult searchPage(HttpServletRequest request,String questionType, String content,int page) throws Exception{
+        JsonResult jsonResult = new JsonResult(true);
+        if (content != null && content != "") {
+            String a = new String(content.getBytes("iso-8859-1"), "utf-8");
+            content = a;
+        }
+        HttpSession session =request.getSession();
+        GradePojo currentGrade = (GradePojo) session.getAttribute("currentGrade");
+        CoursePojo currentCourse = (CoursePojo) session.getAttribute("currentCourse");
+        List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
+        int start = (page-1)*10;
+        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content,start);
+        if(questions!=null){
+            for(Question question:questions){
+                QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
+                BeanUtils.copyProperties(question,questionResponsePojo);
+
+                questionResponsePojo.setQuestionClass1(EnumQuestionClass.find(question.getQuestionClass()).getDesc());
+                questionResponsePojo.setQuestionDifficulty1(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()).getDesc());
+                questionResponsePojo.setQuestionStatus1(EnumQuestionStatus.find(question.getStatus()).getDesc());
+                questionResponsePojo.setQuestionType1(EnumQuestionType.find(question.getQuestionType()).getDesc());
+
+                questionResponsePojo.setEnumQuestionClass(EnumQuestionClass.find(question.getQuestionClass()));
+                questionResponsePojo.setEnumQuestionDifficulty(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()));
+                questionResponsePojo.setEnumQuestionStatus(EnumQuestionStatus.find(question.getStatus()));
+                questionResponsePojo.setEnumQuestionType(EnumQuestionType.find(question.getQuestionType()));
+
+                questionResponsePojos.add(questionResponsePojo);
+            }
+        }
+        jsonResult.addData("questionList",questionResponsePojos);
+        return jsonResult;
+    }
+
+
 
     @RequestMapping(value = "/question_in.do")
     public ModelAndView questionIn(HttpServletRequest request) {
@@ -50,7 +132,7 @@ public class QuestionController {
             User obj = (User) session.getAttribute("loginUser");
             if (obj != null) {
                 //查询到年纪、学科、版本
-                // TODO 三维JSON数组DEMO、
+                // TODO 三维JSON数组DEMO
                 JsonObject object = new JsonObject();
                 List<String> grades = coursesInfoService.getAllGradeName();
                 for (String grade : grades) {
@@ -66,7 +148,6 @@ public class QuestionController {
                         JsonElement jsonElement = jsonParser.parse(versions.toString());  //将json字符串转换成JsonElement
                         //JsonArray jsonArray=jsonElement.getAsJsonArray();  //将JsonElement转换成JsonArray
                         object1.add(course, jsonElement);
-
                     }
                     object.add(grade, object1);
                 }
@@ -102,6 +183,8 @@ public class QuestionController {
                 question.setOwnner(obj.getUserId());
                 question.setCreateTime(new Date());
                 question.setUpdateTime(new Date());
+                // TODO 初始化试题状态为：001审核中
+                question.setStatus(EnumQuestionStatus.audit_passed.getCode());
                 int status = questionService.insertQuestionInfo(question);
                 if (status == 1) {
                     modelAndView.addObject("tips", "试题录入成功！");

@@ -7,7 +7,7 @@ import ncu.study.autopaper.model.PaperDownloadKey;
 import org.apache.ibatis.annotations.Param;
 
 public interface PaperDownloadMapper {
-    int countByExample(PaperDownloadExample example);
+    long countByExample(PaperDownloadExample example);
 
     int deleteByExample(PaperDownloadExample example);
 

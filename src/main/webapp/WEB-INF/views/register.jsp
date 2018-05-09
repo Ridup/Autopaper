@@ -45,7 +45,7 @@
 <div class="c-head">
     <div class="g-cwd cfx">
         <div class="logo">
-            <a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/static/images/logo1.png" alt="logo"></a>
+            <a href="<%=request.getContextPath()%>/index.do"><img src="<%=request.getContextPath()%>/static/images/logo1.png" alt="logo"></a>
             <span>注册新账号</span>
         </div>
         <!-- <div class="menu">

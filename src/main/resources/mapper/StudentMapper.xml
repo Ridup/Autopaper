@@ -1,40 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="ncu.study.autopaper.dao.StudentMapper" >
-  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Student" >
-    <constructor >
-      <idArg column="STUDENT_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="STUDENT_NO" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_SEX" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="STUDENT_AGE" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="STUDENT_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_SCHOOL" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_ADDR" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_COURSE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_VERSION" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="STUDENT_GRADE" jdbcType="VARCHAR" javaType="java.lang.String" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ncu.study.autopaper.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Student">
+    <constructor>
+      <idArg column="STUDENT_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="STUDENT_NO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_SEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="STUDENT_AGE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="STUDENT_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_SCHOOL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_ADDR" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_COURSE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STUDENT_GRADE" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -45,25 +45,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -74,41 +74,41 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     STUDENT_ID, STUDENT_NO, STUDENT_NAME, STUDENT_SEX, STUDENT_AGE, STUDENT_PHONE, STUDENT_SCHOOL, 
     STUDENT_ADDR, STUDENT_COURSE, STUDENT_VERSION, STUDENT_GRADE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.StudentExample" >
+  <select id="selectByExample" parameterType="ncu.study.autopaper.model.StudentExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from student
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from student
     where STUDENT_ID = #{studentId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from student
     where STUDENT_ID = #{studentId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.StudentExample" >
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.StudentExample">
     delete from student
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ncu.study.autopaper.model.Student" >
+  <insert id="insert" parameterType="ncu.study.autopaper.model.Student">
     insert into student (STUDENT_ID, STUDENT_NO, STUDENT_NAME, 
       STUDENT_SEX, STUDENT_AGE, STUDENT_PHONE, 
       STUDENT_SCHOOL, STUDENT_ADDR, STUDENT_COURSE, 
@@ -118,127 +118,127 @@
       #{studentSchool,jdbcType=VARCHAR}, #{studentAddr,jdbcType=VARCHAR}, #{studentCourse,jdbcType=VARCHAR}, 
       #{studentVersion,jdbcType=VARCHAR}, #{studentGrade,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Student" >
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Student">
     insert into student
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="studentId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
         STUDENT_ID,
       </if>
-      <if test="studentNo != null" >
+      <if test="studentNo != null">
         STUDENT_NO,
       </if>
-      <if test="studentName != null" >
+      <if test="studentName != null">
         STUDENT_NAME,
       </if>
-      <if test="studentSex != null" >
+      <if test="studentSex != null">
         STUDENT_SEX,
       </if>
-      <if test="studentAge != null" >
+      <if test="studentAge != null">
         STUDENT_AGE,
       </if>
-      <if test="studentPhone != null" >
+      <if test="studentPhone != null">
         STUDENT_PHONE,
       </if>
-      <if test="studentSchool != null" >
+      <if test="studentSchool != null">
         STUDENT_SCHOOL,
       </if>
-      <if test="studentAddr != null" >
+      <if test="studentAddr != null">
         STUDENT_ADDR,
       </if>
-      <if test="studentCourse != null" >
+      <if test="studentCourse != null">
         STUDENT_COURSE,
       </if>
-      <if test="studentVersion != null" >
+      <if test="studentVersion != null">
         STUDENT_VERSION,
       </if>
-      <if test="studentGrade != null" >
+      <if test="studentGrade != null">
         STUDENT_GRADE,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="studentId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
         #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="studentNo != null" >
+      <if test="studentNo != null">
         #{studentNo,jdbcType=VARCHAR},
       </if>
-      <if test="studentName != null" >
+      <if test="studentName != null">
         #{studentName,jdbcType=VARCHAR},
       </if>
-      <if test="studentSex != null" >
+      <if test="studentSex != null">
         #{studentSex,jdbcType=INTEGER},
       </if>
-      <if test="studentAge != null" >
+      <if test="studentAge != null">
         #{studentAge,jdbcType=INTEGER},
       </if>
-      <if test="studentPhone != null" >
+      <if test="studentPhone != null">
         #{studentPhone,jdbcType=VARCHAR},
       </if>
-      <if test="studentSchool != null" >
+      <if test="studentSchool != null">
         #{studentSchool,jdbcType=VARCHAR},
       </if>
-      <if test="studentAddr != null" >
+      <if test="studentAddr != null">
         #{studentAddr,jdbcType=VARCHAR},
       </if>
-      <if test="studentCourse != null" >
+      <if test="studentCourse != null">
         #{studentCourse,jdbcType=VARCHAR},
       </if>
-      <if test="studentVersion != null" >
+      <if test="studentVersion != null">
         #{studentVersion,jdbcType=VARCHAR},
       </if>
-      <if test="studentGrade != null" >
+      <if test="studentGrade != null">
         #{studentGrade,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="ncu.study.autopaper.model.StudentExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.StudentExample" resultType="java.lang.Long">
     select count(*) from student
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update student
-    <set >
-      <if test="record.studentId != null" >
+    <set>
+      <if test="record.studentId != null">
         STUDENT_ID = #{record.studentId,jdbcType=INTEGER},
       </if>
-      <if test="record.studentNo != null" >
+      <if test="record.studentNo != null">
         STUDENT_NO = #{record.studentNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentName != null" >
+      <if test="record.studentName != null">
         STUDENT_NAME = #{record.studentName,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentSex != null" >
+      <if test="record.studentSex != null">
         STUDENT_SEX = #{record.studentSex,jdbcType=INTEGER},
       </if>
-      <if test="record.studentAge != null" >
+      <if test="record.studentAge != null">
         STUDENT_AGE = #{record.studentAge,jdbcType=INTEGER},
       </if>
-      <if test="record.studentPhone != null" >
+      <if test="record.studentPhone != null">
         STUDENT_PHONE = #{record.studentPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentSchool != null" >
+      <if test="record.studentSchool != null">
         STUDENT_SCHOOL = #{record.studentSchool,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentAddr != null" >
+      <if test="record.studentAddr != null">
         STUDENT_ADDR = #{record.studentAddr,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentCourse != null" >
+      <if test="record.studentCourse != null">
         STUDENT_COURSE = #{record.studentCourse,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentVersion != null" >
+      <if test="record.studentVersion != null">
         STUDENT_VERSION = #{record.studentVersion,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentGrade != null" >
+      <if test="record.studentGrade != null">
         STUDENT_GRADE = #{record.studentGrade,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update student
     set STUDENT_ID = #{record.studentId,jdbcType=INTEGER},
       STUDENT_NO = #{record.studentNo,jdbcType=VARCHAR},
@@ -251,47 +251,47 @@
       STUDENT_COURSE = #{record.studentCourse,jdbcType=VARCHAR},
       STUDENT_VERSION = #{record.studentVersion,jdbcType=VARCHAR},
       STUDENT_GRADE = #{record.studentGrade,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Student" >
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Student">
     update student
-    <set >
-      <if test="studentNo != null" >
+    <set>
+      <if test="studentNo != null">
         STUDENT_NO = #{studentNo,jdbcType=VARCHAR},
       </if>
-      <if test="studentName != null" >
+      <if test="studentName != null">
         STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
       </if>
-      <if test="studentSex != null" >
+      <if test="studentSex != null">
         STUDENT_SEX = #{studentSex,jdbcType=INTEGER},
       </if>
-      <if test="studentAge != null" >
+      <if test="studentAge != null">
         STUDENT_AGE = #{studentAge,jdbcType=INTEGER},
       </if>
-      <if test="studentPhone != null" >
+      <if test="studentPhone != null">
         STUDENT_PHONE = #{studentPhone,jdbcType=VARCHAR},
       </if>
-      <if test="studentSchool != null" >
+      <if test="studentSchool != null">
         STUDENT_SCHOOL = #{studentSchool,jdbcType=VARCHAR},
       </if>
-      <if test="studentAddr != null" >
+      <if test="studentAddr != null">
         STUDENT_ADDR = #{studentAddr,jdbcType=VARCHAR},
       </if>
-      <if test="studentCourse != null" >
+      <if test="studentCourse != null">
         STUDENT_COURSE = #{studentCourse,jdbcType=VARCHAR},
       </if>
-      <if test="studentVersion != null" >
+      <if test="studentVersion != null">
         STUDENT_VERSION = #{studentVersion,jdbcType=VARCHAR},
       </if>
-      <if test="studentGrade != null" >
+      <if test="studentGrade != null">
         STUDENT_GRADE = #{studentGrade,jdbcType=VARCHAR},
       </if>
     </set>
     where STUDENT_ID = #{studentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Student" >
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Student">
     update student
     set STUDENT_NO = #{studentNo,jdbcType=VARCHAR},
       STUDENT_NAME = #{studentName,jdbcType=VARCHAR},

@@ -7,7 +7,7 @@ import ncu.study.autopaper.model.QuestionFavKey;
 import org.apache.ibatis.annotations.Param;
 
 public interface QuestionFavMapper {
-    int countByExample(QuestionFavExample example);
+    long countByExample(QuestionFavExample example);
 
     int deleteByExample(QuestionFavExample example);
 

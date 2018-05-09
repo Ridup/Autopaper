@@ -53,9 +53,11 @@ public class Question {
 
     private Date updateTime;
 
-    private String questionComment;
+    private String questionContent;
 
-    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String selectionA, String selectionB, String selectionC, String selectionD, String answer, String analysis, Long questionHot, Integer ownner, Date createTime, Date updateTime, String questionComment) {
+    private String status;
+
+    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String selectionA, String selectionB, String selectionC, String selectionD, String answer, String analysis, Long questionHot, Integer ownner, Date createTime, Date updateTime, String questionContent, String status) {
         this.questionId = questionId;
         this.questionType = questionType;
         this.questionClass = questionClass;
@@ -81,7 +83,8 @@ public class Question {
         this.ownner = ownner;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.questionComment = questionComment;
+        this.questionContent = questionContent;
+        this.status = status;
     }
 
     public Question() {
@@ -288,11 +291,19 @@ public class Question {
         this.updateTime = updateTime;
     }
 
-    public String getQuestionComment() {
-        return questionComment;
+    public String getQuestionContent() {
+        return questionContent;
     }
 
-    public void setQuestionComment(String questionComment) {
-        this.questionComment = questionComment == null ? null : questionComment.trim();
+    public void setQuestionContent(String questionContent) {
+        this.questionContent = questionContent == null ? null : questionContent.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

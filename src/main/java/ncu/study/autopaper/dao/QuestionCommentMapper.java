@@ -6,7 +6,7 @@ import ncu.study.autopaper.model.QuestionCommentExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface QuestionCommentMapper {
-    int countByExample(QuestionCommentExample example);
+    long countByExample(QuestionCommentExample example);
 
     int deleteByExample(QuestionCommentExample example);
 

@@ -6,7 +6,7 @@ import ncu.study.autopaper.model.StudentExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface StudentMapper {
-    int countByExample(StudentExample example);
+    long countByExample(StudentExample example);
 
     int deleteByExample(StudentExample example);
 

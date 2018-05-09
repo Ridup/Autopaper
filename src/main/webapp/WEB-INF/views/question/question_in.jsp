@@ -145,7 +145,7 @@
         </style>
 
         <div class="header-logo">
-            <a href="<%=request.getContextPath()%>/">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="自动组卷平台" title="自动组卷平台">
             </a>
         </div>
@@ -529,7 +529,7 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">题干</label>
                     <div class="layui-input-block">
-                        <textarea name="questionComment"  lay-verify="required" placeholder="请输入题干" class="layui-textarea"></textarea>
+                        <textarea name="questionContent"  lay-verify="required" placeholder="请输入题干" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <%-- 单选选项集合--%>

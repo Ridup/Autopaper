@@ -1,42 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="ncu.study.autopaper.dao.PaperMapper" >
-  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Paper" >
-    <constructor >
-      <idArg column="PAPER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="PAPER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="QUESTIONS" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="PAPER_DIFFICULTY" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="PAPER_HOT" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="PAPER_GRADE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="PAPER_COURSE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="PAPER_VERSION" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="PAPER_ITEMS" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="PAPER_SCORES" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="SCORE" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="ITEM_TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="TIME" jdbcType="INTEGER" javaType="java.lang.Integer" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ncu.study.autopaper.dao.PaperMapper">
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Paper">
+    <constructor>
+      <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="QUESTIONS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_HOT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_GRADE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_COURSE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_ITEMS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_SCORES" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SCORE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ITEM_TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -47,25 +47,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -76,41 +76,41 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     PAPER_ID, PAPER_NAME, QUESTIONS, PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE, PAPER_COURSE, 
     PAPER_VERSION, PAPER_ITEMS, PAPER_SCORES, SCORE, ITEM_TIME, TIME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="ncu.study.autopaper.model.PaperExample" >
+  <select id="selectByExample" parameterType="ncu.study.autopaper.model.PaperExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from paper
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from paper
     where PAPER_ID = #{paperId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from paper
     where PAPER_ID = #{paperId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperExample" >
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperExample">
     delete from paper
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ncu.study.autopaper.model.Paper" >
+  <insert id="insert" parameterType="ncu.study.autopaper.model.Paper">
     insert into paper (PAPER_ID, PAPER_NAME, QUESTIONS, 
       PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE, 
       PAPER_COURSE, PAPER_VERSION, PAPER_ITEMS, 
@@ -122,145 +122,145 @@
       #{paperScores,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{itemTime,jdbcType=INTEGER}, 
       #{time,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Paper" >
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Paper">
     insert into paper
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="paperId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
         PAPER_ID,
       </if>
-      <if test="paperName != null" >
+      <if test="paperName != null">
         PAPER_NAME,
       </if>
-      <if test="questions != null" >
+      <if test="questions != null">
         QUESTIONS,
       </if>
-      <if test="paperDifficulty != null" >
+      <if test="paperDifficulty != null">
         PAPER_DIFFICULTY,
       </if>
-      <if test="paperHot != null" >
+      <if test="paperHot != null">
         PAPER_HOT,
       </if>
-      <if test="paperGrade != null" >
+      <if test="paperGrade != null">
         PAPER_GRADE,
       </if>
-      <if test="paperCourse != null" >
+      <if test="paperCourse != null">
         PAPER_COURSE,
       </if>
-      <if test="paperVersion != null" >
+      <if test="paperVersion != null">
         PAPER_VERSION,
       </if>
-      <if test="paperItems != null" >
+      <if test="paperItems != null">
         PAPER_ITEMS,
       </if>
-      <if test="paperScores != null" >
+      <if test="paperScores != null">
         PAPER_SCORES,
       </if>
-      <if test="score != null" >
+      <if test="score != null">
         SCORE,
       </if>
-      <if test="itemTime != null" >
+      <if test="itemTime != null">
         ITEM_TIME,
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         TIME,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="paperId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
         #{paperId,jdbcType=INTEGER},
       </if>
-      <if test="paperName != null" >
+      <if test="paperName != null">
         #{paperName,jdbcType=VARCHAR},
       </if>
-      <if test="questions != null" >
+      <if test="questions != null">
         #{questions,jdbcType=VARCHAR},
       </if>
-      <if test="paperDifficulty != null" >
+      <if test="paperDifficulty != null">
         #{paperDifficulty,jdbcType=INTEGER},
       </if>
-      <if test="paperHot != null" >
+      <if test="paperHot != null">
         #{paperHot,jdbcType=INTEGER},
       </if>
-      <if test="paperGrade != null" >
+      <if test="paperGrade != null">
         #{paperGrade,jdbcType=VARCHAR},
       </if>
-      <if test="paperCourse != null" >
+      <if test="paperCourse != null">
         #{paperCourse,jdbcType=VARCHAR},
       </if>
-      <if test="paperVersion != null" >
+      <if test="paperVersion != null">
         #{paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="paperItems != null" >
+      <if test="paperItems != null">
         #{paperItems,jdbcType=VARCHAR},
       </if>
-      <if test="paperScores != null" >
+      <if test="paperScores != null">
         #{paperScores,jdbcType=VARCHAR},
       </if>
-      <if test="score != null" >
+      <if test="score != null">
         #{score,jdbcType=INTEGER},
       </if>
-      <if test="itemTime != null" >
+      <if test="itemTime != null">
         #{itemTime,jdbcType=INTEGER},
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         #{time,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="ncu.study.autopaper.model.PaperExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.PaperExample" resultType="java.lang.Long">
     select count(*) from paper
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update paper
-    <set >
-      <if test="record.paperId != null" >
+    <set>
+      <if test="record.paperId != null">
         PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       </if>
-      <if test="record.paperName != null" >
+      <if test="record.paperName != null">
         PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
       </if>
-      <if test="record.questions != null" >
+      <if test="record.questions != null">
         QUESTIONS = #{record.questions,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperDifficulty != null" >
+      <if test="record.paperDifficulty != null">
         PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
       </if>
-      <if test="record.paperHot != null" >
+      <if test="record.paperHot != null">
         PAPER_HOT = #{record.paperHot,jdbcType=INTEGER},
       </if>
-      <if test="record.paperGrade != null" >
+      <if test="record.paperGrade != null">
         PAPER_GRADE = #{record.paperGrade,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperCourse != null" >
+      <if test="record.paperCourse != null">
         PAPER_COURSE = #{record.paperCourse,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperVersion != null" >
+      <if test="record.paperVersion != null">
         PAPER_VERSION = #{record.paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperItems != null" >
+      <if test="record.paperItems != null">
         PAPER_ITEMS = #{record.paperItems,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperScores != null" >
+      <if test="record.paperScores != null">
         PAPER_SCORES = #{record.paperScores,jdbcType=VARCHAR},
       </if>
-      <if test="record.score != null" >
+      <if test="record.score != null">
         SCORE = #{record.score,jdbcType=INTEGER},
       </if>
-      <if test="record.itemTime != null" >
+      <if test="record.itemTime != null">
         ITEM_TIME = #{record.itemTime,jdbcType=INTEGER},
       </if>
-      <if test="record.time != null" >
+      <if test="record.time != null">
         TIME = #{record.time,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update paper
     set PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
@@ -275,53 +275,53 @@
       SCORE = #{record.score,jdbcType=INTEGER},
       ITEM_TIME = #{record.itemTime,jdbcType=INTEGER},
       TIME = #{record.time,jdbcType=INTEGER}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Paper" >
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.Paper">
     update paper
-    <set >
-      <if test="paperName != null" >
+    <set>
+      <if test="paperName != null">
         PAPER_NAME = #{paperName,jdbcType=VARCHAR},
       </if>
-      <if test="questions != null" >
+      <if test="questions != null">
         QUESTIONS = #{questions,jdbcType=VARCHAR},
       </if>
-      <if test="paperDifficulty != null" >
+      <if test="paperDifficulty != null">
         PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
       </if>
-      <if test="paperHot != null" >
+      <if test="paperHot != null">
         PAPER_HOT = #{paperHot,jdbcType=INTEGER},
       </if>
-      <if test="paperGrade != null" >
+      <if test="paperGrade != null">
         PAPER_GRADE = #{paperGrade,jdbcType=VARCHAR},
       </if>
-      <if test="paperCourse != null" >
+      <if test="paperCourse != null">
         PAPER_COURSE = #{paperCourse,jdbcType=VARCHAR},
       </if>
-      <if test="paperVersion != null" >
+      <if test="paperVersion != null">
         PAPER_VERSION = #{paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="paperItems != null" >
+      <if test="paperItems != null">
         PAPER_ITEMS = #{paperItems,jdbcType=VARCHAR},
       </if>
-      <if test="paperScores != null" >
+      <if test="paperScores != null">
         PAPER_SCORES = #{paperScores,jdbcType=VARCHAR},
       </if>
-      <if test="score != null" >
+      <if test="score != null">
         SCORE = #{score,jdbcType=INTEGER},
       </if>
-      <if test="itemTime != null" >
+      <if test="itemTime != null">
         ITEM_TIME = #{itemTime,jdbcType=INTEGER},
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         TIME = #{time,jdbcType=INTEGER},
       </if>
     </set>
     where PAPER_ID = #{paperId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Paper" >
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Paper">
     update paper
     set PAPER_NAME = #{paperName,jdbcType=VARCHAR},
       QUESTIONS = #{questions,jdbcType=VARCHAR},

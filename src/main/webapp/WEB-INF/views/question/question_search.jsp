@@ -72,7 +72,9 @@
         -webkit-user-select: text !important;
         -moz-user-select: text !important;
     }</style>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/layer.css" id="layuicss-skinlayercss">
+<%--    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/layer.css" id="layuicss-skinlayercss">--%>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
+    <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
 </head>
 
 
@@ -87,19 +89,20 @@
     <div class="g-content">
         <div class="main">
             <div class="form-wrap">
-                <form class="f-cb" action="https://zujuan.21cnjy.com/question/search" id="global-search-form">
+                <form class="f-cb" action="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;questionType=${currentQuestionType}" id="global-search-form">
                     <input type="hidden" name="chid" value="">
                     <input type="hidden" name="xd" value="">
                     <div class="search-text" id="J_SearchMenu">
-                        <span class="text-select"><em class="J_tit">试题</em><i class="icona-tri"></i></span>
-                        <p class="select-items">
-                            <a href="javascript:;"><input type="radio" name="" value="/question/search" class="f-dn"
-                                                          checked=""><span>试题</span></a>
-                            <a href="javascript:;"><input type="radio" name="" value="/paper/search" class="f-dn"><span>试卷</span></a>
-                        </p>
+                        <span class="text-select"><em class="J_tit">试题</em></span>
                     </div>
                     <div class="search-inputbox">
-                        <input type="text" name="content" value="" class="search-input" placeholder="请输入关键词搜索">
+                        <input type="text" name="content" value="${currentContent}" class="search-input" placeholder="请输入关键词搜索">
+                        <input type="hidden" name="grade" value="${currentGrade.grade}">
+                        <input type="hidden" name="gradeName" value="${currentGrade.gradeName}">
+                        <input type="hidden" name="course" value="${currentCourse.course}">
+                        <input type="hidden" name="courseName" value="${currentCourse.courseName}">
+                        <input type="hidden" name="currentQuestionType" value="${currentQuestionType}">
+
                     </div>
                     <div class="search-btn">
                         <button class="btn" type="submit"><i class="icona-search1"></i></button>
@@ -108,24 +111,20 @@
             </div>
         </div>
         <div class="left">
-            <a href="https://zujuan.21cnjy.com/"><img src="<%=request.getContextPath()%>/static/images/search-logo.png" alt="logo"></a>
+            <a href="<%=request.getContextPath()%>/index.do"><img src="<%=request.getContextPath()%>/static/images/search-logo.png" alt="logo"></a>
         </div>
         <div class="right">
-            <a href="javascript:;" class="login" onclick="OT2.Global.initLogin(); return false;">登录</a>
-            <a href="https://zujuan.21cnjy.com/regist" class="register">注册</a>
+            <a href="<%=request.getContextPath()%>/user/login.do" class="login" onclick="OT2.Global.initLogin(); return false;">登录</a>
+            <a href="<%=request.getContextPath()%>/user/register.do" class="register">注册</a>
         </div>
     </div>
 </div>
 <div class="g-content">
     <div class="breadcrumb">
-        <i class="icona-dingwei"></i>当前位置：<a href="https://zujuan.21cnjy.com/">首页</a><b>&gt;</b><a
-            href="https://zujuan.21cnjy.com/question/search?content=">初中数学</a>
+        <i class="icona-dingwei"></i>当前位置：<a href="<%=request.getContextPath()%>/index.do">首页</a><b>&gt;</b><a
+            href="<%=request.getContextPath()%>/question/search.do?content=">${currentGrade.gradeName}${currentCourse.courseName}</a>
     </div>
     <div class="search-type">
-
-
-
-
 
 
         <%--多条件搜索开始--%>
@@ -134,64 +133,99 @@
             <div class="type-conbox">
                 <div class="type-con expand-mode">
                     <div class="con-items">
+                        <c:choose>
+                            <c:when test="${currentGrade.grade==null||currentGrade.grade==''}">
+                                <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?content=${currentContent}&amp;questionType=${currentQuestionType}" style="float: left;margin-top: 11px;">不限</a>
+                            </c:when>
+                            <c:otherwise><a class="" href="<%=request.getContextPath()%>/question/search.do?content=${currentContent}&amp;questionType=${currentQuestionType}" style="float: left;margin-top: 11px;">不限</a></c:otherwise>
+                        </c:choose>
+                        <c:forEach items="${allCourses}" var="courses">
                         <div>
-                            <a class="type-active" href="javascript:void(0)">不限</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=1&amp;chid=2">小学语文</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=1&amp;chid=3">小学数学</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=1&amp;chid=4">小学英语</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=1&amp;chid=5">小学科学</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=1&amp;chid=9">小学政治思品</a>
+                            <c:forEach items="${courses.coursePojos}" var="course">
+                                <c:choose>
+                                    <c:when test="${courses.gradeId==currentGrade.grade&&course.course==currentCourse.course}">
+                                        <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${courses.gradeId}&amp;gradeName=${courses.gradeName}&amp;course=${course.course}&amp;courseName=${course.courseName}&amp;content=${currentContent}&amp;questionType=${currentQuestionType}">${courses.gradeName}${course.courseName}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${courses.gradeId}&amp;gradeName=${courses.gradeName}&amp;course=${course.course}&amp;courseName=${course.courseName}&amp;content=${currentContent}&amp;questionType=${currentQuestionType}">${courses.gradeName}${course.courseName}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         </div>
-                        <div>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=2">初中语文</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=3">初中数学</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=4">初中英语</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=5">初中科学</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=6">初中物理</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=7">初中化学</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=8">初中历史</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=9">初中政治思品</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=10">初中地理</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=20">初中历史与社会</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=21">初中社会思品</a>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=2&amp;chid=11">初中生物</a>
-                        </div>
-                        <div>
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=2">高中语文</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=3">高中数学</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=4">高中英语</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=6">高中物理</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=7">高中化学</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=8">高中历史</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=9">高中政治思品</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=10">高中地理</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=11">高中生物</a>
-
-
-                            <a class="" href="https://zujuan.21cnjy.com/question/search?content=&amp;xd=3&amp;chid=14">高中信息技术</a>
-
-
-                        </div>
+                        </c:forEach>
                     </div>
                     <span class="show-more">更多<i></i></span></div>
             </div>
         </div>
+            <div class="type-items">
+                <div class="type-tit">题型：</div>
+                <div class="type-conbox">
+                    <div class="type-con expand-mode">
+                        <div class="con-items">
+
+                            <c:choose>
+                                <c:when test="${currentQuestionType==null||currentQuestionType==''}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?content=${currentContent}" style="">不限</a>
+                                </c:when>
+                                <c:otherwise><a class="" href="<%=request.getContextPath()%>/question/search.do?content=${currentContent}" style="">不限</a></c:otherwise>
+                            </c:choose>
+
+
+                            <c:choose>
+                                <c:when test="${currentQuestionType=='101'}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=101">
+                                        单选题</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=101">
+                                    单选题</a>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${currentQuestionType=='102'}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=102">
+                                        判断题</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=102">
+                                        判断题</a>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${currentQuestionType=='103'}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=103">
+                                        填空题</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=103">
+                                        填空题</a>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${currentQuestionType=='104'}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=104">
+                                        简答题</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=104">
+                                        简答题</a>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${currentQuestionType=='105'}">
+                                    <a class="type-active" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=105">
+                                        作文</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="" href="<%=request.getContextPath()%>/question/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content=${currentContent}&amp;questionType=105">
+                                        作文</a>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -222,82 +256,108 @@
     </div>
     <div class="all-search f-cb">
         <div class="relevant-search">
-            相关试题共<strong>1928408</strong>道
+            相关试题共<strong>${count}</strong>道<i class="layui-icon">&#xe60c;</i>
         </div>
     </div>
     <div class="search-list">
+        <c:if test="${count==0}">
+            <i class="layui-icon layui-icon-face-surprised" style="font-size: 30px; color: #FF5722;margin: auto">没有找到相关的试题呢</i>
+        </c:if>
         <ul id="J_QuestionList">
+
+
+
             <%--            列表开始*******************************************************************************************************************************  --%>
 
-            <li data-qid="4311466">
-                <div class="search-exam">
-                    <div class="exam-head">
-                        <p class="exam-head-left">
-                            <span>题型：单选题</span><i class="line"></i>
-                            <span>题类：真题</span><i class="line"></i>
-                            <span>难易度：普通</span>
-                        </p>
-                        <p class="exam-head-right">
-                            <span>试题来源：<a href="https://zujuan.21cnjy.com/paper/view/227448" target="_blank">2017年贵州省安顺市中考化学试卷    </a></span>
-                        </p>
-                    </div>
-                    <div class="exam-con">
+                <c:forEach items="${questions}" var="question" varStatus="vs">
+                    <li data-qid="${question.questionId}">
+                        <div class="search-exam">
+                            <div class="exam-head">
+                                <p class="exam-head-left">
+                                    <span>题型：${question.enumQuestionType.desc}</span><i class="line"></i>
+                                    <span>题类：${question.enumQuestionClass.desc}</span><i class="line"></i>
+                                    <span>难易度：${question.enumQuestionDifficulty.desc}</span><%--TODO 难易度评分星星--%>
+                                </p>
+                                <p class="exam-head-right">
 
-                        <div class="exam-q">
-                            5. （2017•安顺）在溶液中能大量共存且呈无色的离子组是（&nbsp;&nbsp; ）
+
+
+                                    <c:if test="${question.source!=null&&question.source!=''}">
+                                        <span>试题来源：<a href="javascript:void(0)" target="_blank">${question.source}</a></span>
+                                    </c:if>
+
+
+
+                                </p>
+                            </div>
+                            <div class="exam-con">
+                                <div class="exam-q">
+                                        ${vs.index+1}. ${question.questionContent}
+                                </div>
+
+
+
+
+                                <c:if test="${question.questionType==101}">
+                                <div class="exam-s">
+                            <span class="op-item" style="width: 289px; margin-right: 0px; height: 32px; clear: none;">
+                                <span class="op-item-nut" style="margin-top: 4px;">A . </span>
+                                <span class="op-item-meat" style="margin-top: 4px;">
+                                    ${question.selectionA}
+                                </span>
+                            </span>
+                                    <span class="op-item" style="width: 289px; margin-right: 0px; height: 32px; clear: none;">
+                                 <span class="op-item-nut" style="margin-top: 4px;">B . </span>
+                                 <span class="op-item-meat" style="margin-top: 4px;">
+                                         ${question.selectionB}
+                                 </span>
+                             </span>
+                                    <span class="op-item" style="width: 289px; margin-right: 0px; height: 32px; clear: none;">
+                                  <span class="op-item-nut" style="margin-top: 4px;">C . </span>
+                                  <span class="op-item-meat" style="margin-top: 4px;">
+                                          ${question.selectionC}
+                                  </span>
+                              </span>
+                                    <span class="op-item" style="width: 289px; margin-right: 0px; height: 32px; clear: none;">
+                                   <span class="op-item-nut" style="margin-top: 4px;">D . </span>
+                                   <span class="op-item-meat" style="margin-top: 4px;">
+                                           ${question.selectionD}
+                                   </span>
+                               </span>
+                                </div>
+                                </c:if>
+                                <c:if test="${question.questionType==102}">
+                                <div class="exam-s">
+                                    <span class="op-item" style="width: 200px; margin-right: 0px; height: 32px; clear: none;">
+                                <i class="layui-icon">&#xe605;</i> 对
+                            </span>
+                                    <span class="op-item" style="width: 200px; margin-right: 0px; height: 32px; clear: none;">
+                                <i class="layui-icon">&#x1006;</i> 错
+                            </span>
+                                </div>
+                            </c:if>
+
+
+
+
+                            </div>
+                            <div class="exam-foot">
+                                <p class="exam-foot-left">
+                                    <a target="_blank" href="<%=request.getContextPath()%>/question/detail/.do?questionId=${question.questionId}"><i
+                                            class="icona-jiexi"></i>查看解析</a>
+                                    <a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-shoucang"></i>收藏</a>
+                                    <a href="javascript:;" onclick="questionErrorReport( ${question.questionId} )"><i class="icona-jiucuo"></i>纠错</a>
+                                </p>
+                                <p class="exam-foot-right">
+                                    <span>组卷次数：${question.usetimes}次</span>
+                                    <a class="addbtn J_AddQuestion" href="javascript:;"><b>+</b>选题</a>
+                                </p>
+                                <div class="choice-tips" style="display: none;"><i class="icona-triangle"></i>选题功能需确定学科，请确定学科后再选题组卷。
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="exam-s">
-
-                            <span class="op-item"
-                                  style="width: 289px; margin-right: 0px; height: 32px; clear: none;"><span
-                                    class="op-item-nut" style="margin-top: 4px;">A . </span><span class="op-item-meat"
-                                                                                                  style="margin-top: 0px;">Na<sup>+</sup>、Fe<sup>3+</sup>、NO<sub>3</sub><sup>﹣</sup>、Cl<sup>﹣</sup></span></span>
-
-                            <span class="op-item"
-                                  style="width: 289px; margin-right: 0px; height: 32px; clear: none;"><span
-                                    class="op-item-nut" style="margin-top: 4px;">B . </span><span class="op-item-meat"
-                                                                                                  style="margin-top: 0px;">Ba<sup>2+</sup>、NH<sub>4</sub><sup>+</sup>、SO<sub>4</sub><sup>2</sup><sup>﹣</sup>、OH<sup>﹣</sup></span></span>
-
-                            <span class="op-item"
-                                  style="width: 289px; margin-right: 0px; height: 32px; clear: none;"><span
-                                    class="op-item-nut" style="margin-top: 4px;">C . </span><span class="op-item-meat"
-                                                                                                  style="margin-top: 0px;">Ag<sup>+</sup>、H<sup>+</sup>、Cl<sup>﹣</sup>、NO<sub>3</sub><sup>﹣</sup></span></span>
-
-                            <span class="op-item"
-                                  style="width: 289px; margin-right: 0px; height: 32px; clear: none;"><span
-                                    class="op-item-nut" style="margin-top: 4px;">D . </span><span class="op-item-meat"
-                                                                                                  style="margin-top: 0px;">H<sup>+</sup>、Na<sup>+</sup>、NO<sub>3</sub><sup>﹣</sup>、SO<sub>4</sub><sup>2</sup><sup>﹣</sup></span></span>
-
-                        </div>
-
-
-                    </div>
-                    <div class="exam-foot">
-                        <p class="exam-foot-left">
-                            <a target="_blank" href="https://zujuan.21cnjy.com/question/detail/4311466"><i
-                                    class="icona-jiexi"></i>查看解析</a>
-                            <a href="javascript:;" onclick="OT2.QCollect(this, 4311466 )"><i class="icona-shoucang"></i>收藏</a>
-                            <a href="javascript:;" onclick="new OT2.ErrorReport( 4311466 )"><i class="icona-jiucuo"></i>纠错</a>
-                        </p>
-                        <p class="exam-foot-right">
-
-                            <span>组卷次数：73次</span>
-
-                            <a class="addbtn J_AddQuestion" href="javascript:;"><b>+</b>选题</a>
-
-                        </p>
-                        <div class="choice-tips" style="display: none;"><i class="icona-triangle"></i>选题功能需确定学科，请确定学科后再选题组卷。
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-
-
-
-
-
+                    </li>
+                </c:forEach>
 
 
 
@@ -313,8 +373,8 @@
         </ul>
     </div>
     <div class="page">
-
-        <div class="pagenum">
+<div id="pagenum1"></div>
+        <%--<div class="pagenum">
 
             <a data-page="1" href="javascript:;" class="current">1</a>
             <a data-page="2" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=2&amp;per-page=10">2</a>
@@ -323,7 +383,7 @@
             <a data-page="5" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=5&amp;per-page=10">5</a>
 
             <a data-page="2"
-               href="https://zujuan.21cnjy.com/question/search?content=&amp;page=2&amp;per-page=10">下一页</a>
+               href="<%=request.getContextPath()%>/question/search?content=&amp;page=2&amp;per-page=10">下一页</a>
 
             <input style="
                 border: 1px solid #dcdcdc;
@@ -344,7 +404,7 @@
                     ob.value = v ? v : '';
                 }
             </script>
-        </div>
+        </div>--%>
     </div>
 </div>
 
@@ -405,6 +465,49 @@
     </div>
 </div>
 <!--footer结束-->
+
+
+
+<div class="basket " id="J_Basket">
+    <div class="basket-tit" onclick="visibleBugget();">
+        <p><i class="icona-gouwulan"></i><em>试题篮</em></p>
+        <span><i class="icona-gouwuleft"></i></span>
+    </div>
+    <div class="basket-con">
+        <div class="basket-count"><div class="basket-head">
+            共计：（<span>0</span>）道题
+        </div>
+            <div class="baskrt-list">
+
+            </div></div>
+        <div class="basket-foot">
+            <a id="to-paper-admin-edit" data-method="post" class="basket-btn" href="/paper/admin-edit" style="display: none">编辑</a>
+            <a id="to-paper-edit" data-method="post" class="basket-btn" href="/paper/edit" style="">生成试卷</a>
+            <a id="to-paper-admin-cancel" class="basket-btn" shref="/question" style="display: none">取消</a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //试题篮动态出入
+    function visibleBugget(){
+        if($("#J_Basket").hasClass("active")){
+            $("#J_Basket").removeClass("active");
+        }else{
+            $("#J_Basket").addClass("active");
+        }
+    }
+
+    function questionFav(){
+        //调研ajax，返回结果进行提示，注册事件
+    }
+
+
+</script>
+
+
+
 <script src="<%=request.getContextPath()%>/static/js/extends/global.min.js"></script>
 <a class="return" href="javascript:;" style="right: 9px; display: none;"><i class="icona-top"></i></a>
 <!--<script src="https://wpa.b.qq.com/cgi/wpa.php" type="text/javascript"></script>-->
@@ -437,9 +540,168 @@
 <script src="<%=request.getContextPath()%>/static/js/lib/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.activeForm.js"></script>
-<script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
+<%--<script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>--%>
 <script type="text/javascript">jQuery(function ($) {
     jQuery('#w0').yiiActiveForm([], []);
-});</script>
+});
+</script>
+<script>
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        //完整功能
+        laypage.render({
+            elem: 'pagenum1'
+            , count: ${count}  //数据总数，从服务端得到
+            , layout: ['count', 'prev', 'page', 'next','skip'] // TODO   'limit',  隐藏了功能
+            , jump: function (obj,first) {
+                var localObj = window.location;
+                var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+                console.log(obj);
+                console.log("当前第"+obj.curr+"页"+obj.limit+"条");
+                console.log("是否首次，一般用于初始加载的判断:"+first);
+
+
+
+
+if(!first){
+
+    $("html,body").animate({scrollTop: $("#J_QuestionList").offset().top}, 1000);
+    $("#J_QuestionList").html("");
+                //试题分页查询
+                $.ajax({
+                    url: server_context + '/question/searchPage.do?grade=${currentGrade.grade}&gradeName=${currentGrade.gradeName}&course=${currentCourse.course}&courseName=${currentCourse.courseName}&content=${currentContent}&questionType=${currentQuestionType}',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        page: obj.curr
+                    },
+                    timeout: 5000,    //超时时间
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data, textStatus, jqXHR) {
+                        console.log("data:" + data);
+                       /* console.log(data[0].chapter);
+                        console.log(data[0].pointPojoList);*/
+                        if (data != null) {
+                            console.log(data.result);
+                            var questions = data.result.questionList;
+                            $.each(questions,function(index,item){
+                                console.log("item"+item+index);
+                                var answerContentHtml = "";
+                                var sourceHtml = "";
+                                if(item.questionType=='101'){
+                                    console.log("单选题");
+                                     answerContentHtml = "<div class=\"exam-s\">\n" +
+                                         "                            <span class=\"op-item\" style=\"width: 289px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                         "                                <span class=\"op-item-nut\" style=\"margin-top: 4px;\">A . </span>\n" +
+                                         "                                <span class=\"op-item-meat\" style=\"margin-top: 4px;\">\n" +
+                                         "                                    "+item.selectionA+"\n" +
+                                         "                                </span>\n" +
+                                         "                            </span>\n" +
+                                         "                                    <span class=\"op-item\" style=\"width: 289px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                         "                                 <span class=\"op-item-nut\" style=\"margin-top: 4px;\">B . </span>\n" +
+                                         "                                 <span class=\"op-item-meat\" style=\"margin-top: 4px;\">\n" +
+                                         "                                         "+item.selectionB+"\n" +
+                                         "                                 </span>\n" +
+                                         "                             </span>\n" +
+                                         "                                    <span class=\"op-item\" style=\"width: 289px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                         "                                  <span class=\"op-item-nut\" style=\"margin-top: 4px;\">C . </span>\n" +
+                                         "                                  <span class=\"op-item-meat\" style=\"margin-top: 4px;\">\n" +
+                                         "                                          "+item.selectionC+"\n" +
+                                         "                                  </span>\n" +
+                                         "                              </span>\n" +
+                                         "                                    <span class=\"op-item\" style=\"width: 289px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                         "                                   <span class=\"op-item-nut\" style=\"margin-top: 4px;\">D . </span>\n" +
+                                         "                                   <span class=\"op-item-meat\" style=\"margin-top: 4px;\">\n" +
+                                         "                                           "+item.selectionD+"\n" +
+                                         "                                   </span>\n" +
+                                         "                               </span>\n" +
+                                         "                                </div>";
+                                }
+                                if(item.questionType=='102'){
+                                    console.log("判断题");
+                                   answerContentHtml = "<div class=\"exam-s\">\n" +
+                                       "                                    <span class=\"op-item\" style=\"width: 200px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                       "                                <i class=\"layui-icon\">&#xe605;</i> 对\n" +
+                                       "                            </span>\n" +
+                                       "                                    <span class=\"op-item\" style=\"width: 200px; margin-right: 0px; height: 32px; clear: none;\">\n" +
+                                       "                                <i class=\"layui-icon\">&#x1006;</i> 错\n" +
+                                       "                            </span>\n" +
+                                       "                                </div>";
+                                }
+                                if(item.source!=null&&item.source!=""){
+                                    sourceHtml = "<span>试题来源：<a href=\"javascript:void(0)\" target=\"_blank\">"+item.source+"</a></span>";
+                                }
+                                var numberIndex= (obj.curr-1)*10+index+1;
+                                var questionHtml = "<li data-qid=\""+item.questionId+"\">\n" +
+                                    "                        <div class=\"search-exam\">\n" +
+                                    "                            <div class=\"exam-head\">\n" +
+                                    "                                <p class=\"exam-head-left\">\n" +
+                                    "                                    <span>题型："+item.questionType1+"</span><i class=\"line\"></i>\n" +
+                                    "                                    <span>题类："+item.questionClass1+"</span><i class=\"line\"></i>\n" +
+                                    "                                    <span>难易度："+item.questionDifficulty1+"</span>\n" +
+                                    "                                </p>\n" +
+                                    "                                <p class=\"exam-head-right\">"
+                                    +sourceHtml+"</p>\n" +
+                                    "                            </div>\n" +
+                                    "                            <div class=\"exam-con\">\n" +
+                                    "                                <div class=\"exam-q\">\n" +
+                                    "                                        "+numberIndex+". "+item.questionContent+"\n" +
+                                    "                                </div>"
+                                    +answerContentHtml
+                                    +"</div>\n" +
+                                    "                            <div class=\"exam-foot\">\n" +
+                                    "                                <p class=\"exam-foot-left\">\n" +
+                                    "                                    <a target=\"_blank\" href=\"<%=request.getContextPath()%>/question/detail/.do?questionId="+item.questionId+"\"><i\n" +
+                                    "                                            class=\"icona-jiexi\"></i>查看解析</a>\n" +
+                                    "                                    <a href=\"javascript:;\" onclick=\"OT2.QCollect(this,  "+item.questionId+")\"><i class=\"icona-shoucang\"></i>收藏</a>\n" +
+                                    "                                    <a href=\"javascript:;\" onclick=\"new OT2.ErrorReport( "+item.questionId+" )\"><i class=\"icona-jiucuo\"></i>纠错</a>\n" +
+                                    "                                </p>\n" +
+                                    "                                <p class=\"exam-foot-right\">\n" +
+                                    "                                    <span>组卷次数："+item.usetimes+"次</span>\n" +
+                                    "                                    <a class=\"addbtn J_AddQuestion\" href=\"javascript:;\"><b>+</b>选题</a>\n" +
+                                    "                                </p>\n" +
+                                    "                                <div class=\"choice-tips\" style=\"display: none;\"><i class=\"icona-triangle\"></i>选题功能需确定学科，请确定学科后再选题组卷。\n" +
+                                    "                                </div>\n" +
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                    </li>";
+
+                                    $("#J_QuestionList").append(questionHtml);
+                            });
+                          /*  layui.use(['form', 'layer'], function () {
+                                $ = layui.jquery;
+                                var form = layui.form;
+                                for (var i = 0; i < data.length; i++) {
+
+                                    var points = "";
+                                    for (var n = 0; n < data[i].pointPojoList.length; n++) {
+                                        points = points + "<input type=\"checkbox\" name=\"point\" title=\"" + data[i].pointPojoList[n].pointName + "\" value=\"" + data[i].pointPojoList[n].courseId + "\" lay-skin=\"primary\">";
+                                    }
+                                    var pointHtml = "<div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">" +"<input type=\"checkbox\" name=\"chapterName\" value=\""+ data[i].chapter+"\" lay-skin=\"primary\">"+ data[i].chapter + "<i class=\"layui-icon layui-colla-icon\"></i></h2><div class=\"layui-colla-content layui-show\" >" + points + "</div></div>";
+                                    $('#chapterList').append(pointHtml);
+                                }
+                                form.render();
+                            });*/
+
+
+                        }else{
+                            layer.alert("<span style='margin-left: 70px;text-align: center;'>未查到数据！</span>");
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                    }
+                });
+}
+
+
+
+
+
+            }
+        });
+    });
+</script>
 </body>
 </html>

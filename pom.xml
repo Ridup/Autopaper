@@ -51,11 +51,13 @@
         </dependency>
 
         <!-- 实现slf4j接口并整合 -->
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.2</version>
+            <version>1.1.3</version>
         </dependency>
+
 
         <!-- JSON -->
         <dependency>
@@ -292,10 +294,11 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>1.3.5</version>
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
