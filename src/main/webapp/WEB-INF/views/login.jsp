@@ -116,7 +116,7 @@
 <div class="bg-global" id="loginForm" style="display:block">
     <div class="bg-login">
         <div class="img-wrap">
-            <a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="教育" ></a>
+            <a href="<%=request.getContextPath()%>/index.do"><img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="教育" ></a>
         </div>
         <form class="my-form J_LoginTabContent" action="<%=request.getContextPath()%>/user/loginIn.do" method="post">
             <input type="hidden" name="_csrf" value="ckxDRWxPQTRAHQcrHCEEXTsAHDA1KBN5Fx45IFUZAn4AIBMOOTcmDA==">

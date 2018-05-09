@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.ext.CoursesInfoExtMapper" >
+
+
+
+
+
+
+    <select id="getAllGrade" resultType="ncu.study.autopaper.common.pojo.GradePojo">
+        SELECT DISTINCT GRADE AS  grade,GRADE_NAME AS gradeName FROM courses_info
+    </select>
+
+
+    <select id="getAllCourse" resultType="ncu.study.autopaper.common.pojo.CoursePojo" >
+        SELECT DISTINCT COURSE AS course ,COURSE_NAME AS courseName FROM courses_info WHERE
+        <if test="gradePojo.grade!=null">
+        GRADE = #{gradePojo.grade} AND
+        </if>
+        <if test="gradePojo.gradeName!=null">
+            GRADE_NAME = #{gradePojo.gradeName}
+        </if>
+    </select>
+
+
+    <select id="getAllVersion" resultType="ncu.study.autopaper.common.pojo.VersionPojo" >
+        SELECT DISTINCT VERSION AS  version,VERSION_NAME AS versionName FROM courses_info WHERE
+
+        <if test="gradePojo.grade!=null">
+            GRADE = #{gradePojo.grade} AND
+        </if>
+        <if test="gradePojo.gradeName!=null">
+            GRADE_NAME = #{gradePojo.gradeName} AND
+        </if>
+
+        <if test="coursePojo.course!=null">
+            COURSE = #{coursePojo.course} AND
+        </if>
+        <if test="coursePojo.courseName!=null">
+            COURSE_NAME = #{coursePojo.courseName}
+        </if>
+
+    </select>
+
+    <select id="getChapterInfoById" resultType="ncu.study.autopaper.common.pojo.ChapterPojo">
+        SELECT DISTINCT CHAPTER AS  chapterId,CHAPTER_NAME AS chapterName FROM courses_info WHERE
+    </select>
+
+
+
+
+
+
+</mapper>

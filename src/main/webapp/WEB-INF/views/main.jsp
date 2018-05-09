@@ -159,7 +159,7 @@
             <a href="<%=request.getContextPath()%>/">Ridup旗下产品</a>
         </div>
 
-        <%--登陆成功显示用户信息--%>
+        <%--登录成功显示用户信息--%>
         <input type="hidden" value="${loginUser}" id="checkLogin">
         <input type="hidden" value="${tips}" id="tips">
         <div class="user f-fr f-pr topbar-dropmap" style="display: none" id="userBar">
@@ -191,7 +191,7 @@
 
         <%--导航条--%>
         <div class="webhelp">
-            <a href="<%=request.getContextPath()%>" class="help"><i class="icona-home"></i>网站首页</a>
+            <a href="<%=request.getContextPath()%>/index.do" class="help"><i class="icona-home"></i>网站首页</a>
             <span class="split"></span>
             <c:if test="${loginUser.userType=='1'}">
                 <a href="<%=request.getContextPath()%>/question/question_in.do" class="help" target="_blank"><i
@@ -213,7 +213,7 @@
 
 
 <script>
-    /* 登陆用户判断显示*/
+    /* 登录用户判断显示*/
     $(document).ready(function () {
         var loginUser = $("#checkLogin").val();
         var tips = $("#tips").val();
@@ -225,7 +225,7 @@
                 var tips = window.location.search.substring(6);
                 console.log(tips);
                 if (tips == "e01") {
-                    contentTips = "请重新登陆！";
+                    contentTips = "请重新登录！";
                 }
                 layer.alert("<span style='margin-left: 70px;text-align: center;color:#e65439'>" + contentTips + "</span>");
             }
@@ -251,24 +251,28 @@
 <div class="top-middle">
     <div class="top-minner g-container f-cb">
         <div class="logobox">
-            <a href="<%=request.getContextPath()%>">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/test_logo.png" alt="Ridup教育在线组卷平台" title="在线组卷平台"></a>
         </div>
         <div class="g-mn">
             <div class="searchbox">
-                <form id="search-form" action="https://zujuan.21cnjy.com/paper/search" method="get">
+                <form id="search-form" action="<%=request.getContextPath()%>/question/search.do" method="get">
                     <div class="search-text" id="J_SearchMenu">
-                        <span class="text-select"><em class="J_tit">试卷</em><i class="icona-tri"></i></span>
+                        <span class="text-select"><em class="J_tit">试题</em><i class="icona-tri"></i></span>
                         <p class="select-items">
-                            <a href="javascript:;">
-                                <input type="radio" name="" value="/question/search" class="f-dn" checked="">
-                                <span>试题</span>
-                            </a>
-                            <a href="javascript:;"><input type="radio" name="" value="/paper/search" class="f-dn"><span>试卷</span></a>
+                            <a href="javascript:;"><input type="radio" name="" value="<%=request.getContextPath()%>/question/search.do" class="f-dn" checked=""><span>试题</span></a>
+                            <a href="javascript:;"><input type="radio" name="" value="<%=request.getContextPath()%>/paper/search.do" class="f-dn"><span>试卷</span></a>
                         </p>
                     </div>
                     <div class="search-inputbox">
-                        <input type="text" name="content" value="" class="search-input" placeholder="请输入关键词搜索 初中数学 资源">
+                        <input type="text" name="content" value="" class="search-input" placeholder="">
+                        <input type="hidden" name="grade" value="${currentGrade.grade}">
+                        <input type="hidden" name="gradeName" value="${currentGrade.gradeName}">
+                        <input type="hidden" name="course" value="${currentCourse.course}">
+                        <input type="hidden" name="courseName" value="${currentCourse.courseName}">
+              <%--          <input type="hidden" name="grade" value="${currentGrade.grade}">
+                        <input type="hidden" name="grade" value="${currentGrade.grade}">--%>
+
                     </div>
                     <div class="search-btn">
                         <button class="btn" type="submit"><i class="icona-search"></i></button>
@@ -306,7 +310,7 @@
 <div class="top-navbox">
     <div class="top-nav g-container">
         <div class="nav-items">
-            <a href="https://zujuan.21cnjy.com/?1=1#" class="item">当前：<span>初中数学</span><i class="icona-tri2"></i></a>
+            <a href="https://zujuan.21cnjy.com/?1=1#" class="item">当前：<span>${currentGrade.gradeName}${currentCourse.courseName}</span><i class="icona-tri2"></i></a>
             <div class="item-list">
                 <c:forEach items="${allCourses}" var="courses">
                     <div class="list-${courses.gradeId}">
@@ -324,7 +328,7 @@
         <div class="nav-list">
             <ul>
                 <li>
-                    <a class="active" href="https://zujuan.21cnjy.com/">首页</a>
+                    <a class="active" href="<%=request.getContextPath()%>/index.do">首页</a>
                 </li>
                 <li class="complex-nav-item">
                     <a href="javascript:;" class="">手动组卷</a>
@@ -430,9 +434,9 @@
                                                     href="javascript:;"><span>${courses.gradeName}</span>${course.courseName}
                                             </a></p>
                                             <p class="list-txt2">
-                                                <a href="<%=request.getContextPath()%>/question/search.do?grade=${courses.gradeId}&amp;course=${course.course}">试题</a>
+                                                <a href="<%=request.getContextPath()%>/question/search.do?grade=${courses.gradeId}&amp;gradeName=${courses.gradeName}&amp;course=${course.course}&amp;courseName=${course.courseName}&amp;content=">试题</a>
                                                 <span></span>
-                                                <a href="<%=request.getContextPath()%>/paper/search.do?grade=${courses.gradeId}&amp;course=${course.course}">试卷</a>
+                                                <a href="<%=request.getContextPath()%>/paper/search.do?grade=${courses.gradeId}&amp;gradeName=${courses.gradeName}&amp;course=${course.course}&amp;courseName=${course.courseName}&amp;content=">试卷</a>
                                             </p>
                                         </div>
                                     </div>
