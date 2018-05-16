@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class QuestionCommentExample {
+public class QuestionErrorBookExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public QuestionCommentExample() {
+    public QuestionErrorBookExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -103,66 +103,6 @@ public class QuestionCommentExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        public Criteria andQuestionCommentIdIsNull() {
-            addCriterion("QUESTION_COMMENT_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdIsNotNull() {
-            addCriterion("QUESTION_COMMENT_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdEqualTo(Long value) {
-            addCriterion("QUESTION_COMMENT_ID =", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdNotEqualTo(Long value) {
-            addCriterion("QUESTION_COMMENT_ID <>", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdGreaterThan(Long value) {
-            addCriterion("QUESTION_COMMENT_ID >", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("QUESTION_COMMENT_ID >=", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdLessThan(Long value) {
-            addCriterion("QUESTION_COMMENT_ID <", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdLessThanOrEqualTo(Long value) {
-            addCriterion("QUESTION_COMMENT_ID <=", value, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdIn(List<Long> values) {
-            addCriterion("QUESTION_COMMENT_ID in", values, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdNotIn(List<Long> values) {
-            addCriterion("QUESTION_COMMENT_ID not in", values, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdBetween(Long value1, Long value2) {
-            addCriterion("QUESTION_COMMENT_ID between", value1, value2, "questionCommentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionCommentIdNotBetween(Long value1, Long value2) {
-            addCriterion("QUESTION_COMMENT_ID not between", value1, value2, "questionCommentId");
-            return (Criteria) this;
         }
 
         public Criteria andUserIdIsNull() {
@@ -285,193 +225,193 @@ public class QuestionCommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentIsNull() {
-            addCriterion("QUESTION_COMMENT is null");
+        public Criteria andMyScoreIsNull() {
+            addCriterion("MY_SCORE is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentIsNotNull() {
-            addCriterion("QUESTION_COMMENT is not null");
+        public Criteria andMyScoreIsNotNull() {
+            addCriterion("MY_SCORE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentEqualTo(String value) {
-            addCriterion("QUESTION_COMMENT =", value, "questionComment");
+        public Criteria andMyScoreEqualTo(Integer value) {
+            addCriterion("MY_SCORE =", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentNotEqualTo(String value) {
-            addCriterion("QUESTION_COMMENT <>", value, "questionComment");
+        public Criteria andMyScoreNotEqualTo(Integer value) {
+            addCriterion("MY_SCORE <>", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentGreaterThan(String value) {
-            addCriterion("QUESTION_COMMENT >", value, "questionComment");
+        public Criteria andMyScoreGreaterThan(Integer value) {
+            addCriterion("MY_SCORE >", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentGreaterThanOrEqualTo(String value) {
-            addCriterion("QUESTION_COMMENT >=", value, "questionComment");
+        public Criteria andMyScoreGreaterThanOrEqualTo(Integer value) {
+            addCriterion("MY_SCORE >=", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentLessThan(String value) {
-            addCriterion("QUESTION_COMMENT <", value, "questionComment");
+        public Criteria andMyScoreLessThan(Integer value) {
+            addCriterion("MY_SCORE <", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentLessThanOrEqualTo(String value) {
-            addCriterion("QUESTION_COMMENT <=", value, "questionComment");
+        public Criteria andMyScoreLessThanOrEqualTo(Integer value) {
+            addCriterion("MY_SCORE <=", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentLike(String value) {
-            addCriterion("QUESTION_COMMENT like", value, "questionComment");
+        public Criteria andMyScoreIn(List<Integer> values) {
+            addCriterion("MY_SCORE in", values, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentNotLike(String value) {
-            addCriterion("QUESTION_COMMENT not like", value, "questionComment");
+        public Criteria andMyScoreNotIn(List<Integer> values) {
+            addCriterion("MY_SCORE not in", values, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentIn(List<String> values) {
-            addCriterion("QUESTION_COMMENT in", values, "questionComment");
+        public Criteria andMyScoreBetween(Integer value1, Integer value2) {
+            addCriterion("MY_SCORE between", value1, value2, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentNotIn(List<String> values) {
-            addCriterion("QUESTION_COMMENT not in", values, "questionComment");
+        public Criteria andMyScoreNotBetween(Integer value1, Integer value2) {
+            addCriterion("MY_SCORE not between", value1, value2, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentBetween(String value1, String value2) {
-            addCriterion("QUESTION_COMMENT between", value1, value2, "questionComment");
+        public Criteria andMyAnswerIsNull() {
+            addCriterion("MY_ANSWER is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentNotBetween(String value1, String value2) {
-            addCriterion("QUESTION_COMMENT not between", value1, value2, "questionComment");
+        public Criteria andMyAnswerIsNotNull() {
+            addCriterion("MY_ANSWER is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeIsNull() {
-            addCriterion("QUESTION_COMMENT_TIME is null");
+        public Criteria andMyAnswerEqualTo(String value) {
+            addCriterion("MY_ANSWER =", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeIsNotNull() {
-            addCriterion("QUESTION_COMMENT_TIME is not null");
+        public Criteria andMyAnswerNotEqualTo(String value) {
+            addCriterion("MY_ANSWER <>", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeEqualTo(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME =", value, "questionCommentTime");
+        public Criteria andMyAnswerGreaterThan(String value) {
+            addCriterion("MY_ANSWER >", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeNotEqualTo(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME <>", value, "questionCommentTime");
+        public Criteria andMyAnswerGreaterThanOrEqualTo(String value) {
+            addCriterion("MY_ANSWER >=", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeGreaterThan(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME >", value, "questionCommentTime");
+        public Criteria andMyAnswerLessThan(String value) {
+            addCriterion("MY_ANSWER <", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME >=", value, "questionCommentTime");
+        public Criteria andMyAnswerLessThanOrEqualTo(String value) {
+            addCriterion("MY_ANSWER <=", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeLessThan(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME <", value, "questionCommentTime");
+        public Criteria andMyAnswerLike(String value) {
+            addCriterion("MY_ANSWER like", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeLessThanOrEqualTo(Date value) {
-            addCriterion("QUESTION_COMMENT_TIME <=", value, "questionCommentTime");
+        public Criteria andMyAnswerNotLike(String value) {
+            addCriterion("MY_ANSWER not like", value, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeIn(List<Date> values) {
-            addCriterion("QUESTION_COMMENT_TIME in", values, "questionCommentTime");
+        public Criteria andMyAnswerIn(List<String> values) {
+            addCriterion("MY_ANSWER in", values, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeNotIn(List<Date> values) {
-            addCriterion("QUESTION_COMMENT_TIME not in", values, "questionCommentTime");
+        public Criteria andMyAnswerNotIn(List<String> values) {
+            addCriterion("MY_ANSWER not in", values, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeBetween(Date value1, Date value2) {
-            addCriterion("QUESTION_COMMENT_TIME between", value1, value2, "questionCommentTime");
+        public Criteria andMyAnswerBetween(String value1, String value2) {
+            addCriterion("MY_ANSWER between", value1, value2, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentTimeNotBetween(Date value1, Date value2) {
-            addCriterion("QUESTION_COMMENT_TIME not between", value1, value2, "questionCommentTime");
+        public Criteria andMyAnswerNotBetween(String value1, String value2) {
+            addCriterion("MY_ANSWER not between", value1, value2, "myAnswer");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseIsNull() {
-            addCriterion("QUESTION_COMMENT_PRAISE is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("CREATE_TIME is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseIsNotNull() {
-            addCriterion("QUESTION_COMMENT_PRAISE is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("CREATE_TIME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseEqualTo(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE =", value, "questionCommentPraise");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("CREATE_TIME =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseNotEqualTo(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE <>", value, "questionCommentPraise");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("CREATE_TIME <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseGreaterThan(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE >", value, "questionCommentPraise");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("CREATE_TIME >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseGreaterThanOrEqualTo(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE >=", value, "questionCommentPraise");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseLessThan(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE <", value, "questionCommentPraise");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("CREATE_TIME <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseLessThanOrEqualTo(Integer value) {
-            addCriterion("QUESTION_COMMENT_PRAISE <=", value, "questionCommentPraise");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseIn(List<Integer> values) {
-            addCriterion("QUESTION_COMMENT_PRAISE in", values, "questionCommentPraise");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("CREATE_TIME in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseNotIn(List<Integer> values) {
-            addCriterion("QUESTION_COMMENT_PRAISE not in", values, "questionCommentPraise");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("CREATE_TIME not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseBetween(Integer value1, Integer value2) {
-            addCriterion("QUESTION_COMMENT_PRAISE between", value1, value2, "questionCommentPraise");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionCommentPraiseNotBetween(Integer value1, Integer value2) {
-            addCriterion("QUESTION_COMMENT_PRAISE not between", value1, value2, "questionCommentPraise");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

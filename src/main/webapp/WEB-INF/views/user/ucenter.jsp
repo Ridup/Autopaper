@@ -43,8 +43,7 @@
             return container;
         };
         var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {"uid":8955808,"username":"21jy_094440934","email":"","mobile":18214997310,"regip":"115.236.91.18","regdate":1521439694,"regsource":1,"lastloginip":2147483647,"lastlogintime":1521699020,"auth_key":"cTk4F8DBknO8uFrExMwujryVJ5CSs_QA","avatar":{"small_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=small","big_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=big"},"realname":"21jy_094440934","gender":null,"identity":null,"xd":null,"chid":null,"district":null,"school":null,"school_permit_id":null,"parent":"","signature":null,"memberProfile":null,"school_inf":null,"baseSchool":null,"tokenA":null,"tikuAdmin":false,"testLimit":null,"basketLimit":30,"isVip":false} ;
-        OT2.CSRF = {"_csrf": "CuLu_5_b5pKzlDz2vF0s8oF0235xNpoeksCnr1yLttF6kZu71aqP2ur7bb3oDnq4yRajGAJwxUHc8sTBZO3Ygg=="} ;
+        USER = {} ;
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9= false;</script>
@@ -104,7 +103,7 @@
         </style>
 
         <div class="header-logo">
-            <a href="<%=request.getContextPath()%>/">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="自动组卷平台" title="自动组卷平台">
             </a>
         </div>
@@ -117,7 +116,7 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
-                        <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
+                        <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/myfavorite.do" target="_blank">我的收藏</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/index.do" target="_blank">个人信息</a></li>
@@ -129,7 +128,7 @@
             </div>
             <div class="user f-fr"><a href="<%=request.getContextPath()%>/ucenter/u-msg.do"><i class="icona-xinxi"></i>消息<span>(0)</span></a></div>
             <div class="header-nav">
-                <a href="<%=request.getContextPath()%>" class="help"><i class="icona-home"></i>网站首页</a>
+                <a href="<%=request.getContextPath()%>/index.do" class="help"><i class="icona-home"></i>网站首页</a>
                 <span class="split"></span>
                 <c:if test="${loginUser.userType=='1'}">
                     <a href="<%=request.getContextPath()%>/question/question_in.do" class="help" target="_blank"><i class="icona-leixing"></i>试题录入</a>
@@ -319,12 +318,15 @@
                             </div>
                             <div class="form-line ">
                                 <label>注册时间：</label>
-                                <span><fmt:formatDate value="${user.registerTime }" pattern="yyyy-MM-dd HH:mm:ss"/> </span>
+                                <span><fmt:formatDate value="${user.registerTime}" type="date" dateStyle="full"/>&nbsp;&nbsp;
+                                    <fmt:formatDate value="${user.registerTime}" type="time" timeStyle="long"/></span>
+
                             </div>
                             <div class="form-line ">
                                 <label>修改时间：</label>
                                 <span>
-                                    <fmt:formatDate value="${user.modifyTime }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+                                <fmt:formatDate value="${user.modifyTime}" type="date" dateStyle="full"/>&nbsp;&nbsp;
+                                    <fmt:formatDate value="${user.modifyTime}" type="time" timeStyle="long"/></span>
                             </div>
                         </div>
                         <%--基本信息改界面————————————————————————————————————————————————--%>

@@ -1,46 +1,60 @@
 package ncu.study.autopaper.model;
 
+import java.util.Date;
+
 public class Paper {
     private Integer paperId;
 
     private String paperName;
 
-    private String questions;
+    private String typeCountCollection;
 
     private Integer paperDifficulty;
 
     private Integer paperHot;
 
-    private String paperGrade;
+    private String paperGradeId;
 
-    private String paperCourse;
+    private String paperGradeName;
+
+    private String paperCourseId;
+
+    private String paperCourseName;
 
     private String paperVersion;
 
-    private String paperItems;
-
     private String paperScores;
+
+    private Integer total;
 
     private Integer score;
 
-    private Integer itemTime;
-
     private Integer time;
 
-    public Paper(Integer paperId, String paperName, String questions, Integer paperDifficulty, Integer paperHot, String paperGrade, String paperCourse, String paperVersion, String paperItems, String paperScores, Integer score, Integer itemTime, Integer time) {
+    private String paperUrl;
+
+    private Integer owner;
+
+    private Date createTime;
+
+    public Paper(Integer paperId, String paperName, String typeCountCollection, Integer paperDifficulty, Integer paperHot, String paperGradeId, String paperGradeName, String paperCourseId, String paperCourseName, String paperVersion, String paperScores, Integer total, Integer score, Integer time, String paperUrl, Integer owner, Date createTime) {
         this.paperId = paperId;
         this.paperName = paperName;
-        this.questions = questions;
+        this.typeCountCollection = typeCountCollection;
         this.paperDifficulty = paperDifficulty;
         this.paperHot = paperHot;
-        this.paperGrade = paperGrade;
-        this.paperCourse = paperCourse;
+        this.paperGradeId = paperGradeId;
+        this.paperGradeName = paperGradeName;
+        this.paperCourseId = paperCourseId;
+        this.paperCourseName = paperCourseName;
         this.paperVersion = paperVersion;
-        this.paperItems = paperItems;
         this.paperScores = paperScores;
+        this.total = total;
         this.score = score;
-        this.itemTime = itemTime;
         this.time = time;
+        this.paperUrl = paperUrl;
+        this.owner = owner;
+        this.createTime = createTime;
     }
 
     public Paper() {
@@ -63,12 +77,12 @@ public class Paper {
         this.paperName = paperName == null ? null : paperName.trim();
     }
 
-    public String getQuestions() {
-        return questions;
+    public String getTypeCountCollection() {
+        return typeCountCollection;
     }
 
-    public void setQuestions(String questions) {
-        this.questions = questions == null ? null : questions.trim();
+    public void setTypeCountCollection(String typeCountCollection) {
+        this.typeCountCollection = typeCountCollection == null ? null : typeCountCollection.trim();
     }
 
     public Integer getPaperDifficulty() {
@@ -87,20 +101,36 @@ public class Paper {
         this.paperHot = paperHot;
     }
 
-    public String getPaperGrade() {
-        return paperGrade;
+    public String getPaperGradeId() {
+        return paperGradeId;
     }
 
-    public void setPaperGrade(String paperGrade) {
-        this.paperGrade = paperGrade == null ? null : paperGrade.trim();
+    public void setPaperGradeId(String paperGradeId) {
+        this.paperGradeId = paperGradeId == null ? null : paperGradeId.trim();
     }
 
-    public String getPaperCourse() {
-        return paperCourse;
+    public String getPaperGradeName() {
+        return paperGradeName;
     }
 
-    public void setPaperCourse(String paperCourse) {
-        this.paperCourse = paperCourse == null ? null : paperCourse.trim();
+    public void setPaperGradeName(String paperGradeName) {
+        this.paperGradeName = paperGradeName == null ? null : paperGradeName.trim();
+    }
+
+    public String getPaperCourseId() {
+        return paperCourseId;
+    }
+
+    public void setPaperCourseId(String paperCourseId) {
+        this.paperCourseId = paperCourseId == null ? null : paperCourseId.trim();
+    }
+
+    public String getPaperCourseName() {
+        return paperCourseName;
+    }
+
+    public void setPaperCourseName(String paperCourseName) {
+        this.paperCourseName = paperCourseName == null ? null : paperCourseName.trim();
     }
 
     public String getPaperVersion() {
@@ -111,20 +141,20 @@ public class Paper {
         this.paperVersion = paperVersion == null ? null : paperVersion.trim();
     }
 
-    public String getPaperItems() {
-        return paperItems;
-    }
-
-    public void setPaperItems(String paperItems) {
-        this.paperItems = paperItems == null ? null : paperItems.trim();
-    }
-
     public String getPaperScores() {
         return paperScores;
     }
 
     public void setPaperScores(String paperScores) {
         this.paperScores = paperScores == null ? null : paperScores.trim();
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public Integer getScore() {
@@ -135,19 +165,35 @@ public class Paper {
         this.score = score;
     }
 
-    public Integer getItemTime() {
-        return itemTime;
-    }
-
-    public void setItemTime(Integer itemTime) {
-        this.itemTime = itemTime;
-    }
-
     public Integer getTime() {
         return time;
     }
 
     public void setTime(Integer time) {
         this.time = time;
+    }
+
+    public String getPaperUrl() {
+        return paperUrl;
+    }
+
+    public void setPaperUrl(String paperUrl) {
+        this.paperUrl = paperUrl == null ? null : paperUrl.trim();
+    }
+
+    public Integer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Integer owner) {
+        this.owner = owner;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

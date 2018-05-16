@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.QuestionComment">
     <constructor>
       <idArg column="QUESTION_COMMENT_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="USER_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="QUESTION_COMMENT" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="QUESTION_COMMENT_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -107,7 +107,7 @@
     insert into question_comment (QUESTION_COMMENT_ID, USER_ID, QUESTION_ID, 
       QUESTION_COMMENT, QUESTION_COMMENT_TIME, 
       QUESTION_COMMENT_PRAISE)
-    values (#{questionCommentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, 
+    values (#{questionCommentId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{questionId,jdbcType=BIGINT}, 
       #{questionComment,jdbcType=VARCHAR}, #{questionCommentTime,jdbcType=TIMESTAMP}, 
       #{questionCommentPraise,jdbcType=INTEGER})
   </insert>
@@ -138,7 +138,7 @@
         #{questionCommentId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="questionId != null">
         #{questionId,jdbcType=BIGINT},
@@ -167,7 +167,7 @@
         QUESTION_COMMENT_ID = #{record.questionCommentId,jdbcType=BIGINT},
       </if>
       <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=BIGINT},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.questionId != null">
         QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
@@ -189,7 +189,7 @@
   <update id="updateByExample" parameterType="map">
     update question_comment
     set QUESTION_COMMENT_ID = #{record.questionCommentId,jdbcType=BIGINT},
-      USER_ID = #{record.userId,jdbcType=BIGINT},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
       QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
       QUESTION_COMMENT = #{record.questionComment,jdbcType=VARCHAR},
       QUESTION_COMMENT_TIME = #{record.questionCommentTime,jdbcType=TIMESTAMP},
@@ -202,7 +202,7 @@
     update question_comment
     <set>
       <if test="userId != null">
-        USER_ID = #{userId,jdbcType=BIGINT},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="questionId != null">
         QUESTION_ID = #{questionId,jdbcType=BIGINT},
@@ -221,7 +221,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionComment">
     update question_comment
-    set USER_ID = #{userId,jdbcType=BIGINT},
+    set USER_ID = #{userId,jdbcType=INTEGER},
       QUESTION_ID = #{questionId,jdbcType=BIGINT},
       QUESTION_COMMENT = #{questionComment,jdbcType=VARCHAR},
       QUESTION_COMMENT_TIME = #{questionCommentTime,jdbcType=TIMESTAMP},

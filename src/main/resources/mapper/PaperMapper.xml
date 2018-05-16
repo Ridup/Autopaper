@@ -5,17 +5,21 @@
     <constructor>
       <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="QUESTIONS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TYPE_COUNT_COLLECTION" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_HOT" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="PAPER_GRADE" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="PAPER_COURSE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_GRADE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PAPER_COURSE_ID" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="PAPER_COURSE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="PAPER_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="PAPER_ITEMS" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="PAPER_SCORES" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TOTAL" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="SCORE" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="ITEM_TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="OWNER" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -77,8 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    PAPER_ID, PAPER_NAME, QUESTIONS, PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE, PAPER_COURSE, 
-    PAPER_VERSION, PAPER_ITEMS, PAPER_SCORES, SCORE, ITEM_TIME, TIME
+    PAPER_ID, PAPER_NAME, TYPE_COUNT_COLLECTION, PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE_ID, 
+    PAPER_GRADE_NAME, PAPER_COURSE_ID, PAPER_COURSE_NAME, PAPER_VERSION, PAPER_SCORES, 
+    TOTAL, SCORE, TIME, PAPER_URL, OWNER, CREATE_TIME
   </sql>
   <select id="selectByExample" parameterType="ncu.study.autopaper.model.PaperExample" resultMap="BaseResultMap">
     select
@@ -111,16 +116,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="ncu.study.autopaper.model.Paper">
-    insert into paper (PAPER_ID, PAPER_NAME, QUESTIONS, 
-      PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE, 
-      PAPER_COURSE, PAPER_VERSION, PAPER_ITEMS, 
-      PAPER_SCORES, SCORE, ITEM_TIME, 
-      TIME)
-    values (#{paperId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, #{questions,jdbcType=VARCHAR}, 
-      #{paperDifficulty,jdbcType=INTEGER}, #{paperHot,jdbcType=INTEGER}, #{paperGrade,jdbcType=VARCHAR}, 
-      #{paperCourse,jdbcType=VARCHAR}, #{paperVersion,jdbcType=VARCHAR}, #{paperItems,jdbcType=VARCHAR}, 
-      #{paperScores,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{itemTime,jdbcType=INTEGER}, 
-      #{time,jdbcType=INTEGER})
+    insert into paper (PAPER_ID, PAPER_NAME, TYPE_COUNT_COLLECTION, 
+      PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE_ID, 
+      PAPER_GRADE_NAME, PAPER_COURSE_ID, PAPER_COURSE_NAME, 
+      PAPER_VERSION, PAPER_SCORES, TOTAL, 
+      SCORE, TIME, PAPER_URL, 
+      OWNER, CREATE_TIME)
+    values (#{paperId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, #{typeCountCollection,jdbcType=VARCHAR}, 
+      #{paperDifficulty,jdbcType=INTEGER}, #{paperHot,jdbcType=INTEGER}, #{paperGradeId,jdbcType=VARCHAR}, 
+      #{paperGradeName,jdbcType=VARCHAR}, #{paperCourseId,jdbcType=CHAR}, #{paperCourseName,jdbcType=VARCHAR}, 
+      #{paperVersion,jdbcType=VARCHAR}, #{paperScores,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{paperUrl,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="ncu.study.autopaper.model.Paper">
     insert into paper
@@ -131,8 +138,8 @@
       <if test="paperName != null">
         PAPER_NAME,
       </if>
-      <if test="questions != null">
-        QUESTIONS,
+      <if test="typeCountCollection != null">
+        TYPE_COUNT_COLLECTION,
       </if>
       <if test="paperDifficulty != null">
         PAPER_DIFFICULTY,
@@ -140,29 +147,41 @@
       <if test="paperHot != null">
         PAPER_HOT,
       </if>
-      <if test="paperGrade != null">
-        PAPER_GRADE,
+      <if test="paperGradeId != null">
+        PAPER_GRADE_ID,
       </if>
-      <if test="paperCourse != null">
-        PAPER_COURSE,
+      <if test="paperGradeName != null">
+        PAPER_GRADE_NAME,
+      </if>
+      <if test="paperCourseId != null">
+        PAPER_COURSE_ID,
+      </if>
+      <if test="paperCourseName != null">
+        PAPER_COURSE_NAME,
       </if>
       <if test="paperVersion != null">
         PAPER_VERSION,
       </if>
-      <if test="paperItems != null">
-        PAPER_ITEMS,
-      </if>
       <if test="paperScores != null">
         PAPER_SCORES,
+      </if>
+      <if test="total != null">
+        TOTAL,
       </if>
       <if test="score != null">
         SCORE,
       </if>
-      <if test="itemTime != null">
-        ITEM_TIME,
-      </if>
       <if test="time != null">
         TIME,
+      </if>
+      <if test="paperUrl != null">
+        PAPER_URL,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -172,8 +191,8 @@
       <if test="paperName != null">
         #{paperName,jdbcType=VARCHAR},
       </if>
-      <if test="questions != null">
-        #{questions,jdbcType=VARCHAR},
+      <if test="typeCountCollection != null">
+        #{typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="paperDifficulty != null">
         #{paperDifficulty,jdbcType=INTEGER},
@@ -181,29 +200,41 @@
       <if test="paperHot != null">
         #{paperHot,jdbcType=INTEGER},
       </if>
-      <if test="paperGrade != null">
-        #{paperGrade,jdbcType=VARCHAR},
+      <if test="paperGradeId != null">
+        #{paperGradeId,jdbcType=VARCHAR},
       </if>
-      <if test="paperCourse != null">
-        #{paperCourse,jdbcType=VARCHAR},
+      <if test="paperGradeName != null">
+        #{paperGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCourseId != null">
+        #{paperCourseId,jdbcType=CHAR},
+      </if>
+      <if test="paperCourseName != null">
+        #{paperCourseName,jdbcType=VARCHAR},
       </if>
       <if test="paperVersion != null">
         #{paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="paperItems != null">
-        #{paperItems,jdbcType=VARCHAR},
-      </if>
       <if test="paperScores != null">
         #{paperScores,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
       </if>
       <if test="score != null">
         #{score,jdbcType=INTEGER},
       </if>
-      <if test="itemTime != null">
-        #{itemTime,jdbcType=INTEGER},
-      </if>
       <if test="time != null">
         #{time,jdbcType=INTEGER},
+      </if>
+      <if test="paperUrl != null">
+        #{paperUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -222,8 +253,8 @@
       <if test="record.paperName != null">
         PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
       </if>
-      <if test="record.questions != null">
-        QUESTIONS = #{record.questions,jdbcType=VARCHAR},
+      <if test="record.typeCountCollection != null">
+        TYPE_COUNT_COLLECTION = #{record.typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="record.paperDifficulty != null">
         PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
@@ -231,29 +262,41 @@
       <if test="record.paperHot != null">
         PAPER_HOT = #{record.paperHot,jdbcType=INTEGER},
       </if>
-      <if test="record.paperGrade != null">
-        PAPER_GRADE = #{record.paperGrade,jdbcType=VARCHAR},
+      <if test="record.paperGradeId != null">
+        PAPER_GRADE_ID = #{record.paperGradeId,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperCourse != null">
-        PAPER_COURSE = #{record.paperCourse,jdbcType=VARCHAR},
+      <if test="record.paperGradeName != null">
+        PAPER_GRADE_NAME = #{record.paperGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paperCourseId != null">
+        PAPER_COURSE_ID = #{record.paperCourseId,jdbcType=CHAR},
+      </if>
+      <if test="record.paperCourseName != null">
+        PAPER_COURSE_NAME = #{record.paperCourseName,jdbcType=VARCHAR},
       </if>
       <if test="record.paperVersion != null">
         PAPER_VERSION = #{record.paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="record.paperItems != null">
-        PAPER_ITEMS = #{record.paperItems,jdbcType=VARCHAR},
-      </if>
       <if test="record.paperScores != null">
         PAPER_SCORES = #{record.paperScores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null">
+        TOTAL = #{record.total,jdbcType=INTEGER},
       </if>
       <if test="record.score != null">
         SCORE = #{record.score,jdbcType=INTEGER},
       </if>
-      <if test="record.itemTime != null">
-        ITEM_TIME = #{record.itemTime,jdbcType=INTEGER},
-      </if>
       <if test="record.time != null">
         TIME = #{record.time,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperUrl != null">
+        PAPER_URL = #{record.paperUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        OWNER = #{record.owner,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -264,17 +307,21 @@
     update paper
     set PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
-      QUESTIONS = #{record.questions,jdbcType=VARCHAR},
+      TYPE_COUNT_COLLECTION = #{record.typeCountCollection,jdbcType=VARCHAR},
       PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
       PAPER_HOT = #{record.paperHot,jdbcType=INTEGER},
-      PAPER_GRADE = #{record.paperGrade,jdbcType=VARCHAR},
-      PAPER_COURSE = #{record.paperCourse,jdbcType=VARCHAR},
+      PAPER_GRADE_ID = #{record.paperGradeId,jdbcType=VARCHAR},
+      PAPER_GRADE_NAME = #{record.paperGradeName,jdbcType=VARCHAR},
+      PAPER_COURSE_ID = #{record.paperCourseId,jdbcType=CHAR},
+      PAPER_COURSE_NAME = #{record.paperCourseName,jdbcType=VARCHAR},
       PAPER_VERSION = #{record.paperVersion,jdbcType=VARCHAR},
-      PAPER_ITEMS = #{record.paperItems,jdbcType=VARCHAR},
       PAPER_SCORES = #{record.paperScores,jdbcType=VARCHAR},
+      TOTAL = #{record.total,jdbcType=INTEGER},
       SCORE = #{record.score,jdbcType=INTEGER},
-      ITEM_TIME = #{record.itemTime,jdbcType=INTEGER},
-      TIME = #{record.time,jdbcType=INTEGER}
+      TIME = #{record.time,jdbcType=INTEGER},
+      PAPER_URL = #{record.paperUrl,jdbcType=VARCHAR},
+      OWNER = #{record.owner,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -285,8 +332,8 @@
       <if test="paperName != null">
         PAPER_NAME = #{paperName,jdbcType=VARCHAR},
       </if>
-      <if test="questions != null">
-        QUESTIONS = #{questions,jdbcType=VARCHAR},
+      <if test="typeCountCollection != null">
+        TYPE_COUNT_COLLECTION = #{typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="paperDifficulty != null">
         PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
@@ -294,29 +341,41 @@
       <if test="paperHot != null">
         PAPER_HOT = #{paperHot,jdbcType=INTEGER},
       </if>
-      <if test="paperGrade != null">
-        PAPER_GRADE = #{paperGrade,jdbcType=VARCHAR},
+      <if test="paperGradeId != null">
+        PAPER_GRADE_ID = #{paperGradeId,jdbcType=VARCHAR},
       </if>
-      <if test="paperCourse != null">
-        PAPER_COURSE = #{paperCourse,jdbcType=VARCHAR},
+      <if test="paperGradeName != null">
+        PAPER_GRADE_NAME = #{paperGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCourseId != null">
+        PAPER_COURSE_ID = #{paperCourseId,jdbcType=CHAR},
+      </if>
+      <if test="paperCourseName != null">
+        PAPER_COURSE_NAME = #{paperCourseName,jdbcType=VARCHAR},
       </if>
       <if test="paperVersion != null">
         PAPER_VERSION = #{paperVersion,jdbcType=VARCHAR},
       </if>
-      <if test="paperItems != null">
-        PAPER_ITEMS = #{paperItems,jdbcType=VARCHAR},
-      </if>
       <if test="paperScores != null">
         PAPER_SCORES = #{paperScores,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        TOTAL = #{total,jdbcType=INTEGER},
       </if>
       <if test="score != null">
         SCORE = #{score,jdbcType=INTEGER},
       </if>
-      <if test="itemTime != null">
-        ITEM_TIME = #{itemTime,jdbcType=INTEGER},
-      </if>
       <if test="time != null">
         TIME = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="paperUrl != null">
+        PAPER_URL = #{paperUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        OWNER = #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where PAPER_ID = #{paperId,jdbcType=INTEGER}
@@ -324,17 +383,21 @@
   <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.Paper">
     update paper
     set PAPER_NAME = #{paperName,jdbcType=VARCHAR},
-      QUESTIONS = #{questions,jdbcType=VARCHAR},
+      TYPE_COUNT_COLLECTION = #{typeCountCollection,jdbcType=VARCHAR},
       PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
       PAPER_HOT = #{paperHot,jdbcType=INTEGER},
-      PAPER_GRADE = #{paperGrade,jdbcType=VARCHAR},
-      PAPER_COURSE = #{paperCourse,jdbcType=VARCHAR},
+      PAPER_GRADE_ID = #{paperGradeId,jdbcType=VARCHAR},
+      PAPER_GRADE_NAME = #{paperGradeName,jdbcType=VARCHAR},
+      PAPER_COURSE_ID = #{paperCourseId,jdbcType=CHAR},
+      PAPER_COURSE_NAME = #{paperCourseName,jdbcType=VARCHAR},
       PAPER_VERSION = #{paperVersion,jdbcType=VARCHAR},
-      PAPER_ITEMS = #{paperItems,jdbcType=VARCHAR},
       PAPER_SCORES = #{paperScores,jdbcType=VARCHAR},
+      TOTAL = #{total,jdbcType=INTEGER},
       SCORE = #{score,jdbcType=INTEGER},
-      ITEM_TIME = #{itemTime,jdbcType=INTEGER},
-      TIME = #{time,jdbcType=INTEGER}
+      TIME = #{time,jdbcType=INTEGER},
+      PAPER_URL = #{paperUrl,jdbcType=VARCHAR},
+      OWNER = #{owner,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where PAPER_ID = #{paperId,jdbcType=INTEGER}
   </update>
 </mapper>

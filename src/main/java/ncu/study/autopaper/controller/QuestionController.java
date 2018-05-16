@@ -2,20 +2,20 @@ package ncu.study.autopaper.controller;
 
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import ncu.study.autopaper.common.enums.EnumQuestionClass;
 import ncu.study.autopaper.common.enums.EnumQuestionDifficulty;
 import ncu.study.autopaper.common.enums.EnumQuestionStatus;
 import ncu.study.autopaper.common.enums.EnumQuestionType;
 import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.common.result.JsonResult;
-import ncu.study.autopaper.model.CoursesInfo;
-import ncu.study.autopaper.model.Question;
-import ncu.study.autopaper.model.User;
+import ncu.study.autopaper.model.*;
 import ncu.study.autopaper.service.CoursesInfoService;
+import ncu.study.autopaper.service.QuestionBasketService;
+import ncu.study.autopaper.service.QuestionFavService;
 import ncu.study.autopaper.service.QuestionService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +38,19 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
+    @Resource
+    private QuestionFavService questionFavService;
+
+    @Resource
+    private QuestionBasketService questionBasketService;
+
     //带着条件首次进入试题查询
     @RequestMapping(value = "/search.do")
     public ModelAndView search(HttpServletRequest request, GradePojo gradePojo, CoursePojo coursePojo, String questionType, String content) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         List<CoursesPojo> allCourses = coursesInfoService.getAllCourses();
+        Boolean isLogin = false;
+        Boolean isInBasket = false;
         if (allCourses != null) {
             modelAndView.addObject("allCourses", allCourses);
         }
@@ -54,22 +62,51 @@ public class QuestionController {
             String a = new String(content.getBytes("iso-8859-1"), "utf-8");
             content = a;
         }
-
         HttpSession session = request.getSession();
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            isLogin = true;
+        }
         GradePojo currentGrade = (GradePojo) session.getAttribute("currentGrade");
         CoursePojo currentCourse = (CoursePojo) session.getAttribute("currentCourse");
+        String course = currentCourse.getCourse();
         int count = questionService.getSearchCount(currentGrade, currentCourse, questionType, content);
         List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
-        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content,0);
-        if(questions!=null){
-            for(Question question:questions){
+        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content, 0);
+        if (questions != null) {
+            for (Question question : questions) {
                 QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
-                BeanUtils.copyProperties(question,questionResponsePojo);
+                BeanUtils.copyProperties(question, questionResponsePojo);
                 questionResponsePojo.setEnumQuestionClass(EnumQuestionClass.find(question.getQuestionClass()));
                 questionResponsePojo.setEnumQuestionDifficulty(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()));
                 questionResponsePojo.setEnumQuestionStatus(EnumQuestionStatus.find(question.getStatus()));
                 questionResponsePojo.setEnumQuestionType(EnumQuestionType.find(question.getQuestionType()));
+                if (isLogin) {
+                    QuestionFav questionFav = questionFavService.getQuestionFavInfo(loginUser.getUserId(), question.getQuestionId());
+
+                    isInBasket = questionBasketService.isInBasket(loginUser.getUserId(), course, question.getQuestionId(), question.getQuestionType());
+
+
+                    questionResponsePojo.setQuestionFav(questionFav);
+
+                }
+                questionResponsePojo.setInBasket(isInBasket);
                 questionResponsePojos.add(questionResponsePojo);
+            }
+        }
+
+
+        if (isLogin) {
+            //试题篮信息查询
+            QuestionBasket questionBasket = questionBasketService.getQuestionBasketInfo(loginUser.getUserId(), course);
+            if (null != questionBasket) {
+                String questionBasketTypeCountPojosStr = questionBasket.getTypeCountCollection();
+                Gson gson = new Gson();
+                List<QuestionBasketTypeCountPojo> questionBasketTypeCountPojos = gson.fromJson(questionBasketTypeCountPojosStr, new TypeToken<List<QuestionBasketTypeCountPojo>>() {
+                }.getType());
+                int questionBasketTotal = questionBasket.getTotal();
+                modelAndView.addObject("questionBasketTypeCountPojos", questionBasketTypeCountPojos);
+                modelAndView.addObject("questionBasketTotal", questionBasketTotal);
             }
         }
 
@@ -81,6 +118,9 @@ public class QuestionController {
 
         modelAndView.addObject("count", count);
         modelAndView.addObject("questions", questionResponsePojos);
+
+        modelAndView.addObject("isLogin", isLogin);
+
         modelAndView.setViewName("/question/question_search");
         return modelAndView;
     }
@@ -88,22 +128,27 @@ public class QuestionController {
     //试题分页查询
     @ResponseBody
     @RequestMapping(value = "searchPage.do")
-    public JsonResult searchPage(HttpServletRequest request,String questionType, String content,int page) throws Exception{
+    public JsonResult searchPage(HttpServletRequest request, String questionType, String content, int page) throws Exception {
         JsonResult jsonResult = new JsonResult(true);
+        Boolean isLogin = false;
         if (content != null && content != "") {
             String a = new String(content.getBytes("iso-8859-1"), "utf-8");
             content = a;
         }
-        HttpSession session =request.getSession();
+        HttpSession session = request.getSession();
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            isLogin = true;
+        }
         GradePojo currentGrade = (GradePojo) session.getAttribute("currentGrade");
         CoursePojo currentCourse = (CoursePojo) session.getAttribute("currentCourse");
         List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
-        int start = (page-1)*10;
-        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content,start);
-        if(questions!=null){
-            for(Question question:questions){
+        int start = (page - 1) * 10;
+        List<Question> questions = questionService.getSearchQuestions(currentGrade, currentCourse, questionType, content, start);
+        if (questions != null) {
+            for (Question question : questions) {
                 QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
-                BeanUtils.copyProperties(question,questionResponsePojo);
+                BeanUtils.copyProperties(question, questionResponsePojo);
 
                 questionResponsePojo.setQuestionClass1(EnumQuestionClass.find(question.getQuestionClass()).getDesc());
                 questionResponsePojo.setQuestionDifficulty1(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()).getDesc());
@@ -115,13 +160,17 @@ public class QuestionController {
                 questionResponsePojo.setEnumQuestionStatus(EnumQuestionStatus.find(question.getStatus()));
                 questionResponsePojo.setEnumQuestionType(EnumQuestionType.find(question.getQuestionType()));
 
+                if (isLogin) {
+                    QuestionFav questionFav = questionFavService.getQuestionFavInfo(loginUser.getUserId(), question.getQuestionId());
+                    questionResponsePojo.setQuestionFav(questionFav);
+                }
+
                 questionResponsePojos.add(questionResponsePojo);
             }
         }
-        jsonResult.addData("questionList",questionResponsePojos);
+        jsonResult.addData("questionList", questionResponsePojos);
         return jsonResult;
     }
-
 
 
     @RequestMapping(value = "/question_in.do")
