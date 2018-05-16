@@ -113,10 +113,12 @@
         <div class="left">
             <a href="<%=request.getContextPath()%>/index.do"><img src="<%=request.getContextPath()%>/static/images/search-logo.png" alt="logo"></a>
         </div>
+        <c:if test="${!isLogin}">
         <div class="right">
             <a href="<%=request.getContextPath()%>/user/login.do" class="login" onclick="OT2.Global.initLogin(); return false;">登录</a>
             <a href="<%=request.getContextPath()%>/user/register.do" class="register">注册</a>
         </div>
+        </c:if>
     </div>
 </div>
 <div class="g-content">
@@ -256,7 +258,7 @@
     </div>
     <div class="all-search f-cb">
         <div class="relevant-search">
-            相关试题共<strong>${count}</strong>道<i class="layui-icon">&#xe60c;</i>
+            相关试题共<strong>${count}</strong>道
         </div>
     </div>
     <div class="search-list">
@@ -345,12 +347,28 @@
                                 <p class="exam-foot-left">
                                     <a target="_blank" href="<%=request.getContextPath()%>/question/detail/.do?questionId=${question.questionId}"><i
                                             class="icona-jiexi"></i>查看解析</a>
-                                    <a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-shoucang"></i>收藏</a>
+                                    <c:if test="${question.questionFav!=null}">
+
+                                    </c:if>
+                                    <c:choose>
+                                        <c:when test="${question.questionFav!=null}">
+                                            <a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-quxiaosc"></i>取消收藏</a>
+                                        </c:when>
+                                        <c:otherwise><a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-shoucang"></i>收藏</a></c:otherwise>
+                                    </c:choose>
+
                                     <a href="javascript:;" onclick="questionErrorReport( ${question.questionId} )"><i class="icona-jiucuo"></i>纠错</a>
                                 </p>
                                 <p class="exam-foot-right">
                                     <span>组卷次数：${question.usetimes}次</span>
-                                    <a class="addbtn J_AddQuestion" href="javascript:;"><b>+</b>选题</a>
+                                    <span>
+                                        <c:choose>
+                                            <c:when test="${question.inBasket}">
+                                                <a class="J_AddQuestion removebtn" href="javascript:;" onclick="questionDelete(this, ${question.questionId},${question.questionType})"><b>-</b>移除</a>
+                                            </c:when>
+                                            <c:otherwise><a class="addbtn J_AddQuestion" href="javascript:;" onclick="questionAdd(this, ${question.questionId} ,${question.questionType})"><b>+</b>选题</a></c:otherwise>
+                                        </c:choose>
+                                    </span>
                                 </p>
                                 <div class="choice-tips" style="display: none;"><i class="icona-triangle"></i>选题功能需确定学科，请确定学科后再选题组卷。
                                 </div>
@@ -467,7 +485,8 @@
 <!--footer结束-->
 
 
-
+<%--试题篮开始--%>
+<c:if test="${isLogin}">
 <div class="basket " id="J_Basket">
     <div class="basket-tit" onclick="visibleBugget();">
         <p><i class="icona-gouwulan"></i><em>试题篮</em></p>
@@ -475,21 +494,59 @@
     </div>
     <div class="basket-con">
         <div class="basket-count"><div class="basket-head">
-            共计：（<span>0</span>）道题
+            <c:choose>
+                <c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}">
+                    共计：（<span>${questionBasketTotal}</span>）道题
+                </c:when>
+                <c:otherwise>共计：（<span>0</span>）道题</c:otherwise>
+            </c:choose>
         </div>
             <div class="baskrt-list">
 
-            </div></div>
+                <c:choose>
+                    <c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}">
+                        <c:forEach items="${questionBasketTypeCountPojos}" var="typeCount">
+                            <p title="${typeCount.questionTypeName}">${typeCount.questionTypeName}：<span>${typeCount.questionCount}</span>道<i class="icona-del1 f-fr" onclick="basket.removeAll('${typeCount.questionType}', 7163341)"></i></p>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise></c:otherwise>
+                </c:choose>
+
+
+
+            </div>
+        </div>
         <div class="basket-foot">
             <a id="to-paper-admin-edit" data-method="post" class="basket-btn" href="/paper/admin-edit" style="display: none">编辑</a>
-            <a id="to-paper-edit" data-method="post" class="basket-btn" href="/paper/edit" style="">生成试卷</a>
+            <a id="to-paper-edit" data-method="post" class="basket-btn" href="javascript:void(0);" onclick="edit_paper();" style="">生成试卷</a>
             <a id="to-paper-admin-cancel" class="basket-btn" shref="/question" style="display: none">取消</a>
         </div>
     </div>
 </div>
+</c:if>
+<%--试题篮结束--%>
 
 
 <script>
+    var localObj = window.location;
+    var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+
+    $(document).ready(function(){
+        var param = window.location.search.substr(1, 4);
+        if (param == "tips") {
+            var tips = window.location.search.substring(6);
+            console.log(tips);
+            if (tips == "e01") {
+                contentTips = "请重新登录！";
+                layer.alert("<span style='margin-left: 70px;text-align: center;color:#e65439'>" + contentTips + "</span>");
+            }
+            if (tips == "e02") {
+                contentTips = "试题篮为空，请重新添加试题！";
+                layer.alert("<span style='margin-left: 70px;text-align: center;color:#e65439'>" + contentTips + "</span>");
+            }
+        }
+    });
+
     //试题篮动态出入
     function visibleBugget(){
         if($("#J_Basket").hasClass("active")){
@@ -499,10 +556,181 @@
         }
     }
 
-    function questionFav(){
-        //调研ajax，返回结果进行提示，注册事件
+    function questionFav(obj,questionId){
+        //ajax，返回结果进行提示，注册事件
+        layer.load();
+        console.log("obj===="+obj);
+        var favChange = obj.firstChild;
+        console.log("questionId===="+questionId);
+        $.ajax({
+            url: server_context + '/questionfav/fav.do',
+            type: 'POST', //GET
+            async: true,    //或false,是否异步
+            data: {
+                questionId: questionId
+            },
+            timeout: 5000,    //超时时间
+            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data, textStatus, jqXHR) {
+                var jsonResult = data;
+                var das = jsonResult.code;
+                layer.closeAll('loading');
+                if("X01"==jsonResult.code){
+                    if($(favChange).hasClass("icona-shoucang")){
+                        $(obj).html("<i class=\"icona-quxiaosc\"></i>取消收藏");
+                    }else{
+                        $(obj).html("<i class=\"icona-shoucang\"></i>收藏");
+                    }
+                }
+                else if("X03"==jsonResult.code){
+                    window.localObj.href = server_context+ "/index.do?tips=e01";
+                }
+                else{
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+
+            },
+            error: function (xhr, textStatus) {
+                layer.closeAll('loading');
+                layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+            }
+        });
+
     }
 
+    function questionAdd(obj,questionId,questionType) {
+        layer.load();
+        //ajax，返回结果进行提示，注册事件
+        console.log("obj===="+obj);
+        console.log("questionId===="+questionId);
+        var span_parent = obj.parentElement;
+
+        $.ajax({
+            url: server_context + '/question_basket/add.do',
+            type: 'POST', //GET
+            async: false,    //或false,是否异步
+            data: {
+                questionId: questionId,questionType:questionType
+            },
+            timeout: 5000,    //超时时间
+            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data, textStatus, jqXHR) {
+                var jsonResult = data;
+                var das = jsonResult.code;
+                layer.closeAll('loading');
+                if("X01"==jsonResult.code){
+                    $(span_parent).html("<a class=\"J_AddQuestion removebtn\" href=\"javascript:;\" onclick=\"questionDelete(this, "+questionId+","+questionType+")\"><b>-</b>移除</a>");
+                    //试题篮变化
+                    var questionBasketTypeCountPojos = jsonResult.result.questionBasketTypeCountPojos;
+                    var questionBasketTotal = jsonResult.result.questionBasketTotal;
+                    $(".basket-head").html("共计：（<span>"+questionBasketTotal+"</span>）道题");
+                    $(".baskrt-list").html("");
+                    $.each(questionBasketTypeCountPojos,function(index,item){
+                        var questionType =item.questionType;
+                            var questionTypeName = item.questionTypeName;
+                        var questionCount =item.questionCount;
+                        console.log("========"+questionType+questionTypeName+questionCount);
+                        $(".baskrt-list").append("<p title=\""+item.questionTypeName+"\">"+item.questionTypeName+"：<span>"+item.questionCount+"</span>道<i class=\"icona-del1 f-fr\" onclick=\"basket.removeAll('"+item.questionType+"', 7163341)\"></i></p>");
+                    });
+
+
+                }
+                else if("X03"==jsonResult.code){
+                    window.localObj.href = server_context+ "/index.do?tips=e01";
+                }
+                else{
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+
+            },
+            error: function (xhr, textStatus) {
+                layer.closeAll('loading');
+                layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+            }
+        });
+    }
+
+    function questionDelete(obj,questionId,questionType) {
+        layer.load();
+        //ajax，返回结果进行提示，注册事件
+        console.log("obj===="+obj);
+        console.log("questionId===="+questionId);
+        var span_parent = obj.parentElement;
+        $.ajax({
+            url: server_context + '/question_basket/delete.do',
+            type: 'POST', //GET
+            async: false,    //或false,是否异步
+            data: {
+                questionId: questionId,questionType:questionType
+            },
+            timeout: 5000,    //超时时间
+            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data, textStatus, jqXHR) {
+                var jsonResult = data;
+                var das = jsonResult.code;
+                layer.closeAll('loading');
+                if("X01"==jsonResult.code){
+                        $(span_parent).html(" <a class=\"addbtn J_AddQuestion\" href=\"javascript:;\" onclick=\"questionAdd(this, "+questionId+","+questionType+")\"><b>+</b>选题</a>");
+
+                    //试题篮变化
+                    var questionBasketTypeCountPojos = jsonResult.result.questionBasketTypeCountPojos;
+                    var questionBasketTotal = jsonResult.result.questionBasketTotal;
+                    if(null!=questionBasketTotal&&0!=questionBasketTotal){
+                        $(".basket-head").html("共计：（<span>"+questionBasketTotal+"</span>）道题");
+                        if(null!=questionBasketTypeCountPojos&&""!=questionBasketTypeCountPojos){
+                            $(".baskrt-list").html("");
+                            $.each(questionBasketTypeCountPojos,function(index,item){
+                                var questionType =item.questionType;
+                                var questionTypeName = item.questionTypeName;
+                                var questionCount =item.questionCount;
+                                console.log("========"+questionType+questionTypeName+questionCount);
+                                $(".baskrt-list").append("<p title=\""+item.questionTypeName+"\">"+item.questionTypeName+"：<span>"+item.questionCount+"</span>道<i class=\"icona-del1 f-fr\" onclick=\"basket.removeAll('"+item.questionType+"', 7163341)\"></i></p>");
+                            });
+                        }else{
+                            $(".basket-head").html("共计：（<span>0</span>）道题");
+                            $(".baskrt-list").html("");
+                        }
+                    }else{
+                        $(".basket-head").html("共计：（<span>0</span>）道题");
+                        $(".baskrt-list").html("");
+                    }
+
+
+
+                }
+                else if("X03"==jsonResult.code){
+                    window.localObj.href = server_context+ "/index.do?tips=e01";
+                }
+                else{
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+
+            },
+            error: function (xhr, textStatus) {
+                layer.closeAll('loading');
+                layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+            }
+        });
+    }
+
+
+    //手动生成试卷
+    function edit_paper() {
+        //询问框
+        var questions= $(".baskrt-list").html();
+        if(questions!=null&&questions!=""){
+            layer.confirm('确认手动生成试卷吗？', {
+                btn: ['确认生成','取消'] //按钮
+            }, function(){
+                window.location.href = "<%=request.getContextPath()%>/paper/edit.do";
+            }, function(){
+            });
+        }else{
+            contentTips = "试题篮为空，请重新添加试题！";
+            layer.alert("<span style='margin-left: 70px;text-align: center;color:#e65439'>" + contentTips + "</span>");
+        }
+
+    }
 
 </script>
 
@@ -540,7 +768,7 @@
 <script src="<%=request.getContextPath()%>/static/js/lib/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.activeForm.js"></script>
-<%--<script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>--%>
+<script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
 <script type="text/javascript">jQuery(function ($) {
     jQuery('#w0').yiiActiveForm([], []);
 });
@@ -589,6 +817,8 @@ if(!first){
                                 console.log("item"+item+index);
                                 var answerContentHtml = "";
                                 var sourceHtml = "";
+                                var favHtml = "";
+                                var basketHtml="";
                                 if(item.questionType=='101'){
                                     console.log("单选题");
                                      answerContentHtml = "<div class=\"exam-s\">\n" +
@@ -632,6 +862,16 @@ if(!first){
                                 if(item.source!=null&&item.source!=""){
                                     sourceHtml = "<span>试题来源：<a href=\"javascript:void(0)\" target=\"_blank\">"+item.source+"</a></span>";
                                 }
+                                if(null!=item.questionFav){
+                                    favHtml = "<i class=\"icona-quxiaosc\"></i>取消收藏";
+                                }else {
+                                    favHtml = "<i class=\"icona-shoucang\"></i>收藏";
+                                }
+                                if(item.inBasket){
+                                    basketHtml = "<a class=\"J_AddQuestion removebtn\" href=\"javascript:;\" onclick=\"questionDelete(this, "+item.questionId+","+item.questionType+")\"><b>-</b>移除</a>";
+                                }else{
+                                    basketHtml = "<a class=\"addbtn J_AddQuestion\" href=\"javascript:;\" onclick=\"questionAdd(this, "+item.questionId+" ,"+item.questionType+")\"><b>+</b>选题</a>";
+                                }
                                 var numberIndex= (obj.curr-1)*10+index+1;
                                 var questionHtml = "<li data-qid=\""+item.questionId+"\">\n" +
                                     "                        <div class=\"search-exam\">\n" +
@@ -654,19 +894,19 @@ if(!first){
                                     "                                <p class=\"exam-foot-left\">\n" +
                                     "                                    <a target=\"_blank\" href=\"<%=request.getContextPath()%>/question/detail/.do?questionId="+item.questionId+"\"><i\n" +
                                     "                                            class=\"icona-jiexi\"></i>查看解析</a>\n" +
-                                    "                                    <a href=\"javascript:;\" onclick=\"OT2.QCollect(this,  "+item.questionId+")\"><i class=\"icona-shoucang\"></i>收藏</a>\n" +
-                                    "                                    <a href=\"javascript:;\" onclick=\"new OT2.ErrorReport( "+item.questionId+" )\"><i class=\"icona-jiucuo\"></i>纠错</a>\n" +
+                                    "                                    <a href=\"javascript:;\"   onclick=\"questionFav(this,  "+item.questionId+")\">"+
+                                    favHtml+"</a>\n" +
+                                    "                                    <a href=\"javascript:;\" onclick=\"questionErrorReport( "+item.questionId+" )\"><i class=\"icona-jiucuo\"></i>纠错</a>\n" +
                                     "                                </p>\n" +
                                     "                                <p class=\"exam-foot-right\">\n" +
                                     "                                    <span>组卷次数："+item.usetimes+"次</span>\n" +
-                                    "                                    <a class=\"addbtn J_AddQuestion\" href=\"javascript:;\"><b>+</b>选题</a>\n" +
+                                    "                                    <span>"+basketHtml+"</span>\n" +
                                     "                                </p>\n" +
                                     "                                <div class=\"choice-tips\" style=\"display: none;\"><i class=\"icona-triangle\"></i>选题功能需确定学科，请确定学科后再选题组卷。\n" +
                                     "                                </div>\n" +
                                     "                            </div>\n" +
                                     "                        </div>\n" +
                                     "                    </li>";
-
                                     $("#J_QuestionList").append(questionHtml);
                             });
                           /*  layui.use(['form', 'layer'], function () {

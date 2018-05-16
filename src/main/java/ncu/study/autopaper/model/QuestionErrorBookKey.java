@@ -1,16 +1,16 @@
 package ncu.study.autopaper.model;
 
-public class QuestionFavKey {
+public class QuestionErrorBookKey {
     private Integer userId;
 
     private Long questionId;
 
-    public QuestionFavKey(Integer userId, Long questionId) {
+    public QuestionErrorBookKey(Integer userId, Long questionId) {
         this.userId = userId;
         this.questionId = questionId;
     }
 
-    public QuestionFavKey() {
+    public QuestionErrorBookKey() {
         super();
     }
 

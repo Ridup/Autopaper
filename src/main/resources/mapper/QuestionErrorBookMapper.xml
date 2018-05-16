@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ncu.study.autopaper.dao.QuestionFavMapper">
-  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.QuestionFav">
+<mapper namespace="ncu.study.autopaper.dao.QuestionErrorBookMapper">
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.QuestionErrorBook">
     <constructor>
       <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <idArg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="COLLECT_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="IS_WRONG" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="MY_SCORE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="MY_ANSWER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, QUESTION_ID, COLLECT_TIME, QUESTION_DIFFICULTY, IS_WRONG
+    USER_ID, QUESTION_ID, MY_SCORE, MY_ANSWER, CREATE_TIME
   </sql>
-  <select id="selectByExample" parameterType="ncu.study.autopaper.model.QuestionFavExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="ncu.study.autopaper.model.QuestionErrorBookExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from question_fav
+    from question_error_book
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,32 +85,32 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionFavKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionErrorBookKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from question_fav
+    from question_error_book
     where USER_ID = #{userId,jdbcType=INTEGER}
       and QUESTION_ID = #{questionId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionFavKey">
-    delete from question_fav
+  <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionErrorBookKey">
+    delete from question_error_book
     where USER_ID = #{userId,jdbcType=INTEGER}
       and QUESTION_ID = #{questionId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.QuestionFavExample">
-    delete from question_fav
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.QuestionErrorBookExample">
+    delete from question_error_book
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="ncu.study.autopaper.model.QuestionFav">
-    insert into question_fav (USER_ID, QUESTION_ID, COLLECT_TIME, 
-      QUESTION_DIFFICULTY, IS_WRONG)
-    values (#{userId,jdbcType=INTEGER}, #{questionId,jdbcType=BIGINT}, #{collectTime,jdbcType=TIMESTAMP}, 
-      #{questionDifficulty,jdbcType=INTEGER}, #{isWrong,jdbcType=INTEGER})
+  <insert id="insert" parameterType="ncu.study.autopaper.model.QuestionErrorBook">
+    insert into question_error_book (USER_ID, QUESTION_ID, MY_SCORE, 
+      MY_ANSWER, CREATE_TIME)
+    values (#{userId,jdbcType=INTEGER}, #{questionId,jdbcType=BIGINT}, #{myScore,jdbcType=INTEGER}, 
+      #{myAnswer,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.QuestionFav">
-    insert into question_fav
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.QuestionErrorBook">
+    insert into question_error_book
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         USER_ID,
@@ -118,14 +118,14 @@
       <if test="questionId != null">
         QUESTION_ID,
       </if>
-      <if test="collectTime != null">
-        COLLECT_TIME,
+      <if test="myScore != null">
+        MY_SCORE,
       </if>
-      <if test="questionDifficulty != null">
-        QUESTION_DIFFICULTY,
+      <if test="myAnswer != null">
+        MY_ANSWER,
       </if>
-      <if test="isWrong != null">
-        IS_WRONG,
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -135,25 +135,25 @@
       <if test="questionId != null">
         #{questionId,jdbcType=BIGINT},
       </if>
-      <if test="collectTime != null">
-        #{collectTime,jdbcType=TIMESTAMP},
+      <if test="myScore != null">
+        #{myScore,jdbcType=INTEGER},
       </if>
-      <if test="questionDifficulty != null">
-        #{questionDifficulty,jdbcType=INTEGER},
+      <if test="myAnswer != null">
+        #{myAnswer,jdbcType=VARCHAR},
       </if>
-      <if test="isWrong != null">
-        #{isWrong,jdbcType=INTEGER},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="ncu.study.autopaper.model.QuestionFavExample" resultType="java.lang.Long">
-    select count(*) from question_fav
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.QuestionErrorBookExample" resultType="java.lang.Long">
+    select count(*) from question_error_book
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update question_fav
+    update question_error_book
     <set>
       <if test="record.userId != null">
         USER_ID = #{record.userId,jdbcType=INTEGER},
@@ -161,14 +161,14 @@
       <if test="record.questionId != null">
         QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
       </if>
-      <if test="record.collectTime != null">
-        COLLECT_TIME = #{record.collectTime,jdbcType=TIMESTAMP},
+      <if test="record.myScore != null">
+        MY_SCORE = #{record.myScore,jdbcType=INTEGER},
       </if>
-      <if test="record.questionDifficulty != null">
-        QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
+      <if test="record.myAnswer != null">
+        MY_ANSWER = #{record.myAnswer,jdbcType=VARCHAR},
       </if>
-      <if test="record.isWrong != null">
-        IS_WRONG = #{record.isWrong,jdbcType=INTEGER},
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -176,37 +176,37 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update question_fav
+    update question_error_book
     set USER_ID = #{record.userId,jdbcType=INTEGER},
       QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
-      COLLECT_TIME = #{record.collectTime,jdbcType=TIMESTAMP},
-      QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
-      IS_WRONG = #{record.isWrong,jdbcType=INTEGER}
+      MY_SCORE = #{record.myScore,jdbcType=INTEGER},
+      MY_ANSWER = #{record.myAnswer,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.QuestionFav">
-    update question_fav
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.QuestionErrorBook">
+    update question_error_book
     <set>
-      <if test="collectTime != null">
-        COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      <if test="myScore != null">
+        MY_SCORE = #{myScore,jdbcType=INTEGER},
       </if>
-      <if test="questionDifficulty != null">
-        QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
+      <if test="myAnswer != null">
+        MY_ANSWER = #{myAnswer,jdbcType=VARCHAR},
       </if>
-      <if test="isWrong != null">
-        IS_WRONG = #{isWrong,jdbcType=INTEGER},
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where USER_ID = #{userId,jdbcType=INTEGER}
       and QUESTION_ID = #{questionId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionFav">
-    update question_fav
-    set COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
-      QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
-      IS_WRONG = #{isWrong,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.QuestionErrorBook">
+    update question_error_book
+    set MY_SCORE = #{myScore,jdbcType=INTEGER},
+      MY_ANSWER = #{myAnswer,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where USER_ID = #{userId,jdbcType=INTEGER}
       and QUESTION_ID = #{questionId,jdbcType=BIGINT}
   </update>

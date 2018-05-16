@@ -5,7 +5,7 @@ import java.util.Date;
 public class QuestionComment {
     private Long questionCommentId;
 
-    private Long userId;
+    private Integer userId;
 
     private Long questionId;
 
@@ -15,7 +15,7 @@ public class QuestionComment {
 
     private Integer questionCommentPraise;
 
-    public QuestionComment(Long questionCommentId, Long userId, Long questionId, String questionComment, Date questionCommentTime, Integer questionCommentPraise) {
+    public QuestionComment(Long questionCommentId, Integer userId, Long questionId, String questionComment, Date questionCommentTime, Integer questionCommentPraise) {
         this.questionCommentId = questionCommentId;
         this.userId = userId;
         this.questionId = questionId;
@@ -36,11 +36,11 @@ public class QuestionComment {
         this.questionCommentId = questionCommentId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

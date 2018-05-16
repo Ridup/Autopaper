@@ -9,7 +9,7 @@ public class QuestionFav extends QuestionFavKey {
 
     private Integer isWrong;
 
-    public QuestionFav(Long userId, Long questionId, Date collectTime, Integer questionDifficulty, Integer isWrong) {
+    public QuestionFav(Integer userId, Long questionId, Date collectTime, Integer questionDifficulty, Integer isWrong) {
         super(userId, questionId);
         this.collectTime = collectTime;
         this.questionDifficulty = questionDifficulty;

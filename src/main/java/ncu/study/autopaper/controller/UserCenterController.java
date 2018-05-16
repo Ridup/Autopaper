@@ -39,10 +39,9 @@ public class UserCenterController {
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession(false);
         if (session != null) {
-            User obj = (User) session.getAttribute("loginUser");
-            if (obj != null) {
+            User user = (User) session.getAttribute("loginUser");
+            if (user != null) {
                 //查询用户信息并与展示
-                User user = userCenterService.getUserInfo(obj.getUserPhone());
                 modelAndView.addObject("user", user);
                 if (user.getUserType().equals("1")) {
                     Teacher teacher = new Teacher();

@@ -5,6 +5,7 @@ import ncu.study.autopaper.common.enums.EnumQuestionClass;
 import ncu.study.autopaper.common.enums.EnumQuestionStatus;
 import ncu.study.autopaper.common.enums.EnumQuestionType;
 import ncu.study.autopaper.model.Question;
+import ncu.study.autopaper.model.QuestionFav;
 import ncu.study.autopaper.model.User;
 
 import java.util.Date;
@@ -21,6 +22,10 @@ public class QuestionResponsePojo extends Question{
     private EnumQuestionDifficulty enumQuestionDifficulty;
 
     private EnumQuestionStatus enumQuestionStatus;
+
+    private QuestionFav questionFav;
+
+    private Boolean isInBasket;
 
 
     private String questionType1;
@@ -96,4 +101,19 @@ public class QuestionResponsePojo extends Question{
         this.questionStatus1 = questionStatus1;
     }
 
+    public QuestionFav getQuestionFav() {
+        return questionFav;
+    }
+
+    public void setQuestionFav(QuestionFav questionFav) {
+        this.questionFav = questionFav;
+    }
+
+    public Boolean getInBasket() {
+        return isInBasket;
+    }
+
+    public void setInBasket(Boolean inBasket) {
+        isInBasket = inBasket;
+    }
 }

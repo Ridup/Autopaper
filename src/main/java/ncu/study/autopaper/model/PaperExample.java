@@ -1,6 +1,7 @@
 package ncu.study.autopaper.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PaperExample {
@@ -234,73 +235,73 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsIsNull() {
-            addCriterion("QUESTIONS is null");
+        public Criteria andTypeCountCollectionIsNull() {
+            addCriterion("TYPE_COUNT_COLLECTION is null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsIsNotNull() {
-            addCriterion("QUESTIONS is not null");
+        public Criteria andTypeCountCollectionIsNotNull() {
+            addCriterion("TYPE_COUNT_COLLECTION is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsEqualTo(String value) {
-            addCriterion("QUESTIONS =", value, "questions");
+        public Criteria andTypeCountCollectionEqualTo(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION =", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsNotEqualTo(String value) {
-            addCriterion("QUESTIONS <>", value, "questions");
+        public Criteria andTypeCountCollectionNotEqualTo(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION <>", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsGreaterThan(String value) {
-            addCriterion("QUESTIONS >", value, "questions");
+        public Criteria andTypeCountCollectionGreaterThan(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION >", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsGreaterThanOrEqualTo(String value) {
-            addCriterion("QUESTIONS >=", value, "questions");
+        public Criteria andTypeCountCollectionGreaterThanOrEqualTo(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION >=", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsLessThan(String value) {
-            addCriterion("QUESTIONS <", value, "questions");
+        public Criteria andTypeCountCollectionLessThan(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION <", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsLessThanOrEqualTo(String value) {
-            addCriterion("QUESTIONS <=", value, "questions");
+        public Criteria andTypeCountCollectionLessThanOrEqualTo(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION <=", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsLike(String value) {
-            addCriterion("QUESTIONS like", value, "questions");
+        public Criteria andTypeCountCollectionLike(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION like", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsNotLike(String value) {
-            addCriterion("QUESTIONS not like", value, "questions");
+        public Criteria andTypeCountCollectionNotLike(String value) {
+            addCriterion("TYPE_COUNT_COLLECTION not like", value, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsIn(List<String> values) {
-            addCriterion("QUESTIONS in", values, "questions");
+        public Criteria andTypeCountCollectionIn(List<String> values) {
+            addCriterion("TYPE_COUNT_COLLECTION in", values, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsNotIn(List<String> values) {
-            addCriterion("QUESTIONS not in", values, "questions");
+        public Criteria andTypeCountCollectionNotIn(List<String> values) {
+            addCriterion("TYPE_COUNT_COLLECTION not in", values, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsBetween(String value1, String value2) {
-            addCriterion("QUESTIONS between", value1, value2, "questions");
+        public Criteria andTypeCountCollectionBetween(String value1, String value2) {
+            addCriterion("TYPE_COUNT_COLLECTION between", value1, value2, "typeCountCollection");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionsNotBetween(String value1, String value2) {
-            addCriterion("QUESTIONS not between", value1, value2, "questions");
+        public Criteria andTypeCountCollectionNotBetween(String value1, String value2) {
+            addCriterion("TYPE_COUNT_COLLECTION not between", value1, value2, "typeCountCollection");
             return (Criteria) this;
         }
 
@@ -424,143 +425,283 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeIsNull() {
-            addCriterion("PAPER_GRADE is null");
+        public Criteria andPaperGradeIdIsNull() {
+            addCriterion("PAPER_GRADE_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeIsNotNull() {
-            addCriterion("PAPER_GRADE is not null");
+        public Criteria andPaperGradeIdIsNotNull() {
+            addCriterion("PAPER_GRADE_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeEqualTo(String value) {
-            addCriterion("PAPER_GRADE =", value, "paperGrade");
+        public Criteria andPaperGradeIdEqualTo(String value) {
+            addCriterion("PAPER_GRADE_ID =", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeNotEqualTo(String value) {
-            addCriterion("PAPER_GRADE <>", value, "paperGrade");
+        public Criteria andPaperGradeIdNotEqualTo(String value) {
+            addCriterion("PAPER_GRADE_ID <>", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeGreaterThan(String value) {
-            addCriterion("PAPER_GRADE >", value, "paperGrade");
+        public Criteria andPaperGradeIdGreaterThan(String value) {
+            addCriterion("PAPER_GRADE_ID >", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeGreaterThanOrEqualTo(String value) {
-            addCriterion("PAPER_GRADE >=", value, "paperGrade");
+        public Criteria andPaperGradeIdGreaterThanOrEqualTo(String value) {
+            addCriterion("PAPER_GRADE_ID >=", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeLessThan(String value) {
-            addCriterion("PAPER_GRADE <", value, "paperGrade");
+        public Criteria andPaperGradeIdLessThan(String value) {
+            addCriterion("PAPER_GRADE_ID <", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeLessThanOrEqualTo(String value) {
-            addCriterion("PAPER_GRADE <=", value, "paperGrade");
+        public Criteria andPaperGradeIdLessThanOrEqualTo(String value) {
+            addCriterion("PAPER_GRADE_ID <=", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeLike(String value) {
-            addCriterion("PAPER_GRADE like", value, "paperGrade");
+        public Criteria andPaperGradeIdLike(String value) {
+            addCriterion("PAPER_GRADE_ID like", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeNotLike(String value) {
-            addCriterion("PAPER_GRADE not like", value, "paperGrade");
+        public Criteria andPaperGradeIdNotLike(String value) {
+            addCriterion("PAPER_GRADE_ID not like", value, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeIn(List<String> values) {
-            addCriterion("PAPER_GRADE in", values, "paperGrade");
+        public Criteria andPaperGradeIdIn(List<String> values) {
+            addCriterion("PAPER_GRADE_ID in", values, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeNotIn(List<String> values) {
-            addCriterion("PAPER_GRADE not in", values, "paperGrade");
+        public Criteria andPaperGradeIdNotIn(List<String> values) {
+            addCriterion("PAPER_GRADE_ID not in", values, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeBetween(String value1, String value2) {
-            addCriterion("PAPER_GRADE between", value1, value2, "paperGrade");
+        public Criteria andPaperGradeIdBetween(String value1, String value2) {
+            addCriterion("PAPER_GRADE_ID between", value1, value2, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperGradeNotBetween(String value1, String value2) {
-            addCriterion("PAPER_GRADE not between", value1, value2, "paperGrade");
+        public Criteria andPaperGradeIdNotBetween(String value1, String value2) {
+            addCriterion("PAPER_GRADE_ID not between", value1, value2, "paperGradeId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseIsNull() {
-            addCriterion("PAPER_COURSE is null");
+        public Criteria andPaperGradeNameIsNull() {
+            addCriterion("PAPER_GRADE_NAME is null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseIsNotNull() {
-            addCriterion("PAPER_COURSE is not null");
+        public Criteria andPaperGradeNameIsNotNull() {
+            addCriterion("PAPER_GRADE_NAME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseEqualTo(String value) {
-            addCriterion("PAPER_COURSE =", value, "paperCourse");
+        public Criteria andPaperGradeNameEqualTo(String value) {
+            addCriterion("PAPER_GRADE_NAME =", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseNotEqualTo(String value) {
-            addCriterion("PAPER_COURSE <>", value, "paperCourse");
+        public Criteria andPaperGradeNameNotEqualTo(String value) {
+            addCriterion("PAPER_GRADE_NAME <>", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseGreaterThan(String value) {
-            addCriterion("PAPER_COURSE >", value, "paperCourse");
+        public Criteria andPaperGradeNameGreaterThan(String value) {
+            addCriterion("PAPER_GRADE_NAME >", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseGreaterThanOrEqualTo(String value) {
-            addCriterion("PAPER_COURSE >=", value, "paperCourse");
+        public Criteria andPaperGradeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("PAPER_GRADE_NAME >=", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseLessThan(String value) {
-            addCriterion("PAPER_COURSE <", value, "paperCourse");
+        public Criteria andPaperGradeNameLessThan(String value) {
+            addCriterion("PAPER_GRADE_NAME <", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseLessThanOrEqualTo(String value) {
-            addCriterion("PAPER_COURSE <=", value, "paperCourse");
+        public Criteria andPaperGradeNameLessThanOrEqualTo(String value) {
+            addCriterion("PAPER_GRADE_NAME <=", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseLike(String value) {
-            addCriterion("PAPER_COURSE like", value, "paperCourse");
+        public Criteria andPaperGradeNameLike(String value) {
+            addCriterion("PAPER_GRADE_NAME like", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseNotLike(String value) {
-            addCriterion("PAPER_COURSE not like", value, "paperCourse");
+        public Criteria andPaperGradeNameNotLike(String value) {
+            addCriterion("PAPER_GRADE_NAME not like", value, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseIn(List<String> values) {
-            addCriterion("PAPER_COURSE in", values, "paperCourse");
+        public Criteria andPaperGradeNameIn(List<String> values) {
+            addCriterion("PAPER_GRADE_NAME in", values, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseNotIn(List<String> values) {
-            addCriterion("PAPER_COURSE not in", values, "paperCourse");
+        public Criteria andPaperGradeNameNotIn(List<String> values) {
+            addCriterion("PAPER_GRADE_NAME not in", values, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseBetween(String value1, String value2) {
-            addCriterion("PAPER_COURSE between", value1, value2, "paperCourse");
+        public Criteria andPaperGradeNameBetween(String value1, String value2) {
+            addCriterion("PAPER_GRADE_NAME between", value1, value2, "paperGradeName");
             return (Criteria) this;
         }
 
-        public Criteria andPaperCourseNotBetween(String value1, String value2) {
-            addCriterion("PAPER_COURSE not between", value1, value2, "paperCourse");
+        public Criteria andPaperGradeNameNotBetween(String value1, String value2) {
+            addCriterion("PAPER_GRADE_NAME not between", value1, value2, "paperGradeName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdIsNull() {
+            addCriterion("PAPER_COURSE_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdIsNotNull() {
+            addCriterion("PAPER_COURSE_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdEqualTo(String value) {
+            addCriterion("PAPER_COURSE_ID =", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdNotEqualTo(String value) {
+            addCriterion("PAPER_COURSE_ID <>", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdGreaterThan(String value) {
+            addCriterion("PAPER_COURSE_ID >", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdGreaterThanOrEqualTo(String value) {
+            addCriterion("PAPER_COURSE_ID >=", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdLessThan(String value) {
+            addCriterion("PAPER_COURSE_ID <", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdLessThanOrEqualTo(String value) {
+            addCriterion("PAPER_COURSE_ID <=", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdLike(String value) {
+            addCriterion("PAPER_COURSE_ID like", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdNotLike(String value) {
+            addCriterion("PAPER_COURSE_ID not like", value, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdIn(List<String> values) {
+            addCriterion("PAPER_COURSE_ID in", values, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdNotIn(List<String> values) {
+            addCriterion("PAPER_COURSE_ID not in", values, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdBetween(String value1, String value2) {
+            addCriterion("PAPER_COURSE_ID between", value1, value2, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseIdNotBetween(String value1, String value2) {
+            addCriterion("PAPER_COURSE_ID not between", value1, value2, "paperCourseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameIsNull() {
+            addCriterion("PAPER_COURSE_NAME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameIsNotNull() {
+            addCriterion("PAPER_COURSE_NAME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameEqualTo(String value) {
+            addCriterion("PAPER_COURSE_NAME =", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameNotEqualTo(String value) {
+            addCriterion("PAPER_COURSE_NAME <>", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameGreaterThan(String value) {
+            addCriterion("PAPER_COURSE_NAME >", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameGreaterThanOrEqualTo(String value) {
+            addCriterion("PAPER_COURSE_NAME >=", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameLessThan(String value) {
+            addCriterion("PAPER_COURSE_NAME <", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameLessThanOrEqualTo(String value) {
+            addCriterion("PAPER_COURSE_NAME <=", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameLike(String value) {
+            addCriterion("PAPER_COURSE_NAME like", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameNotLike(String value) {
+            addCriterion("PAPER_COURSE_NAME not like", value, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameIn(List<String> values) {
+            addCriterion("PAPER_COURSE_NAME in", values, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameNotIn(List<String> values) {
+            addCriterion("PAPER_COURSE_NAME not in", values, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameBetween(String value1, String value2) {
+            addCriterion("PAPER_COURSE_NAME between", value1, value2, "paperCourseName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperCourseNameNotBetween(String value1, String value2) {
+            addCriterion("PAPER_COURSE_NAME not between", value1, value2, "paperCourseName");
             return (Criteria) this;
         }
 
@@ -634,76 +775,6 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemsIsNull() {
-            addCriterion("PAPER_ITEMS is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsIsNotNull() {
-            addCriterion("PAPER_ITEMS is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsEqualTo(String value) {
-            addCriterion("PAPER_ITEMS =", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsNotEqualTo(String value) {
-            addCriterion("PAPER_ITEMS <>", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsGreaterThan(String value) {
-            addCriterion("PAPER_ITEMS >", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsGreaterThanOrEqualTo(String value) {
-            addCriterion("PAPER_ITEMS >=", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsLessThan(String value) {
-            addCriterion("PAPER_ITEMS <", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsLessThanOrEqualTo(String value) {
-            addCriterion("PAPER_ITEMS <=", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsLike(String value) {
-            addCriterion("PAPER_ITEMS like", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsNotLike(String value) {
-            addCriterion("PAPER_ITEMS not like", value, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsIn(List<String> values) {
-            addCriterion("PAPER_ITEMS in", values, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsNotIn(List<String> values) {
-            addCriterion("PAPER_ITEMS not in", values, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsBetween(String value1, String value2) {
-            addCriterion("PAPER_ITEMS between", value1, value2, "paperItems");
-            return (Criteria) this;
-        }
-
-        public Criteria andPaperItemsNotBetween(String value1, String value2) {
-            addCriterion("PAPER_ITEMS not between", value1, value2, "paperItems");
-            return (Criteria) this;
-        }
-
         public Criteria andPaperScoresIsNull() {
             addCriterion("PAPER_SCORES is null");
             return (Criteria) this;
@@ -774,6 +845,66 @@ public class PaperExample {
             return (Criteria) this;
         }
 
+        public Criteria andTotalIsNull() {
+            addCriterion("TOTAL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalIsNotNull() {
+            addCriterion("TOTAL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalEqualTo(Integer value) {
+            addCriterion("TOTAL =", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotEqualTo(Integer value) {
+            addCriterion("TOTAL <>", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalGreaterThan(Integer value) {
+            addCriterion("TOTAL >", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TOTAL >=", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalLessThan(Integer value) {
+            addCriterion("TOTAL <", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalLessThanOrEqualTo(Integer value) {
+            addCriterion("TOTAL <=", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalIn(List<Integer> values) {
+            addCriterion("TOTAL in", values, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotIn(List<Integer> values) {
+            addCriterion("TOTAL not in", values, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalBetween(Integer value1, Integer value2) {
+            addCriterion("TOTAL between", value1, value2, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotBetween(Integer value1, Integer value2) {
+            addCriterion("TOTAL not between", value1, value2, "total");
+            return (Criteria) this;
+        }
+
         public Criteria andScoreIsNull() {
             addCriterion("SCORE is null");
             return (Criteria) this;
@@ -834,66 +965,6 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemTimeIsNull() {
-            addCriterion("ITEM_TIME is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeIsNotNull() {
-            addCriterion("ITEM_TIME is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeEqualTo(Integer value) {
-            addCriterion("ITEM_TIME =", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeNotEqualTo(Integer value) {
-            addCriterion("ITEM_TIME <>", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeGreaterThan(Integer value) {
-            addCriterion("ITEM_TIME >", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ITEM_TIME >=", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeLessThan(Integer value) {
-            addCriterion("ITEM_TIME <", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeLessThanOrEqualTo(Integer value) {
-            addCriterion("ITEM_TIME <=", value, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeIn(List<Integer> values) {
-            addCriterion("ITEM_TIME in", values, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeNotIn(List<Integer> values) {
-            addCriterion("ITEM_TIME not in", values, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeBetween(Integer value1, Integer value2) {
-            addCriterion("ITEM_TIME between", value1, value2, "itemTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemTimeNotBetween(Integer value1, Integer value2) {
-            addCriterion("ITEM_TIME not between", value1, value2, "itemTime");
-            return (Criteria) this;
-        }
-
         public Criteria andTimeIsNull() {
             addCriterion("TIME is null");
             return (Criteria) this;
@@ -951,6 +1022,196 @@ public class PaperExample {
 
         public Criteria andTimeNotBetween(Integer value1, Integer value2) {
             addCriterion("TIME not between", value1, value2, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlIsNull() {
+            addCriterion("PAPER_URL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlIsNotNull() {
+            addCriterion("PAPER_URL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlEqualTo(String value) {
+            addCriterion("PAPER_URL =", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlNotEqualTo(String value) {
+            addCriterion("PAPER_URL <>", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlGreaterThan(String value) {
+            addCriterion("PAPER_URL >", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("PAPER_URL >=", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlLessThan(String value) {
+            addCriterion("PAPER_URL <", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlLessThanOrEqualTo(String value) {
+            addCriterion("PAPER_URL <=", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlLike(String value) {
+            addCriterion("PAPER_URL like", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlNotLike(String value) {
+            addCriterion("PAPER_URL not like", value, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlIn(List<String> values) {
+            addCriterion("PAPER_URL in", values, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlNotIn(List<String> values) {
+            addCriterion("PAPER_URL not in", values, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlBetween(String value1, String value2) {
+            addCriterion("PAPER_URL between", value1, value2, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaperUrlNotBetween(String value1, String value2) {
+            addCriterion("PAPER_URL not between", value1, value2, "paperUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerIsNull() {
+            addCriterion("OWNER is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerIsNotNull() {
+            addCriterion("OWNER is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerEqualTo(Integer value) {
+            addCriterion("OWNER =", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerNotEqualTo(Integer value) {
+            addCriterion("OWNER <>", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerGreaterThan(Integer value) {
+            addCriterion("OWNER >", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerGreaterThanOrEqualTo(Integer value) {
+            addCriterion("OWNER >=", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerLessThan(Integer value) {
+            addCriterion("OWNER <", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerLessThanOrEqualTo(Integer value) {
+            addCriterion("OWNER <=", value, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerIn(List<Integer> values) {
+            addCriterion("OWNER in", values, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerNotIn(List<Integer> values) {
+            addCriterion("OWNER not in", values, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerBetween(Integer value1, Integer value2) {
+            addCriterion("OWNER between", value1, value2, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerNotBetween(Integer value1, Integer value2) {
+            addCriterion("OWNER not between", value1, value2, "owner");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("CREATE_TIME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("CREATE_TIME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("CREATE_TIME =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("CREATE_TIME <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("CREATE_TIME >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("CREATE_TIME <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("CREATE_TIME in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("CREATE_TIME not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

@@ -82,7 +82,7 @@
         <table tableName="question" domainObjectName="Question"
                >
         </table>
-        <table tableName="question_bugget" domainObjectName="QuestionBugget"
+        <table tableName="question_basket" domainObjectName="QuestionBasket"
                >
         </table>
         <table tableName="question_comment" domainObjectName="QuestionComment"
@@ -99,6 +99,9 @@
         </table>
         <table tableName="paper_download" domainObjectName="PaperDownload"
                >
+        </table>
+        <table tableName="question_error_book" domainObjectName="QuestionErrorBook"
+        >
         </table>
         <table tableName="paper_fav" domainObjectName="PaperFav"
                >

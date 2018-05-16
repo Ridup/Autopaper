@@ -25,5 +25,28 @@
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+<!--
+
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views"/>
+        &lt;!&ndash; 设置页面中文乱码问题 &ndash;&gt;
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        &lt;!&ndash; 解决freemarker中文乱码 &ndash;&gt;
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="0"/>
+    </bean>
+-->
+
+
 
 </beans>
