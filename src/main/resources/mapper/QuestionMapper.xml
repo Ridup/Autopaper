@@ -6,7 +6,7 @@
       <idArg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="QUESTION_TYPE" javaType="java.lang.String" jdbcType="CHAR" />
       <arg column="QUESTION_CLASS" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="POINT_NUMBER" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="POINT" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -138,7 +138,7 @@
       UPDATE_TIME, QUESTION_CONTENT, STATUS
       )
     values (#{questionId,jdbcType=BIGINT}, #{questionType,jdbcType=CHAR}, #{questionClass,jdbcType=CHAR}, 
-      #{questionDifficulty,jdbcType=INTEGER}, #{pointNumber,jdbcType=INTEGER}, #{point,jdbcType=VARCHAR}, 
+      #{questionDifficulty,jdbcType=DOUBLE}, #{pointNumber,jdbcType=INTEGER}, #{point,jdbcType=VARCHAR}, 
       #{source,jdbcType=VARCHAR}, #{usetimes,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, 
       #{questionScore,jdbcType=INTEGER}, #{questionTime,jdbcType=INTEGER}, #{gradeName,jdbcType=VARCHAR}, 
       #{courseName,jdbcType=VARCHAR}, #{versionName,jdbcType=VARCHAR}, #{chapterName,jdbcType=VARCHAR}, 
@@ -244,7 +244,7 @@
         #{questionClass,jdbcType=CHAR},
       </if>
       <if test="questionDifficulty != null">
-        #{questionDifficulty,jdbcType=INTEGER},
+        #{questionDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="pointNumber != null">
         #{pointNumber,jdbcType=INTEGER},
@@ -336,7 +336,7 @@
         QUESTION_CLASS = #{record.questionClass,jdbcType=CHAR},
       </if>
       <if test="record.questionDifficulty != null">
-        QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
+        QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="record.pointNumber != null">
         POINT_NUMBER = #{record.pointNumber,jdbcType=INTEGER},
@@ -417,7 +417,7 @@
     set QUESTION_ID = #{record.questionId,jdbcType=BIGINT},
       QUESTION_TYPE = #{record.questionType,jdbcType=CHAR},
       QUESTION_CLASS = #{record.questionClass,jdbcType=CHAR},
-      QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=INTEGER},
+      QUESTION_DIFFICULTY = #{record.questionDifficulty,jdbcType=DOUBLE},
       POINT_NUMBER = #{record.pointNumber,jdbcType=INTEGER},
       POINT = #{record.point,jdbcType=VARCHAR},
       SOURCE = #{record.source,jdbcType=VARCHAR},
@@ -455,7 +455,7 @@
         QUESTION_CLASS = #{questionClass,jdbcType=CHAR},
       </if>
       <if test="questionDifficulty != null">
-        QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
+        QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="pointNumber != null">
         POINT_NUMBER = #{pointNumber,jdbcType=INTEGER},
@@ -533,7 +533,7 @@
     update question
     set QUESTION_TYPE = #{questionType,jdbcType=CHAR},
       QUESTION_CLASS = #{questionClass,jdbcType=CHAR},
-      QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=INTEGER},
+      QUESTION_DIFFICULTY = #{questionDifficulty,jdbcType=DOUBLE},
       POINT_NUMBER = #{pointNumber,jdbcType=INTEGER},
       POINT = #{point,jdbcType=VARCHAR},
       SOURCE = #{source,jdbcType=VARCHAR},

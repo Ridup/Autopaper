@@ -6,7 +6,7 @@
       <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="TYPE_COUNT_COLLECTION" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="PAPER_HOT" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_GRADE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="PAPER_GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -123,7 +123,7 @@
       SCORE, TIME, PAPER_URL, 
       OWNER, CREATE_TIME)
     values (#{paperId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, #{typeCountCollection,jdbcType=VARCHAR}, 
-      #{paperDifficulty,jdbcType=INTEGER}, #{paperHot,jdbcType=INTEGER}, #{paperGradeId,jdbcType=VARCHAR}, 
+      #{paperDifficulty,jdbcType=DOUBLE}, #{paperHot,jdbcType=INTEGER}, #{paperGradeId,jdbcType=VARCHAR}, 
       #{paperGradeName,jdbcType=VARCHAR}, #{paperCourseId,jdbcType=CHAR}, #{paperCourseName,jdbcType=VARCHAR}, 
       #{paperVersion,jdbcType=VARCHAR}, #{paperScores,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
       #{score,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{paperUrl,jdbcType=VARCHAR}, 
@@ -195,7 +195,7 @@
         #{typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="paperDifficulty != null">
-        #{paperDifficulty,jdbcType=INTEGER},
+        #{paperDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="paperHot != null">
         #{paperHot,jdbcType=INTEGER},
@@ -257,7 +257,7 @@
         TYPE_COUNT_COLLECTION = #{record.typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="record.paperDifficulty != null">
-        PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
+        PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="record.paperHot != null">
         PAPER_HOT = #{record.paperHot,jdbcType=INTEGER},
@@ -308,7 +308,7 @@
     set PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
       TYPE_COUNT_COLLECTION = #{record.typeCountCollection,jdbcType=VARCHAR},
-      PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
+      PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=DOUBLE},
       PAPER_HOT = #{record.paperHot,jdbcType=INTEGER},
       PAPER_GRADE_ID = #{record.paperGradeId,jdbcType=VARCHAR},
       PAPER_GRADE_NAME = #{record.paperGradeName,jdbcType=VARCHAR},
@@ -336,7 +336,7 @@
         TYPE_COUNT_COLLECTION = #{typeCountCollection,jdbcType=VARCHAR},
       </if>
       <if test="paperDifficulty != null">
-        PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
+        PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=DOUBLE},
       </if>
       <if test="paperHot != null">
         PAPER_HOT = #{paperHot,jdbcType=INTEGER},
@@ -384,7 +384,7 @@
     update paper
     set PAPER_NAME = #{paperName,jdbcType=VARCHAR},
       TYPE_COUNT_COLLECTION = #{typeCountCollection,jdbcType=VARCHAR},
-      PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
+      PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=DOUBLE},
       PAPER_HOT = #{paperHot,jdbcType=INTEGER},
       PAPER_GRADE_ID = #{paperGradeId,jdbcType=VARCHAR},
       PAPER_GRADE_NAME = #{paperGradeName,jdbcType=VARCHAR},

@@ -217,39 +217,47 @@ public class QuestionController {
         // TODO add images
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            User obj = (User) session.getAttribute("loginUser");
-            if (obj != null) {
-                //去除多余 的都逗号
-                if (question.getQuestionType().equals("101") || question.getQuestionType().equals("102"))
-                    question.setAnswer(question.getAnswer().substring(1));
-                //知识点数
-                String points = question.getPoint();
-                Integer pointNumber = points.split(",").length;
-                question.setPointNumber(pointNumber);
-                question.setUsetimes(new Long(0));
-                question.setQuestionHot(new Long(0));
-                question.setOwnner(obj.getUserId());
-                question.setCreateTime(new Date());
-                question.setUpdateTime(new Date());
-                // TODO 初始化试题状态为：001审核中
-                question.setStatus(EnumQuestionStatus.audit_passed.getCode());
-                int status = questionService.insertQuestionInfo(question);
-                if (status == 1) {
-                    modelAndView.addObject("tips", "试题录入成功！");
-                    modelAndView.addObject("insertStatus", "6");
+        String point = question.getPoint();
+        if(point!=null&&!point.equals("")){
+            if (session != null) {
+                User obj = (User) session.getAttribute("loginUser");
+                if (obj != null) {
+                    //去除多余 的都逗号
+                    if (question.getQuestionType().equals("101") || question.getQuestionType().equals("102"))
+                        question.setAnswer(question.getAnswer().substring(1));
+                    //知识点数
+                    String points = question.getPoint();
+                    Integer pointNumber = points.split(",").length;
+                    question.setPointNumber(pointNumber);
+                    question.setUsetimes(new Long(0));
+                    question.setQuestionHot(new Long(0));
+                    question.setOwnner(obj.getUserId());
+                    question.setCreateTime(new Date());
+                    question.setUpdateTime(new Date());
+                    // TODO 初始化试题状态为：001审核中
+                    question.setStatus(EnumQuestionStatus.audit_passed.getCode());
+                    int status = questionService.insertQuestionInfo(question);
+                    if (status == 1) {
+                        modelAndView.addObject("tips", "试题录入成功！");
+                        modelAndView.addObject("insertStatus", "6");
+                    } else {
+                        modelAndView.addObject("tips", "系统异常，请重试");
+                        modelAndView.addObject("insertStatus", "5");
+                    }
+                    modelAndView.setViewName("/question/question_in");
                 } else {
-                    modelAndView.addObject("tips", "系统异常，请重试");
-                    modelAndView.addObject("insertStatus", "5");
+                    //超时重登
+                    modelAndView.setViewName("redirect:/index.do?tips=e01");
                 }
-                modelAndView.setViewName("/question/question_in");
             } else {
-                //超时重登
-                modelAndView.setViewName("redirect:/index.do?tips=e01");
+                modelAndView.setViewName("redirect:/index.do");
             }
-        } else {
-            modelAndView.setViewName("redirect:/index.do");
+        }else {
+            modelAndView.addObject("tips", "请添加知识点！！！");
+            modelAndView.addObject("insertStatus", "5");
+            modelAndView.setViewName("/question/question_in");
         }
+
         return modelAndView;
     }
 

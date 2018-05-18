@@ -315,52 +315,52 @@ public class QuestionExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyEqualTo(Integer value) {
+        public Criteria andQuestionDifficultyEqualTo(Double value) {
             addCriterion("QUESTION_DIFFICULTY =", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyNotEqualTo(Integer value) {
+        public Criteria andQuestionDifficultyNotEqualTo(Double value) {
             addCriterion("QUESTION_DIFFICULTY <>", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyGreaterThan(Integer value) {
+        public Criteria andQuestionDifficultyGreaterThan(Double value) {
             addCriterion("QUESTION_DIFFICULTY >", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyGreaterThanOrEqualTo(Integer value) {
+        public Criteria andQuestionDifficultyGreaterThanOrEqualTo(Double value) {
             addCriterion("QUESTION_DIFFICULTY >=", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyLessThan(Integer value) {
+        public Criteria andQuestionDifficultyLessThan(Double value) {
             addCriterion("QUESTION_DIFFICULTY <", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyLessThanOrEqualTo(Integer value) {
+        public Criteria andQuestionDifficultyLessThanOrEqualTo(Double value) {
             addCriterion("QUESTION_DIFFICULTY <=", value, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyIn(List<Integer> values) {
+        public Criteria andQuestionDifficultyIn(List<Double> values) {
             addCriterion("QUESTION_DIFFICULTY in", values, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyNotIn(List<Integer> values) {
+        public Criteria andQuestionDifficultyNotIn(List<Double> values) {
             addCriterion("QUESTION_DIFFICULTY not in", values, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyBetween(Integer value1, Integer value2) {
+        public Criteria andQuestionDifficultyBetween(Double value1, Double value2) {
             addCriterion("QUESTION_DIFFICULTY between", value1, value2, "questionDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andQuestionDifficultyNotBetween(Integer value1, Integer value2) {
+        public Criteria andQuestionDifficultyNotBetween(Double value1, Double value2) {
             addCriterion("QUESTION_DIFFICULTY not between", value1, value2, "questionDifficulty");
             return (Criteria) this;
         }

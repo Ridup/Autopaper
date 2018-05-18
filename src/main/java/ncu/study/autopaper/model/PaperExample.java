@@ -315,52 +315,52 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyEqualTo(Integer value) {
+        public Criteria andPaperDifficultyEqualTo(Double value) {
             addCriterion("PAPER_DIFFICULTY =", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyNotEqualTo(Integer value) {
+        public Criteria andPaperDifficultyNotEqualTo(Double value) {
             addCriterion("PAPER_DIFFICULTY <>", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyGreaterThan(Integer value) {
+        public Criteria andPaperDifficultyGreaterThan(Double value) {
             addCriterion("PAPER_DIFFICULTY >", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPaperDifficultyGreaterThanOrEqualTo(Double value) {
             addCriterion("PAPER_DIFFICULTY >=", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyLessThan(Integer value) {
+        public Criteria andPaperDifficultyLessThan(Double value) {
             addCriterion("PAPER_DIFFICULTY <", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyLessThanOrEqualTo(Integer value) {
+        public Criteria andPaperDifficultyLessThanOrEqualTo(Double value) {
             addCriterion("PAPER_DIFFICULTY <=", value, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyIn(List<Integer> values) {
+        public Criteria andPaperDifficultyIn(List<Double> values) {
             addCriterion("PAPER_DIFFICULTY in", values, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyNotIn(List<Integer> values) {
+        public Criteria andPaperDifficultyNotIn(List<Double> values) {
             addCriterion("PAPER_DIFFICULTY not in", values, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyBetween(Integer value1, Integer value2) {
+        public Criteria andPaperDifficultyBetween(Double value1, Double value2) {
             addCriterion("PAPER_DIFFICULTY between", value1, value2, "paperDifficulty");
             return (Criteria) this;
         }
 
-        public Criteria andPaperDifficultyNotBetween(Integer value1, Integer value2) {
+        public Criteria andPaperDifficultyNotBetween(Double value1, Double value2) {
             addCriterion("PAPER_DIFFICULTY not between", value1, value2, "paperDifficulty");
             return (Criteria) this;
         }

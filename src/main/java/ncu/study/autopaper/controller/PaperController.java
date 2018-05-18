@@ -9,6 +9,7 @@ import ncu.study.autopaper.common.enums.EnumQuestionStatus;
 import ncu.study.autopaper.common.enums.EnumQuestionType;
 import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.common.result.JsonResult;
+import ncu.study.autopaper.common.util.DoubleUtil;
 import ncu.study.autopaper.common.util.WordUtils;
 import ncu.study.autopaper.common.util.htmltowp.poihtml2word.PoiHtml2Word;
 import ncu.study.autopaper.common.util.htmltowp.util.ReadText;
@@ -308,14 +309,14 @@ public class PaperController {
                     List<PaperQCResponsePojo> paperQCInfo = questionService.getPaperQCInfo(questionBasketPojos, userId);
                     int totalScore = 0;
                     int totalTime = 0;
-                    int totalDiffi = 0;
-                    int sum = questionBasketInfo.getTotal();
+                    double totalDiffi = 0;
+                    double sum = (double)questionBasketInfo.getTotal();
                     for (PaperQCResponsePojo paperQCResponsePojo : paperQCInfo) {
                         totalScore = totalScore + paperQCResponsePojo.getQuestionTypeScore();
                         totalTime = totalTime + paperQCResponsePojo.getQuestionTypeTime();
-                        totalDiffi = totalDiffi + paperQCResponsePojo.getQuestionTypeDiffi();
+                        totalDiffi = DoubleUtil.add(totalDiffi,paperQCResponsePojo.getQuestionTypeDiffi());
                     }
-                    int avgDiffi = totalDiffi / sum;
+                    double avgDiffi = DoubleUtil.div(totalDiffi,sum,1);
                     PaperResponsePojo paperResponsePojo = new PaperResponsePojo();
                     paperResponsePojo.setTotalScore(totalScore);
                     paperResponsePojo.setTotalTime(totalTime);
@@ -402,14 +403,14 @@ public class PaperController {
                     List<PaperQCResponsePojo> paperQCInfo = questionService.getPaperQCInfo(questionBasketPojos, userId);
                     int totalScore = 0;
                     int totalTime = 0;
-                    int totalDiffi = 0;
-                    int sum = questionBasketInfo.getTotal();
+                    double totalDiffi = 0;
+                    double sum = (double)questionBasketInfo.getTotal();
                     for (PaperQCResponsePojo paperQCResponsePojo : paperQCInfo) {
                         totalScore = totalScore + paperQCResponsePojo.getQuestionTypeScore();
                         totalTime = totalTime + paperQCResponsePojo.getQuestionTypeTime();
-                        totalDiffi = totalDiffi + paperQCResponsePojo.getQuestionTypeDiffi();
+                        totalDiffi = DoubleUtil.add(totalDiffi,paperQCResponsePojo.getQuestionTypeDiffi());
                     }
-                    int avgDiffi = totalDiffi / sum;
+                    double avgDiffi = DoubleUtil.div(totalDiffi,sum,1);
                     PaperResponsePojo paperResponsePojo = new PaperResponsePojo();
                     paperResponsePojo.setTotalScore(totalScore);
                     paperResponsePojo.setTotalTime(totalTime);

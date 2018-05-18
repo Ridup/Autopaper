@@ -5,11 +5,17 @@ package ncu.study.autopaper.common.enums;
  * @version FleName:  EnumQuestionDifficulty .java  v0.1  2018/5/8 1:27 Exp $
  */
 public enum EnumQuestionDifficulty implements EnumMessage {
-    difficulty_1("1", "难度一"),
-    difficulty_2("2", "难度二"),
-    difficulty_3("3", "难度三"),
-    difficulty_4("4", "难度四"),
-    difficulty_5("5", "难度五");
+    difficulty_1("0.1", "难度一"),
+    difficulty_2("0.2", "难度二"),
+    difficulty_3("0.3", "难度三"),
+    difficulty_4("0.4", "难度四"),
+    difficulty_5("0.5", "难度五"),
+    difficulty_6("0.6", "难度六"),
+    difficulty_7("0.7", "难度七"),
+    difficulty_8("0.8", "难度八"),
+    difficulty_9("0.9", "难度九"),
+    difficulty_10("1.0", "难度十");
+
 
     /** 状态码 */
     private String code;

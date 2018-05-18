@@ -9,7 +9,7 @@ public class Paper {
 
     private String typeCountCollection;
 
-    private Integer paperDifficulty;
+    private Double paperDifficulty;
 
     private Integer paperHot;
 
@@ -37,7 +37,7 @@ public class Paper {
 
     private Date createTime;
 
-    public Paper(Integer paperId, String paperName, String typeCountCollection, Integer paperDifficulty, Integer paperHot, String paperGradeId, String paperGradeName, String paperCourseId, String paperCourseName, String paperVersion, String paperScores, Integer total, Integer score, Integer time, String paperUrl, Integer owner, Date createTime) {
+    public Paper(Integer paperId, String paperName, String typeCountCollection, Double paperDifficulty, Integer paperHot, String paperGradeId, String paperGradeName, String paperCourseId, String paperCourseName, String paperVersion, String paperScores, Integer total, Integer score, Integer time, String paperUrl, Integer owner, Date createTime) {
         this.paperId = paperId;
         this.paperName = paperName;
         this.typeCountCollection = typeCountCollection;
@@ -85,11 +85,11 @@ public class Paper {
         this.typeCountCollection = typeCountCollection == null ? null : typeCountCollection.trim();
     }
 
-    public Integer getPaperDifficulty() {
+    public Double getPaperDifficulty() {
         return paperDifficulty;
     }
 
-    public void setPaperDifficulty(Integer paperDifficulty) {
+    public void setPaperDifficulty(Double paperDifficulty) {
         this.paperDifficulty = paperDifficulty;
     }
 
