@@ -1,11 +1,11 @@
 package ncu.study.autopaper.model;
 
 public class PaperFavKey {
-    private Long userId;
+    private Integer userId;
 
-    private Long paperId;
+    private Integer paperId;
 
-    public PaperFavKey(Long userId, Long paperId) {
+    public PaperFavKey(Integer userId, Integer paperId) {
         this.userId = userId;
         this.paperId = paperId;
     }
@@ -14,19 +14,19 @@ public class PaperFavKey {
         super();
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getPaperId() {
+    public Integer getPaperId() {
         return paperId;
     }
 
-    public void setPaperId(Long paperId) {
+    public void setPaperId(Integer paperId) {
         this.paperId = paperId;
     }
 }

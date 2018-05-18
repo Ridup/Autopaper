@@ -9,7 +9,7 @@ public class PaperDownload extends PaperDownloadKey {
 
     private Date downloadTime;
 
-    public PaperDownload(Long paperId, Integer userId, String paperName, String userName, Date downloadTime) {
+    public PaperDownload(Integer paperId, Integer userId, String paperName, String userName, Date downloadTime) {
         super(paperId, userId);
         this.paperName = paperName;
         this.userName = userName;

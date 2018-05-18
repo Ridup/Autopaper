@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.PaperComment">
     <constructor>
       <idArg column="PAPER_COMMENT_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="USER_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="PAPER_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_COMMENT" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="PAPER_COMMENT_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="PAPER_COMMENT_PRAISE" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -106,7 +106,7 @@
     insert into paper_comment (PAPER_COMMENT_ID, USER_ID, PAPER_ID, 
       PAPER_COMMENT, PAPER_COMMENT_TIME, PAPER_COMMENT_PRAISE
       )
-    values (#{paperCommentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{paperId,jdbcType=BIGINT}, 
+    values (#{paperCommentId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{paperId,jdbcType=INTEGER}, 
       #{paperComment,jdbcType=VARCHAR}, #{paperCommentTime,jdbcType=TIMESTAMP}, #{paperCommentPraise,jdbcType=INTEGER}
       )
   </insert>
@@ -137,10 +137,10 @@
         #{paperCommentId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="paperId != null">
-        #{paperId,jdbcType=BIGINT},
+        #{paperId,jdbcType=INTEGER},
       </if>
       <if test="paperComment != null">
         #{paperComment,jdbcType=VARCHAR},
@@ -166,10 +166,10 @@
         PAPER_COMMENT_ID = #{record.paperCommentId,jdbcType=BIGINT},
       </if>
       <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=BIGINT},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.paperId != null">
-        PAPER_ID = #{record.paperId,jdbcType=BIGINT},
+        PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       </if>
       <if test="record.paperComment != null">
         PAPER_COMMENT = #{record.paperComment,jdbcType=VARCHAR},
@@ -188,8 +188,8 @@
   <update id="updateByExample" parameterType="map">
     update paper_comment
     set PAPER_COMMENT_ID = #{record.paperCommentId,jdbcType=BIGINT},
-      USER_ID = #{record.userId,jdbcType=BIGINT},
-      PAPER_ID = #{record.paperId,jdbcType=BIGINT},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       PAPER_COMMENT = #{record.paperComment,jdbcType=VARCHAR},
       PAPER_COMMENT_TIME = #{record.paperCommentTime,jdbcType=TIMESTAMP},
       PAPER_COMMENT_PRAISE = #{record.paperCommentPraise,jdbcType=INTEGER}
@@ -201,10 +201,10 @@
     update paper_comment
     <set>
       <if test="userId != null">
-        USER_ID = #{userId,jdbcType=BIGINT},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="paperId != null">
-        PAPER_ID = #{paperId,jdbcType=BIGINT},
+        PAPER_ID = #{paperId,jdbcType=INTEGER},
       </if>
       <if test="paperComment != null">
         PAPER_COMMENT = #{paperComment,jdbcType=VARCHAR},
@@ -220,8 +220,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperComment">
     update paper_comment
-    set USER_ID = #{userId,jdbcType=BIGINT},
-      PAPER_ID = #{paperId,jdbcType=BIGINT},
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      PAPER_ID = #{paperId,jdbcType=INTEGER},
       PAPER_COMMENT = #{paperComment,jdbcType=VARCHAR},
       PAPER_COMMENT_TIME = #{paperCommentTime,jdbcType=TIMESTAMP},
       PAPER_COMMENT_PRAISE = #{paperCommentPraise,jdbcType=INTEGER}

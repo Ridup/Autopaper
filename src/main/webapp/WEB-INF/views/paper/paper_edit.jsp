@@ -1675,24 +1675,48 @@
                 schtml: schtml
             },
             timeout: 5000,    //超时时间
-            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
             success: function (data, textStatus, jqXHR) {
-                var jsonResult = data;
-                var das = jsonResult.code;
-                layer.closeAll('loading');
-                if("X01"==jsonResult.code){
-                    if($(favChange).hasClass("icona-shoucang")){
-                        $(obj).html("<i class=\"icona-quxiaosc\"></i>取消收藏");
-                    }else{
-                        $(obj).html("<i class=\"icona-shoucang\"></i>收藏");
+                var  download_status= data;
+                console.log("download_status========"+download_status);
+                //layer.closeAll('loading');
+
+                if(null!=download_status){
+                    if("PE02"==download_status){
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>WORD生成失败！</span>");
                     }
-                }
-                else if("X03"==jsonResult.code){
-                    window.localObj.href = server_context+ "/index.do?tips=e01";
-                }
-                else{
+                    else if("PE03"==download_status){
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常：插入失败，请重试</span>");
+                        //window.localObj.href = server_context+ "/index.do?tips=e01";
+                    }
+                    else{
+
+                        //iframe层
+                        var iframeUrl = server_context+"/paper/download_paper_doc.do?paperId="+download_status;
+                       /* layer.open({
+                            type: 2,
+                            title: '试卷下载',
+                            shadeClose: true,
+                            shade: 0.8,
+                            area: ['0px', '%'],
+                            content: iframeUrl //iframe的url
+                        });*/
+                        //window.localObj.href = iframeUrl;
+                        var ss = "<a href='"+iframeUrl+"' target='_blank'>Apple</a>";
+                        var a = $(""+ss).get(0);
+                        var e = document.createEvent('MouseEvents');
+                        e.initEvent( 'click', true, true );
+                        a.dispatchEvent(e);
+
+                        window.localObj.href = server_context+ "/paper/view.do?paperId="+download_status;
+
+
+                    }
+                }else {
                     layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
                 }
+
+
 
             },
             error: function (xhr, textStatus) {
@@ -1700,6 +1724,53 @@
                 layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
             }
         });
+    }
+
+
+
+    function  paper_save() {
+
+
+
+        var schtml = $("#schtml").html();
+        $.ajax({
+            url: server_context + '/paper/save.do',
+            type: 'POST', //GET
+            async: true,    //或false,是否异步
+            data: {
+                schtml: schtml
+            },
+            timeout: 5000,    //超时时间
+            dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data, textStatus, jqXHR) {
+                var  download_status= data;
+                console.log("download_status========"+download_status);
+                //layer.closeAll('loading');
+
+                if(null!=download_status){
+                    if("PE02"==download_status){
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>WORD生成失败！</span>");
+                    }
+                    else if("PE03"==download_status){
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常：插入失败，请重试</span>");
+                        //window.localObj.href = server_context+ "/index.do?tips=e01";
+                    }
+                    else{
+                        window.localObj.href = server_context+ "/paper/view.do?paperId="+download_status;
+                    }
+                }else {
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+
+
+
+            },
+            error: function (xhr, textStatus) {
+                layer.closeAll('loading');
+                layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+            }
+        });
+
     }
 
 

@@ -115,52 +115,52 @@ public class PaperDownloadExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdEqualTo(Long value) {
+        public Criteria andPaperIdEqualTo(Integer value) {
             addCriterion("PAPER_ID =", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotEqualTo(Long value) {
+        public Criteria andPaperIdNotEqualTo(Integer value) {
             addCriterion("PAPER_ID <>", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdGreaterThan(Long value) {
+        public Criteria andPaperIdGreaterThan(Integer value) {
             addCriterion("PAPER_ID >", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andPaperIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("PAPER_ID >=", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdLessThan(Long value) {
+        public Criteria andPaperIdLessThan(Integer value) {
             addCriterion("PAPER_ID <", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdLessThanOrEqualTo(Long value) {
+        public Criteria andPaperIdLessThanOrEqualTo(Integer value) {
             addCriterion("PAPER_ID <=", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdIn(List<Long> values) {
+        public Criteria andPaperIdIn(List<Integer> values) {
             addCriterion("PAPER_ID in", values, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotIn(List<Long> values) {
+        public Criteria andPaperIdNotIn(List<Integer> values) {
             addCriterion("PAPER_ID not in", values, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdBetween(Long value1, Long value2) {
+        public Criteria andPaperIdBetween(Integer value1, Integer value2) {
             addCriterion("PAPER_ID between", value1, value2, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotBetween(Long value1, Long value2) {
+        public Criteria andPaperIdNotBetween(Integer value1, Integer value2) {
             addCriterion("PAPER_ID not between", value1, value2, "paperId");
             return (Criteria) this;
         }

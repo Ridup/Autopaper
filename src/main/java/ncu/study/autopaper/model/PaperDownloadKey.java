@@ -1,11 +1,11 @@
 package ncu.study.autopaper.model;
 
 public class PaperDownloadKey {
-    private Long paperId;
+    private Integer paperId;
 
     private Integer userId;
 
-    public PaperDownloadKey(Long paperId, Integer userId) {
+    public PaperDownloadKey(Integer paperId, Integer userId) {
         this.paperId = paperId;
         this.userId = userId;
     }
@@ -14,11 +14,11 @@ public class PaperDownloadKey {
         super();
     }
 
-    public Long getPaperId() {
+    public Integer getPaperId() {
         return paperId;
     }
 
-    public void setPaperId(Long paperId) {
+    public void setPaperId(Integer paperId) {
         this.paperId = paperId;
     }
 
