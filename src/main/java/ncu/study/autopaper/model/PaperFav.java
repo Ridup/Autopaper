@@ -5,9 +5,9 @@ import java.util.Date;
 public class PaperFav extends PaperFavKey {
     private Date collectTime;
 
-    private Boolean paperDifficulty;
+    private Integer paperDifficulty;
 
-    public PaperFav(Long userId, Long paperId, Date collectTime, Boolean paperDifficulty) {
+    public PaperFav(Integer userId, Integer paperId, Date collectTime, Integer paperDifficulty) {
         super(userId, paperId);
         this.collectTime = collectTime;
         this.paperDifficulty = paperDifficulty;
@@ -25,11 +25,11 @@ public class PaperFav extends PaperFavKey {
         this.collectTime = collectTime;
     }
 
-    public Boolean getPaperDifficulty() {
+    public Integer getPaperDifficulty() {
         return paperDifficulty;
     }
 
-    public void setPaperDifficulty(Boolean paperDifficulty) {
+    public void setPaperDifficulty(Integer paperDifficulty) {
         this.paperDifficulty = paperDifficulty;
     }
 }

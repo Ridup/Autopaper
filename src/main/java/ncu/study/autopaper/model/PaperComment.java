@@ -5,9 +5,9 @@ import java.util.Date;
 public class PaperComment {
     private Long paperCommentId;
 
-    private Long userId;
+    private Integer userId;
 
-    private Long paperId;
+    private Integer paperId;
 
     private String paperComment;
 
@@ -15,7 +15,7 @@ public class PaperComment {
 
     private Integer paperCommentPraise;
 
-    public PaperComment(Long paperCommentId, Long userId, Long paperId, String paperComment, Date paperCommentTime, Integer paperCommentPraise) {
+    public PaperComment(Long paperCommentId, Integer userId, Integer paperId, String paperComment, Date paperCommentTime, Integer paperCommentPraise) {
         this.paperCommentId = paperCommentId;
         this.userId = userId;
         this.paperId = paperId;
@@ -36,19 +36,19 @@ public class PaperComment {
         this.paperCommentId = paperCommentId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getPaperId() {
+    public Integer getPaperId() {
         return paperId;
     }
 
-    public void setPaperId(Long paperId) {
+    public void setPaperId(Integer paperId) {
         this.paperId = paperId;
     }
 

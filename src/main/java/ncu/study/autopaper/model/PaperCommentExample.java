@@ -175,52 +175,52 @@ public class PaperCommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Long value) {
+        public Criteria andUserIdEqualTo(Integer value) {
             addCriterion("USER_ID =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Long value) {
+        public Criteria andUserIdNotEqualTo(Integer value) {
             addCriterion("USER_ID <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Long value) {
+        public Criteria andUserIdGreaterThan(Integer value) {
             addCriterion("USER_ID >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("USER_ID >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Long value) {
+        public Criteria andUserIdLessThan(Integer value) {
             addCriterion("USER_ID <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
             addCriterion("USER_ID <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Long> values) {
+        public Criteria andUserIdIn(List<Integer> values) {
             addCriterion("USER_ID in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Long> values) {
+        public Criteria andUserIdNotIn(List<Integer> values) {
             addCriterion("USER_ID not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Long value1, Long value2) {
+        public Criteria andUserIdBetween(Integer value1, Integer value2) {
             addCriterion("USER_ID between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
             addCriterion("USER_ID not between", value1, value2, "userId");
             return (Criteria) this;
         }
@@ -235,52 +235,52 @@ public class PaperCommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdEqualTo(Long value) {
+        public Criteria andPaperIdEqualTo(Integer value) {
             addCriterion("PAPER_ID =", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotEqualTo(Long value) {
+        public Criteria andPaperIdNotEqualTo(Integer value) {
             addCriterion("PAPER_ID <>", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdGreaterThan(Long value) {
+        public Criteria andPaperIdGreaterThan(Integer value) {
             addCriterion("PAPER_ID >", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andPaperIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("PAPER_ID >=", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdLessThan(Long value) {
+        public Criteria andPaperIdLessThan(Integer value) {
             addCriterion("PAPER_ID <", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdLessThanOrEqualTo(Long value) {
+        public Criteria andPaperIdLessThanOrEqualTo(Integer value) {
             addCriterion("PAPER_ID <=", value, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdIn(List<Long> values) {
+        public Criteria andPaperIdIn(List<Integer> values) {
             addCriterion("PAPER_ID in", values, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotIn(List<Long> values) {
+        public Criteria andPaperIdNotIn(List<Integer> values) {
             addCriterion("PAPER_ID not in", values, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdBetween(Long value1, Long value2) {
+        public Criteria andPaperIdBetween(Integer value1, Integer value2) {
             addCriterion("PAPER_ID between", value1, value2, "paperId");
             return (Criteria) this;
         }
 
-        public Criteria andPaperIdNotBetween(Long value1, Long value2) {
+        public Criteria andPaperIdNotBetween(Integer value1, Integer value2) {
             addCriterion("PAPER_ID not between", value1, value2, "paperId");
             return (Criteria) this;
         }

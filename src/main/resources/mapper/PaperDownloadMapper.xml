@@ -3,7 +3,7 @@
 <mapper namespace="ncu.study.autopaper.dao.PaperDownloadMapper">
   <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.PaperDownload">
     <constructor>
-      <idArg column="PAPER_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -89,12 +89,12 @@
     select 
     <include refid="Base_Column_List" />
     from paper_download
-    where PAPER_ID = #{paperId,jdbcType=BIGINT}
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
       and USER_ID = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperDownloadKey">
     delete from paper_download
-    where PAPER_ID = #{paperId,jdbcType=BIGINT}
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
       and USER_ID = #{userId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperDownloadExample">
@@ -106,7 +106,7 @@
   <insert id="insert" parameterType="ncu.study.autopaper.model.PaperDownload">
     insert into paper_download (PAPER_ID, USER_ID, PAPER_NAME, 
       USER_NAME, DOWNLOAD_TIME)
-    values (#{paperId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, 
+    values (#{paperId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{downloadTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="ncu.study.autopaper.model.PaperDownload">
@@ -130,7 +130,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="paperId != null">
-        #{paperId,jdbcType=BIGINT},
+        #{paperId,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
@@ -156,7 +156,7 @@
     update paper_download
     <set>
       <if test="record.paperId != null">
-        PAPER_ID = #{record.paperId,jdbcType=BIGINT},
+        PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
         USER_ID = #{record.userId,jdbcType=INTEGER},
@@ -177,7 +177,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update paper_download
-    set PAPER_ID = #{record.paperId,jdbcType=BIGINT},
+    set PAPER_ID = #{record.paperId,jdbcType=INTEGER},
       USER_ID = #{record.userId,jdbcType=INTEGER},
       PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
       USER_NAME = #{record.userName,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
         DOWNLOAD_TIME = #{downloadTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where PAPER_ID = #{paperId,jdbcType=BIGINT}
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
       and USER_ID = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperDownload">
@@ -207,7 +207,7 @@
     set PAPER_NAME = #{paperName,jdbcType=VARCHAR},
       USER_NAME = #{userName,jdbcType=VARCHAR},
       DOWNLOAD_TIME = #{downloadTime,jdbcType=TIMESTAMP}
-    where PAPER_ID = #{paperId,jdbcType=BIGINT}
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
       and USER_ID = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

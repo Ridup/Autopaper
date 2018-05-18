@@ -14,7 +14,7 @@
     <meta name="csrf-param" content="_csrf">
     <meta name="csrf-token"
           content="2tObdh4PcaU3_IZf-TfVW6GrfER5u1R8xJCNGWaFLkSNot8hREU9zFzE3C2wZp8EzOMMLjLXZjiOvftRDNdGAA==">
-    <title></title>
+    <title>试题搜索</title>
     <script src="<%=request.getContextPath()%>/static/js/extends/hm.js"></script>
     <script>
         (function (doc, win) {
@@ -347,9 +347,6 @@
                                 <p class="exam-foot-left">
                                     <a target="_blank" href="<%=request.getContextPath()%>/question/detail/.do?questionId=${question.questionId}"><i
                                             class="icona-jiexi"></i>查看解析</a>
-                                    <c:if test="${question.questionFav!=null}">
-
-                                    </c:if>
                                     <c:choose>
                                         <c:when test="${question.questionFav!=null}">
                                             <a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-quxiaosc"></i>取消收藏</a>
@@ -501,20 +498,7 @@
                 <c:otherwise>共计：（<span>0</span>）道题</c:otherwise>
             </c:choose>
         </div>
-            <div class="baskrt-list">
-
-                <c:choose>
-                    <c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}">
-                        <c:forEach items="${questionBasketTypeCountPojos}" var="typeCount">
-                            <p title="${typeCount.questionTypeName}">${typeCount.questionTypeName}：<span>${typeCount.questionCount}</span>道<i class="icona-del1 f-fr" onclick="basket.removeAll('${typeCount.questionType}', 7163341)"></i></p>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise></c:otherwise>
-                </c:choose>
-
-
-
-            </div>
+            <div class="baskrt-list"><c:choose><c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}"><c:forEach items="${questionBasketTypeCountPojos}" var="typeCount"><p title="${typeCount.questionTypeName}">${typeCount.questionTypeName}：<span>${typeCount.questionCount}</span>道<i class="icona-del1 f-fr" onclick="basket.removeAll('${typeCount.questionType}', 7163341)"></i></p></c:forEach></c:when><c:otherwise></c:otherwise></c:choose></div>
         </div>
         <div class="basket-foot">
             <a id="to-paper-admin-edit" data-method="post" class="basket-btn" href="/paper/admin-edit" style="display: none">编辑</a>

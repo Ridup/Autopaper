@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ncu.study.autopaper.dao.ext.PaperExtMapper">
+
+    <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Paper">
+        <constructor>
+            <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="TYPE_COUNT_COLLECTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PAPER_HOT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PAPER_GRADE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PAPER_GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PAPER_COURSE_ID" javaType="java.lang.String" jdbcType="CHAR" />
+            <arg column="PAPER_COURSE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PAPER_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PAPER_SCORES" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="TOTAL" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="SCORE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PAPER_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OWNER" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    PAPER_ID, PAPER_NAME, TYPE_COUNT_COLLECTION, PAPER_DIFFICULTY, PAPER_HOT, PAPER_GRADE_ID,
+    PAPER_GRADE_NAME, PAPER_COURSE_ID, PAPER_COURSE_NAME, PAPER_VERSION, PAPER_SCORES,
+    TOTAL, SCORE, TIME, PAPER_URL, OWNER, CREATE_TIME
+  </sql>
+
+    <select id="getSearchPapers" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM paper WHERE
+
+        <if test="gradeName!=null and gradeName!=''">
+            PAPER_GRADE_NAME = #{gradeName}
+        </if>
+        <if test="courseName!=null and courseName!=''">
+            AND PAPER_COURSE_NAME = #{courseName}
+        </if>
+        <if test="content!=null and content!=''">
+            AND  PAPER_NAME LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="start!=null">
+            LIMIT #{start},10
+        </if>
+    </select>
+
+
+</mapper>
