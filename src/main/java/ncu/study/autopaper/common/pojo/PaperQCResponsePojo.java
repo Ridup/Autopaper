@@ -15,7 +15,7 @@ public class PaperQCResponsePojo {
     private int questionCount;
     private int questionTypeScore;
     private int questionTypeTime;
-    private  int questionTypeDiffi;
+    private  double questionTypeDiffi;
     private List<QuestionResponsePojo> questionResponsePojos;
 
     public String getQuestionType() {
@@ -74,11 +74,11 @@ public class PaperQCResponsePojo {
         this.typeNumName = typeNumName;
     }
 
-    public int getQuestionTypeDiffi() {
+    public double getQuestionTypeDiffi() {
         return questionTypeDiffi;
     }
 
-    public void setQuestionTypeDiffi(int questionTypeDiffi) {
+    public void setQuestionTypeDiffi(double questionTypeDiffi) {
         this.questionTypeDiffi = questionTypeDiffi;
     }
 }

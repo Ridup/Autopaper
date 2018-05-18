@@ -7,7 +7,7 @@ package ncu.study.autopaper.common.pojo;
 public class PaperResponsePojo {
     private int totalScore;
     private int totalTime;
-    private int avgDifficulty;
+    private double avgDifficulty;
 
     public int getTotalScore() {
         return totalScore;
@@ -25,11 +25,11 @@ public class PaperResponsePojo {
         this.totalTime = totalTime;
     }
 
-    public int getAvgDifficulty() {
+    public double getAvgDifficulty() {
         return avgDifficulty;
     }
 
-    public void setAvgDifficulty(int avgDifficulty) {
+    public void setAvgDifficulty(double avgDifficulty) {
         this.avgDifficulty = avgDifficulty;
     }
 }

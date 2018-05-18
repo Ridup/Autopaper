@@ -56,6 +56,11 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/main.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/popup.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/layer.css" id="layuicss-skinlayercss">
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
+    <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
+
+
     <meta name="keywords" content="组卷,自动组卷,试卷,试题,在线测试">
     <meta name="description" content="自动组卷系统适用于小学、中学、高中的试卷生成，并且能够在线测评">
 
@@ -509,10 +514,14 @@
                 </div>
                 <div class="section-gg">
                     <h3><i class="iconb-gg"></i>公告</h3>
+
                     <ul>
 
                         <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="组卷编辑页面" target="_blank">组卷编辑页面</a>
                             <span class="gg-time">2017-4-11</span>
+                            <div id="test2">
+
+                            </div>
                         </li>
                         <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="组卷"
                                                             target="_blank">组卷</a>
@@ -632,6 +641,17 @@
 <script src="<%=request.getContextPath()%>/static/js/lib/jquery.superslide.2.1.1.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/home.min.js"></script>
 <script>
+
+    layui.use(['rate'], function() {
+        var rate = layui.rate;
+        //自定义文本
+        //显示文字
+        rate.render({
+            elem: '#test2'
+            ,value: 2 //初始值
+            ,text: true //开启文本
+        });
+    });
     $(function () {
         mechanToLogin();
     })

@@ -9,7 +9,7 @@ public class Question {
 
     private String questionClass;
 
-    private Integer questionDifficulty;
+    private Double questionDifficulty;
 
     private Integer pointNumber;
 
@@ -57,7 +57,7 @@ public class Question {
 
     private String status;
 
-    public Question(Long questionId, String questionType, String questionClass, Integer questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String selectionA, String selectionB, String selectionC, String selectionD, String answer, String analysis, Long questionHot, Integer ownner, Date createTime, Date updateTime, String questionContent, String status) {
+    public Question(Long questionId, String questionType, String questionClass, Double questionDifficulty, Integer pointNumber, String point, String source, Long usetimes, String type, Integer questionScore, Integer questionTime, String gradeName, String courseName, String versionName, String chapterName, String selectionA, String selectionB, String selectionC, String selectionD, String answer, String analysis, Long questionHot, Integer ownner, Date createTime, Date updateTime, String questionContent, String status) {
         this.questionId = questionId;
         this.questionType = questionType;
         this.questionClass = questionClass;
@@ -115,11 +115,11 @@ public class Question {
         this.questionClass = questionClass == null ? null : questionClass.trim();
     }
 
-    public Integer getQuestionDifficulty() {
+    public Double getQuestionDifficulty() {
         return questionDifficulty;
     }
 
-    public void setQuestionDifficulty(Integer questionDifficulty) {
+    public void setQuestionDifficulty(Double questionDifficulty) {
         this.questionDifficulty = questionDifficulty;
     }
 

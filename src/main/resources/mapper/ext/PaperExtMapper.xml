@@ -7,7 +7,7 @@
             <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="TYPE_COUNT_COLLECTION" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PAPER_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE" />
             <arg column="PAPER_HOT" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="PAPER_GRADE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PAPER_GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />

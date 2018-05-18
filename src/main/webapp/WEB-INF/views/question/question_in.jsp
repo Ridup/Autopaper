@@ -111,6 +111,11 @@
         })
     </script>
 
+    <style>
+        #qdstar  li {
+            margin-right: 0px;
+        }
+    </style>
 
 </head>
 
@@ -211,9 +216,40 @@
     layui.use(['layer', 'form'], function(){
         var layer = layui.layer
             ,form = layui.form;
-
-
     });
+
+    layui.use(['rate'], function () {
+        var rate = layui.rate;
+        //自定义文本
+        rate.render({
+            elem: '#qdstar'
+            , value: 0
+            , text: true
+            , half: true
+            , theme: "#50AD54"
+            , readonly: false
+            ,choose: function(value){
+                $("#questionDifficulty").val(value);
+            }
+            , setText: function (value) { //自定义文本的回调
+                var arrs = {
+                    '0': '难度0'
+                    , '0.5': '难度1'
+                    , '1': '难度2'
+                    , '1.5': '难度3'
+                    , '2': '难度4'
+                    , '2.5': '难度5'
+                    , '3': '难度6'
+                    , '3.5': '难度7'
+                    , '4': '难度8'
+                    , '4.5': '难度9'
+                    , '5': '难度10'
+                };
+                this.span.text(arrs[value] || (value + "星"));
+            }
+        })
+    });
+
 </script>
 
 <input type="hidden" value="${ucenter_position}" id="ucenter_position"/>
@@ -260,6 +296,8 @@
                 });
                 d.showModal();
             }
+
+
         });
 
         var umenu_slider = function() {
@@ -368,12 +406,34 @@
 
                                     var points = "";
                                     for (var n = 0; n < data[i].pointPojoList.length; n++) {
-                                        points = points + "<input type=\"checkbox\" name=\"point\" title=\"" + data[i].pointPojoList[n].pointName + "\" value=\"" + data[i].pointPojoList[n].courseId + "\" lay-skin=\"primary\">";
+                                        points = points + "<input type=\"checkbox\" class=\"point\" name=\"point\"  lay-verify=\"required\"  title=\"" + data[i].pointPojoList[n].pointName + "\" value=\"" + data[i].pointPojoList[n].courseId + "\" lay-skin=\"primary\">";
                                     }
-                                    var pointHtml = "<div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">" +"<input type=\"checkbox\" name=\"chapterName\" value=\""+ data[i].chapter+"\" lay-skin=\"primary\">"+ data[i].chapter + "<i class=\"layui-icon layui-colla-icon\"></i></h2><div class=\"layui-colla-content layui-show\" >" + points + "</div></div>";
+                                    var pointHtml = "<div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">" +"<input type=\"checkbox\"  lay-verify=\"required\" class=\"chapterName\" name=\"chapterName\" value=\""+ data[i].chapter+"\" lay-skin=\"primary\">"+ data[i].chapter + "<i class=\"layui-icon layui-colla-icon\"></i></h2><div class=\"layui-colla-content layui-show\" >" + points + "</div></div>";
                                     $('#chapterList').append(pointHtml);
                                 }
                                 form.render();
+
+                                //监听提交
+                                /*form.on('submit(formDemo)', function(data){
+                                    layer.msg(JSON.stringify(data.field));
+                                    var pointList = new Array();
+                                    var len = document.querySelectorAll(".point").length;
+                                    for(var i = 0;i<len;i++){
+                                        var v =document.querySelectorAll(".point")[i].value();
+                                        pointList.push(v);
+                                    }
+                                    var chapterNameList = new Array();
+                                    var len = document.querySelectorAll(".chapterName").length;
+                                    for(var i = 0;i<len;i++){
+                                        var v =document.querySelectorAll(".chapterName")[i].value();
+                                        chapterNameList.push(v);
+                                    }
+                                    if(pointList!=null&&chapterNameList!=null){
+                                        return true;
+                                    }
+                                    return false;
+                                });*/
+
                             });
                         }else{
                             layer.alert("<span style='margin-left: 70px;text-align: center;'>未查到数据！</span>");
@@ -434,7 +494,9 @@
                 <div class="layui-form-item" >
                     <div class="layui-inline">
                         <label class="layui-form-label">试题难度</label>
-                        <div class="layui-input-inline" style="width: 150px">
+                        <div id="qdstar" class="layui-input-inline" style="display: inline-block;height: 40px;width: 200px;"></div>
+                        <input id="questionDifficulty" type="hidden" name="questionDifficulty"   lay-verify="required|number" autocomplete="off" class="layui-input" value="">
+                        <%--<div class="layui-input-inline" style="width: 150px">
                             <select name="questionDifficulty" lay-verify="required">
                                 <option value=""></option>
                                 <option value="1">难度1</option>
@@ -443,7 +505,9 @@
                                 <option value="4">难度4</option>
                                 <option value="5">难度5</option>
                             </select>
-                        </div>
+                        </div>--%>
+
+
                         <label class="layui-form-label">答题时间</label>
                         <div class="layui-input-inline" style="width: 150px">
                             <input type="text" name="questionTime"   lay-verify="required|number" placeholder="请答题时间分钟数" autocomplete="off" class="layui-input">
@@ -483,11 +547,11 @@
                                 <option>---请选择---</option>
                             </select>
                         </div>
-                        <a href="javascript:void (0)" class="layui-btn" onclick="queryPoints()">确认</a>
+                        <a href="javascript:void (0)" class="layui-btn" onclick="queryPoints()">添加知识点</a>
                     </div>
                 </div>
 
-
+                    <div class="layui-form-item" >
                 <div class="layui-collapse" id="chapterList">
 
                     <%--<div class="layui-colla-item">
@@ -515,6 +579,7 @@
                     </div>--%>
 
                 </div>
+                    </div>
 
                 <script>
                     //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
@@ -523,6 +588,8 @@
 
                         //…
                     });
+
+
                 </script>
 
 

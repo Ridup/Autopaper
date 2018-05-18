@@ -7,7 +7,7 @@
             <idArg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
             <arg column="QUESTION_TYPE" javaType="java.lang.String" jdbcType="CHAR" />
             <arg column="QUESTION_CLASS" javaType="java.lang.String" jdbcType="CHAR" />
-            <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE" />
             <arg column="POINT_NUMBER" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="POINT" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />

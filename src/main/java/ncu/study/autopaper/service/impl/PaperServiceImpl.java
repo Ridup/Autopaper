@@ -109,7 +109,7 @@ public class PaperServiceImpl implements PaperService {
         Paper paper = paperMapper.selectByPrimaryKey(paperId);
         if(paper!=null){
             BeanUtils.copyProperties(paper,paperPojo);
-            Integer paperDifficulty = paper.getPaperDifficulty();
+            double paperDifficulty = paper.getPaperDifficulty();
             String typeCountCollectionStr = paper.getTypeCountCollection();
             List<PaperQCMiniPojo> paperQCMiniPojos = gson.fromJson(typeCountCollectionStr, new TypeToken<List<PaperQCMiniPojo>>() {}.getType());
 

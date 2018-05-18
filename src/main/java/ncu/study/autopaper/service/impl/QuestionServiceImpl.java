@@ -2,6 +2,7 @@ package ncu.study.autopaper.service.impl;
 
 import ncu.study.autopaper.common.enums.*;
 import ncu.study.autopaper.common.pojo.*;
+import ncu.study.autopaper.common.util.DoubleUtil;
 import ncu.study.autopaper.dao.QuestionMapper;
 import ncu.study.autopaper.dao.ext.QuestionExtMapper;
 import ncu.study.autopaper.model.Question;
@@ -31,6 +32,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int insertQuestionInfo(Question question) {
+        double a = DoubleUtil.div(question.getQuestionDifficulty(),5,1);
+        question.setQuestionDifficulty(a);
         int status = questionMapper.insertSelective(question);
         return status;
     }
@@ -41,7 +44,6 @@ public class QuestionServiceImpl implements QuestionService {
         QuestionExample.Criteria criteria = questionExample.createCriteria();
         String gradeName = currentGrade.getGradeName();
         String courseName = currentCourse.getCourseName();
-        System.out.println("dsadasd" + gradeName + "dsadadsa");
         if (gradeName != null && gradeName != "" && !gradeName.trim().equals("")) {
             criteria.andGradeNameLike(gradeName);
         }
@@ -83,13 +85,13 @@ public class QuestionServiceImpl implements QuestionService {
             List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
             int typeTotal = 0;
             int typeTime = 0;
-            int typeDiffi = 0;
+            double typeDiffi = 0;
             for (Long questionId : questionIds) {
 
                 Question questionContents = questionMapper.selectByPrimaryKey(questionId);
                 typeTotal = typeTotal+questionContents.getQuestionScore();
                 typeTime = typeTime +questionContents.getQuestionTime();
-                typeDiffi = typeDiffi + questionContents.getQuestionDifficulty();
+                typeDiffi = DoubleUtil.add(typeDiffi,questionContents.getQuestionDifficulty());
                 QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
                 BeanUtils.copyProperties(questionContents, questionResponsePojo);
                 questionResponsePojo.setEnumQuestionClass(EnumQuestionClass.find(questionContents.getQuestionClass()));
