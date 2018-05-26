@@ -3,13 +3,13 @@ package ncu.study.autopaper.model;
 import java.util.Date;
 
 public class QuestionErrorBook extends QuestionErrorBookKey {
-    private Integer myScore;
+    private Double myScore;
 
     private String myAnswer;
 
     private Date createTime;
 
-    public QuestionErrorBook(Integer userId, Long questionId, Integer myScore, String myAnswer, Date createTime) {
+    public QuestionErrorBook(Integer userId, Long questionId, Double myScore, String myAnswer, Date createTime) {
         super(userId, questionId);
         this.myScore = myScore;
         this.myAnswer = myAnswer;
@@ -20,11 +20,11 @@ public class QuestionErrorBook extends QuestionErrorBookKey {
         super();
     }
 
-    public Integer getMyScore() {
+    public Double getMyScore() {
         return myScore;
     }
 
-    public void setMyScore(Integer myScore) {
+    public void setMyScore(Double myScore) {
         this.myScore = myScore;
     }
 

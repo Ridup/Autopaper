@@ -133,23 +133,23 @@
             <div class="user-captcha"></div>
 
             <p class="pwd f-usn" onselectstart="return false">
-                <span class="remember-me">
+          <%--      <span class="remember-me">
                     <i class="cu-checkbox4"></i> 记住密码
                     <input type="hidden" name="LoginForm[rememberMe]" value="0" id="remember-me-input">
-                </span>
-                <a href="/site/password-find">忘记密码</a>
+                </span>--%>
+<%--                <a href="/site/password-find">忘记密码</a>--%>
             </p>
             <button class="btn" type="submit">登录</button>
-            <div class="oth-login"><p>选择其他方式登录</p></div>
+<%--            <div class="oth-login"><p>选择其他方式登录</p></div>--%>
 
-            <div class="oth-qq">
+            <%--<div class="oth-qq">
                 <a href="/site/show-qr-code" target="_blank" ;="" style="text-decoration:none;" class="weixin-btn"> </a>
                 <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&amp;client_id=310510134&amp;redirect_uri=https://21cnjy.com/connect.php&amp;state=&amp;scope=get_user_info" class="qq-btn"> </a>
-            </div>
+            </div>--%>
             <div class="register">还没有账号？注册一个吧！<a href="<%=request.getContextPath()%>/user/register.do">立即注册</a></div>
         </form>
 
-        <div class="login-method--weixin J_LoginTabContent" style="display: none">
+        <div class="login-method--weixin J_LoginTabContent" style="display: none"><%--
             <div class="title">微信登录</div>
             <div class="waiting panelContent">
                 <div class="wrp_code">
@@ -164,13 +164,13 @@
                 </div>
             </div>
 
-        </div>
+        --%></div>
 
         <div class="address">
             <p><span> 江西省南昌市南昌大学</span> <span>邮编：330031</span> <span>电话：18200000000</span></p>
             <p>2017-2018 版权所有©Ridup <a href="https://github.com/Ridup" rel="nofollow" target="_blank">GitHub</a></p>
         </div>
-        <div class="login-method__tab J_LoginTab">
+        <div class="login-method__tab J_LoginTab"><%--
             <ul>
                 <li class="login-method__tab--wx tab" data-type="1">
                     <div class="img">微信扫码</div>
@@ -181,7 +181,7 @@
                     <p class="tip"><i></i>密码登录在这里<b></b></p>
                 </li>
             </ul>
-        </div>
+        --%></div>
     </div>
 </div>
 

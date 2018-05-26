@@ -42,7 +42,7 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
+        var HostInfo = "";
         USER = {} ;
     </script>
     <!--[if lt IE 9]>
@@ -57,6 +57,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/artDialog-skin-ot2.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/main.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/popup.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
+    <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
     <script src="<%=request.getContextPath()%>/static/js/lib/jquery.min.js"></script>
     <script type="text/javascript">$.ajaxSetup({cache: false});</script>
     <script src="<%=request.getContextPath()%>/static/js/lib/underscore-min.js"></script>
@@ -115,7 +117,9 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" target="_blank">下载记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
+<%--
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
+--%>
                         <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/myfavorite.do" target="_blank">我的收藏</a></li>
@@ -173,7 +177,14 @@
             <div class="msg-box">
                 <div class="user-pic">
                     <div class="pic-border">
-                        <img src="<%=request.getContextPath()%>/static/images/10.png">
+                        <c:choose>
+                            <c:when test="${user.userIcon!=null}">
+                                <img src="${user.userIcon}" alt="${user.userName}">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="<%=request.getContextPath()%>/static/images/10.png" alt="该用户未设置头像">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -188,10 +199,9 @@
                 </div>
             </div>
             <div class="points">
-                <ul>
-                    <li><p><span>0</span>积分</p></li>
-                    <li><p class="line-border"><span>0</span>积分</p></li>
-                </ul>
+                <button type="button" class="layui-btn" id="test1">
+                    <i class="layui-icon">&#xe67c;</i>上传头像
+                </button>
             </div>
             <%--用户头结束--%>
 
@@ -201,8 +211,10 @@
                     <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" id="download_record"><i class="icona-download3"></i>下载记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" id="generate_record"><i class="icona-zjjl"></i>组卷记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" id="test_record"><i class="icona-csjl"></i>测试记录</a></li>
+<%--
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" id="error_record"><i class="dj-error"></i>纠错记录</a></li>
-                    <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
+--%>
+                    <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" ><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" id="error_question"><i class="icona-ctb"></i>错题本</a></li>
                     <li>
                         <div class="mt"><span href="javascript:;"><i class="icona-shoucang2"></i>我的收藏</span><b class="icona-right2"></b></div>
@@ -264,7 +276,7 @@
                 <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/ucenter.css">
 
                 <h1>个人信息</h1>
-                <form id="w0" class="form-info" action="https://zujuan.21cnjy.com/ucenter" method="post">
+                <form id="w0" class="form-info" action="" method="post">
                     <input type="hidden" name="_csrf" value="CuLu_5_b5pKzlDz2vF0s8oF0235xNpoeksCnr1yLttF6kZu71aqP2ur7bb3oDnq4yRajGAJwxUHc8sTBZO3Ygg==">
                     <fieldset>
                         <legend class="form-title">基本信息</legend>
@@ -507,7 +519,7 @@
 
 
 
-
+                    <%=request.getServletPath()%>
 
 
                 <%--  内容结束！！！--%>
@@ -616,9 +628,28 @@
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.activeForm.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
-<script type="text/javascript">jQuery(function ($) {
-    jQuery('#w0').yiiActiveForm([], []);
-});</script>
+<script type="text/javascript">
+    var localObj = window.location;
+    var server_context = localObj.protocol+"//"+localObj.host+"/"+localObj.pathname.split("/")[1];
+    layui.use('upload', function(){
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: server_context+'/user/upload_icon.do' //上传接口
+            ,done: function(res){
+                //上传完毕回调
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+    });
+
+
+
+</script>
 
 </body>
 </html>

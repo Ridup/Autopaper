@@ -3,6 +3,7 @@ package ncu.study.dao;
 import ncu.study.autopaper.common.pojo.CoursePojo;
 import ncu.study.autopaper.common.pojo.GradePojo;
 import ncu.study.autopaper.common.pojo.VersionPojo;
+import ncu.study.autopaper.common.util.WordUtils;
 import ncu.study.autopaper.dao.ext.CoursesInfoExtMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -24,7 +26,6 @@ public class CoursesInfoExtTest {
     @Test
     public void test(){
        List<GradePojo> gradePojos = coursesInfoExtMapper.getAllGrade();
-
         System.out.print(gradePojos.toString());
 
     }
@@ -49,8 +50,11 @@ public class CoursesInfoExtTest {
         //coursePojo.setCourse("C01");
         coursePojo.setCourseName("数学");
         List<VersionPojo> versionPojos = coursesInfoExtMapper.getAllVersion(gradePojo,coursePojo);
+        URL url = WordUtils.class.getResource("/");
+
 
         System.out.print(versionPojos.toString());
+        System.out.print(url.toString());
 
     }
 }

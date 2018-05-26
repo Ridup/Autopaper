@@ -15,13 +15,16 @@ public class QuestionComment {
 
     private Integer questionCommentPraise;
 
-    public QuestionComment(Long questionCommentId, Integer userId, Long questionId, String questionComment, Date questionCommentTime, Integer questionCommentPraise) {
+    private String status;
+
+    public QuestionComment(Long questionCommentId, Integer userId, Long questionId, String questionComment, Date questionCommentTime, Integer questionCommentPraise, String status) {
         this.questionCommentId = questionCommentId;
         this.userId = userId;
         this.questionId = questionId;
         this.questionComment = questionComment;
         this.questionCommentTime = questionCommentTime;
         this.questionCommentPraise = questionCommentPraise;
+        this.status = status;
     }
 
     public QuestionComment() {
@@ -74,5 +77,13 @@ public class QuestionComment {
 
     public void setQuestionCommentPraise(Integer questionCommentPraise) {
         this.questionCommentPraise = questionCommentPraise;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

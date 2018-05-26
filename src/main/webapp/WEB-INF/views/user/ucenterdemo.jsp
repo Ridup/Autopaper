@@ -102,7 +102,7 @@
         </style>
 
         <div class="header-logo">
-            <a href="<%=request.getContextPath()%>/">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="自动组卷平台" title="自动组卷平台">
             </a>
         </div>

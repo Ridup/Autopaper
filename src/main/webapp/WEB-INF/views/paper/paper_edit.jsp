@@ -109,7 +109,9 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" target="_blank">下载记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
+<%--
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
+--%>
                         <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/myfavorite.do" target="_blank">我的收藏</a></li>
@@ -382,8 +384,6 @@
                         </div>
                     </div>
                 </div>
-                <a href="https://zujuan.21cnjy.com/question/index" class="btn">继续选题</a>
-                <a href="javascript:;" onclick="paper.addNewType()" class="btn">+自定义题型</a>
             </div>
         </div>
     </div>
@@ -518,7 +518,7 @@
                                                              id="question-${question.questionId}">
                                                             <div class="question-txt">
                                                                 <div class="question-num"><span class="q-sn"><c:out value="${countNum+questionIndex.index}"></c:out></span>. <span
-                                                                        class="q-scoreval">${question.questionScore}（分）</span>${question.questionContent}
+                                                                        class="q-scoreval">（${question.questionScore}分）</span>${question.questionContent}
 
                                                                 </div>
 
@@ -580,8 +580,7 @@
                                                                 <a class="sc-btn" href="javascript:;"
                                                                    onclick="OT2.QCollect(this, ${question.questionId})"><i
                                                                         class="icona-shoucangs"></i>收藏</a>
-                                                                <a class="jc-btn" href="javascript:;"
-                                                                   onclick="OT2.ErrorReport(${question.questionId})"><i class="icona-jiucuo1"></i>纠错</a>
+
                                                                 <a class="del-btn" href="javascript:;"><i class="icona-del3"></i>删除</a>
                                                             </div>
                                                         </div>
@@ -760,7 +759,7 @@
     <div class="paper-question f-usn" onselectstart="return false" id="question-">
         <!-- question-txt -->
         <div class="question-btngroup">
-            <a target="_blank" href="/question/detail/" class="jx-btn"><i class="icona-jiexi1"></i>答案解析</a>
+            <%--<a target="_blank" href="/question/detail/" class="jx-btn"><i class="icona-jiexi1"></i>答案解析</a>
             <a class="score-btn" href="javascript:;"><i class="icona-jiexi1"></i>设定得分</a>
             <a class="ht-btn" href="javascript:;"><i class="icona-exchange"></i>换题</a>
             <a class="zy-btn" href="javascript:;"><i class="icona-shift"></i>转移</a>
@@ -769,7 +768,7 @@
             </a>
             <a class="jc-btn" href="javascript:;" onclick="OT2.ErrorReport()"><i
                     class="icona-jiucuo1"></i>纠错</a>
-            <a class="del-btn" href="javascript:;"><i class="icona-del3"></i>删除</a>
+            <a class="del-btn" href="javascript:;"><i class="icona-del3"></i>删除</a>--%>
         </div>
     </div>
 </script>
@@ -907,8 +906,11 @@
                 </table>
 
 
-                <input type="hidden" name="" id="bigCount" value="${paperQCInfo}">
-
+                <input type="hidden" id="bigCount" value="${paperQCInfo}">
+            <%--    <input type="hidden" name="" id="paperQCInfo" value="${paperQCInfo1}">
+                <input type="hidden" name="" id="paperResponsePojo" value="${paperResponsePojo1}">
+                <input type="hidden" name="" id="questionBasketInfo" value="${questionBasketInfo1}">--%>
+                <input type="hidden" id="generate_way" value="${generate_way}">
 
                 <%--            试卷内容结束------------------------------------------------------------------------------------------------------------------------------------%>
 
@@ -1054,9 +1056,7 @@
         <p>试卷保存成功，您还可以进行以下操作：</p>
         <div>
             <button id="b-download">下载组卷</button>
-            <a id="b-test" class="btn" href="/paper/test?pid=">开始测试</a>
-            <button id="b-share">共享组卷</button>
-            <a id="b-view" class="btn" href="/ucenter/u-zujuan" target="_blank">查看记录</a>
+            <a id="b-test" class="btn" href="<%=request.getContextPath()%>/paper/test.do?paperId=${paperPojo.paperId}">开始测试</a>
         </div>
     </div>
 </script>
@@ -1159,14 +1159,7 @@
             </div>
             <p></p>
             <div class="hint-msg">
-                <div class="hint-tit">
-                    温馨提示：
-                </div>
-                <div class="hint-text">
-                    <p>1、组卷通用户下载免费。 <a href="/help/zujuan" target="blank" style="color:#17A3E0;">学校/培训机构申请免费试用</a></p>
-                    <p>2、VIP用户下载免费。 <a href="/payment/vip" target="blank" style="color:#17A3E0;">开通VIP</a></p>
-                    <p>3、如有问题，请联系客服QQ：81321902 </p>
-                </div>
+
             </div>
         </div>
     </div></script>
@@ -1658,7 +1651,7 @@
         }
         // TODO 优化数字转化
         function translateNum(a){
-            var arr = new Array(13)
+            var arr = new Array(13);
             arr[0] = "零";arr[1] = "一";arr[2] = "二";arr[3] = "三";arr[4] = "四";arr[5] = "五";
             arr[6] = "六";arr[7] = "七";arr[8] = "八";arr[9] = "九";arr[10] = "十";arr[11] = "十一";arr[12] = "十二";
             return arr[a];
@@ -1666,9 +1659,17 @@
     });
 
     function paper_download(){
+        layer.load();
         var schtml = $("#schtml").html();
+        var generateWay = "${generate_way}";
+        var acurl = "";
+        if (generateWay=="auto") {
+            acurl = server_context + '/paper/auto_download.do';
+        } else {
+            acurl = server_context + '/paper/download.do';
+        }
         $.ajax({
-            url: server_context + '/paper/download.do',
+            url: acurl,
             type: 'POST', //GET
             async: true,    //或false,是否异步
             data: {
@@ -1679,7 +1680,7 @@
             success: function (data, textStatus, jqXHR) {
                 var  download_status= data;
                 console.log("download_status========"+download_status);
-                //layer.closeAll('loading');
+                layer.closeAll('loading');
 
                 if(null!=download_status){
                     if("PE02"==download_status){
@@ -1729,12 +1730,23 @@
 
 
     function  paper_save() {
-
+layer.load();
 
 
         var schtml = $("#schtml").html();
+        var generateWay = "${generate_way}";
+        console.log("generate_way=="+generateWay);
+       /* var paperQCInfo = $("#paperQCInfo").val();
+        var paperResponsePojo = $("#paperResponsePojo").val();
+        var questionBasketInfo = $("#questionBasketInfo").val();*/
+        var acurl = "";
+        if (generateWay=="auto") {
+            acurl = server_context + '/paper/auto_save.do';
+        } else {
+            acurl = server_context + '/paper/save.do';
+        }
         $.ajax({
-            url: server_context + '/paper/save.do',
+            url: acurl,
             type: 'POST', //GET
             async: true,    //或false,是否异步
             data: {
@@ -1743,6 +1755,7 @@
             timeout: 5000,    //超时时间
             dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
             success: function (data, textStatus, jqXHR) {
+                layer.closeAll('loading');
                 var  download_status= data;
                 console.log("download_status========"+download_status);
                 //layer.closeAll('loading');
@@ -1754,6 +1767,13 @@
                     else if("PE03"==download_status){
                         layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常：插入失败，请重试</span>");
                         //window.localObj.href = server_context+ "/index.do?tips=e01";
+                    }
+                    else if("PE01"==download_status){
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>试题篮为空！！！</span>");
+                    }
+                    else if("PE00"==download_status){
+                        window.localObj.href = server_context+ "/index.do?tips=e01";
+                        window.location.href = "";
                     }
                     else{
                         window.localObj.href = server_context+ "/paper/view.do?paperId="+download_status;

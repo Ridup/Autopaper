@@ -1,5 +1,6 @@
 package ncu.study.autopaper.service;
 
+import ncu.study.autopaper.common.pojo.PaperDownloadPojo;
 import ncu.study.autopaper.model.PaperDownload;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public interface DownloadRecordService {
     public int getDownloadTimes(int paperId);
-    public List<PaperDownload> getUserDownloadRecord(int userId);
-    public  int saveUserDownloadRecord(int userId,int paperId);
+    public List<PaperDownloadPojo> getUserDownloadRecord(int userId);
+    public  int saveUserDownloadRecord(int userId,int paperId,String paperName);
+    public  int delete(int userId,int paperId);
 }

@@ -4,33 +4,33 @@
 
     <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.Question">
         <constructor>
-            <idArg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
-            <arg column="QUESTION_TYPE" javaType="java.lang.String" jdbcType="CHAR" />
-            <arg column="QUESTION_CLASS" javaType="java.lang.String" jdbcType="CHAR" />
-            <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE" />
-            <arg column="POINT_NUMBER" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="POINT" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="USETIMES" javaType="java.lang.Long" jdbcType="BIGINT" />
-            <arg column="TYPE" javaType="java.lang.String" jdbcType="CHAR" />
-            <arg column="QUESTION_SCORE" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="QUESTION_TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="COURSE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="VERSION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="CHAPTER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="SELECTION_A" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="SELECTION_B" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="SELECTION_C" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="SELECTION_D" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="ANSWER" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="ANALYSIS" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="QUESTION_HOT" javaType="java.lang.Long" jdbcType="BIGINT" />
-            <arg column="OWNNER" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="QUESTION_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="STATUS" javaType="java.lang.String" jdbcType="CHAR" />
+            <idArg column="QUESTION_ID" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="QUESTION_TYPE" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="QUESTION_CLASS" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="QUESTION_DIFFICULTY" javaType="java.lang.Double" jdbcType="DOUBLE"/>
+            <arg column="POINT_NUMBER" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="POINT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SOURCE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="USETIMES" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="TYPE" javaType="java.lang.String" jdbcType="CHAR"/>
+            <arg column="QUESTION_SCORE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="QUESTION_TIME" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="GRADE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="COURSE_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="VERSION_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="CHAPTER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SELECTION_A" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SELECTION_B" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SELECTION_C" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="SELECTION_D" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="ANSWER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="ANALYSIS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="QUESTION_HOT" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="OWNNER" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="QUESTION_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="STATUS" javaType="java.lang.String" jdbcType="CHAR"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -62,6 +62,62 @@
         <if test="start!=null">
             LIMIT #{start},10
         </if>
+    </select>
+
+
+    <select id="getQuestionListByRuleOR" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM question WHERE
+
+        <if test="questionType!=null and questionType!=''">
+            QUESTION_TYPE = #{questionType} AND
+        </if>
+        (<if test="points!=null">
+            <foreach collection="points" item="point" index="vs">
+                <choose>
+                    <when test="1+vs==pointsSum">
+                        POINT LIKE CONCAT('%',#{point},'%')
+                    </when>
+                    <otherwise>
+                        POINT LIKE CONCAT('%',#{point},'%') OR
+                    </otherwise>
+                </choose>
+            </foreach>
+        </if>)
+        AND  STATUS = '002'
+    </select>
+
+
+
+    <select id="getQuestionListByTempQuestion" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM question WHERE
+
+        <if test="questionType!=null and questionType!=''">
+            QUESTION_TYPE = #{questionType} AND
+        </if>
+        <if test="questionId!=null">
+            QUESTION_ID  !=  #{questionId} AND
+        </if>
+        <if test="questionScore!=null">
+            QUESTION_SCORE = #{questionScore} AND
+        </if>
+
+        (<if test="points!=null">
+            <foreach collection="points" item="point" index="vs">
+                <choose>
+                    <when test="1+vs==pointsSum">
+                        POINT LIKE CONCAT('%',#{point},'%')
+                    </when>
+                    <otherwise>
+                        POINT LIKE CONCAT('%',#{point},'%') OR
+                    </otherwise>
+                </choose>
+            </foreach>
+        </if>)
+        AND  STATUS = '002'
     </select>
 
 

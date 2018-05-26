@@ -9,8 +9,7 @@
     <meta name="force-rendering" content="webkit"><!--用在其它-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="https://zujuan.21cnjy.com/images/favicon.ico">
-    <link rel="apple-touch-icon" href="https://zujuan.21cnjy.com/images/touchicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/static/images/favicon.ico">
     <meta name="csrf-param" content="_csrf">
     <meta name="csrf-token"
           content="2tObdh4PcaU3_IZf-TfVW6GrfER5u1R8xJCNGWaFLkSNot8hREU9zFzE3C2wZp8EzOMMLjLXZjiOvftRDNdGAA==">
@@ -44,9 +43,7 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {};//通知js用户的信息
-        OT2.CSRF = {"_csrf": "2tObdh4PcaU3_IZf-TfVW6GrfER5u1R8xJCNGWaFLkSNot8hREU9zFzE3C2wZp8EzOMMLjLXZjiOvftRDNdGAA=="};
+
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9 = false;</script>
@@ -345,7 +342,7 @@
                             </div>
                             <div class="exam-foot">
                                 <p class="exam-foot-left">
-                                    <a target="_blank" href="<%=request.getContextPath()%>/question/detail/.do?questionId=${question.questionId}"><i
+                                    <a target="_blank" href="<%=request.getContextPath()%>/question/detail.do?questionId=${question.questionId}"><i
                                             class="icona-jiexi"></i>查看解析</a>
                                     <c:choose>
                                         <c:when test="${question.questionFav!=null}">
@@ -354,7 +351,9 @@
                                         <c:otherwise><a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-shoucang"></i>收藏</a></c:otherwise>
                                     </c:choose>
 
+<%--
                                     <a href="javascript:;" onclick="questionErrorReport( ${question.questionId} )"><i class="icona-jiucuo"></i>纠错</a>
+--%>
                                 </p>
                                 <p class="exam-foot-right">
                                     <span>组卷次数：${question.usetimes}次</span>
@@ -876,11 +875,11 @@ if(!first){
                                     +"</div>\n" +
                                     "                            <div class=\"exam-foot\">\n" +
                                     "                                <p class=\"exam-foot-left\">\n" +
-                                    "                                    <a target=\"_blank\" href=\"<%=request.getContextPath()%>/question/detail/.do?questionId="+item.questionId+"\"><i\n" +
+                                    "                                    <a target=\"_blank\" href=\"<%=request.getContextPath()%>/question/detail.do?questionId="+item.questionId+"\"><i\n" +
                                     "                                            class=\"icona-jiexi\"></i>查看解析</a>\n" +
                                     "                                    <a href=\"javascript:;\"   onclick=\"questionFav(this,  "+item.questionId+")\">"+
                                     favHtml+"</a>\n" +
-                                    "                                    <a href=\"javascript:;\" onclick=\"questionErrorReport( "+item.questionId+" )\"><i class=\"icona-jiucuo\"></i>纠错</a>\n" +
+                                    "                                    \n" +
                                     "                                </p>\n" +
                                     "                                <p class=\"exam-foot-right\">\n" +
                                     "                                    <span>组卷次数："+item.usetimes+"次</span>\n" +

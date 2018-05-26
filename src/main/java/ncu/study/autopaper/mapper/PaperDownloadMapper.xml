@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ncu.study.autopaper.dao.PaperDownloadMapper">
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.PaperDownload">
+    <constructor>
+      <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PAPER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DOWNLOAD_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PAPER_ID, USER_ID, PAPER_NAME, USER_NAME, DOWNLOAD_TIME
+  </sql>
+  <select id="selectByExample" parameterType="ncu.study.autopaper.model.PaperDownloadExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper_download
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperDownloadKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from paper_download
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
+      and USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperDownloadKey">
+    delete from paper_download
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
+      and USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperDownloadExample">
+    delete from paper_download
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.PaperDownload">
+    insert into paper_download (PAPER_ID, USER_ID, PAPER_NAME, 
+      USER_NAME, DOWNLOAD_TIME)
+    values (#{paperId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{paperName,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{downloadTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.PaperDownload">
+    insert into paper_download
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        PAPER_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="paperName != null">
+        PAPER_NAME,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="downloadTime != null">
+        DOWNLOAD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paperId != null">
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="paperName != null">
+        #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadTime != null">
+        #{downloadTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.PaperDownloadExample" resultType="java.lang.Long">
+    select count(*) from paper_download
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update paper_download
+    <set>
+      <if test="record.paperId != null">
+        PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperName != null">
+        PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadTime != null">
+        DOWNLOAD_TIME = #{record.downloadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update paper_download
+    set PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      PAPER_NAME = #{record.paperName,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      DOWNLOAD_TIME = #{record.downloadTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.PaperDownload">
+    update paper_download
+    <set>
+      <if test="paperName != null">
+        PAPER_NAME = #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadTime != null">
+        DOWNLOAD_TIME = #{downloadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
+      and USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperDownload">
+    update paper_download
+    set PAPER_NAME = #{paperName,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      DOWNLOAD_TIME = #{downloadTime,jdbcType=TIMESTAMP}
+    where PAPER_ID = #{paperId,jdbcType=INTEGER}
+      and USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

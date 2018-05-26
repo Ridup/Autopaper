@@ -1,5 +1,8 @@
 package ncu.study.autopaper.service.impl;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.dao.CoursesInfoMapper;
 import ncu.study.autopaper.dao.ext.CoursesInfoExtMapper;
@@ -12,8 +15,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service("coursesInfoService")
 public class CoursesInfoServiceImpl implements CoursesInfoService {
@@ -71,6 +76,10 @@ public class CoursesInfoServiceImpl implements CoursesInfoService {
             criteria.andVersionEqualTo(coursesInfo.getVersion());
         if (coursesInfo.getVersionName() != null)
             criteria.andVersionNameEqualTo(coursesInfo.getVersionName());
+        if (coursesInfo.getChapter() != null)
+            criteria.andChapterEqualTo(coursesInfo.getChapter());
+        if (coursesInfo.getChapterName() != null)
+            criteria.andChapterNameEqualTo(coursesInfo.getChapterName());
         if (coursesInfo.getPointName() != null)
             criteria.andPointNameEqualTo(coursesInfo.getPointName());
         List<CoursesInfo> coursesInfos = coursesInfoMapper.selectByExample(coursesInfoExample);
@@ -124,4 +133,151 @@ public class CoursesInfoServiceImpl implements CoursesInfoService {
         session.setAttribute("currentGrade", gradePojo);
         session.setAttribute("currentCourse", coursePojo);
     }
+
+    @Override
+    public List<VCPPojo> getVCP(CoursesInfo coursesInfo) {
+        List<VCPPojo> vcpPojos = new ArrayList<VCPPojo>();
+        //version
+        GradePojo gradePojo = new GradePojo();
+        CoursePojo coursePojo = new CoursePojo();
+        gradePojo.setGrade(coursesInfo.getGrade());
+        gradePojo.setGradeName(coursesInfo.getGradeName());
+
+        coursePojo.setCourse(coursesInfo.getCourse());
+        coursePojo.setCourseName(coursesInfo.getCourseName());
+
+        List<VersionPojo> version = coursesInfoExtMapper.getAllVersion(gradePojo, coursePojo);
+        for (VersionPojo versionPojo : version) {
+            VCPPojo vcpPojo = new VCPPojo();
+            String versionId = versionPojo.getVersion();
+            String versionName = versionPojo.getVersionName();
+            vcpPojo.setTitle(versionName);
+            vcpPojo.setValue(versionId);
+            coursesInfo.setVersion(versionId);
+            coursesInfo.setVersionName(versionName);
+            List<ChapterPojo> chapterPojos = coursesInfoExtMapper.getAllChapter(coursesInfo);
+            //chapter
+            List<VCPPojo> vcpPojos1 = new ArrayList<VCPPojo>();
+            for (ChapterPojo chapterPojo : chapterPojos) {
+                VCPPojo vcpPojo1 = new VCPPojo();
+                String chapterId = chapterPojo.getChapterId();
+                String chapterName = chapterPojo.getChapterName();
+                vcpPojo1.setTitle(chapterName);
+                vcpPojo1.setValue(chapterId);
+                vcpPojos1.add(vcpPojo1);
+                //point
+                coursesInfo.setChapter(chapterId);
+                coursesInfo.setChapterName(chapterName);
+                List<PointPojo> allPoint = coursesInfoExtMapper.getAllPoint(coursesInfo);
+                ArrayList<VCPPojo> vcpPojos2 = new ArrayList<>();
+                for (PointPojo pointPojo : allPoint) {
+                    VCPPojo vcpPojo2 = new VCPPojo();
+                    String pointId = pointPojo.getCourseId().toString();
+                    String pointName = pointPojo.getPointName();
+                    vcpPojo2.setTitle(pointName);
+                    vcpPojo2.setValue(pointId);
+                    vcpPojos2.add(vcpPojo2);
+                }
+                vcpPojo1.setData(vcpPojos2);
+            }
+            vcpPojo.setData(vcpPojos1);
+            vcpPojos.add(vcpPojo);
+        }
+
+        return vcpPojos;
+    }
+
+
+
+    /*@Override
+    public List<VCPPojo> getVCP(CoursesInfo coursesInfo) {
+        JsonObject object = new JsonObject();
+        JsonArray array = new JsonArray();
+        //version
+        GradePojo gradePojo = new GradePojo();
+        CoursePojo coursePojo = new CoursePojo();
+        gradePojo.setGrade(coursesInfo.getGrade());
+        gradePojo.setGradeName(coursesInfo.getGradeName());
+
+        coursePojo.setCourse(coursesInfo.getCourse());
+        coursePojo.setCourseName(coursesInfo.getCourseName());
+
+        List<VersionPojo> version = coursesInfoExtMapper.getAllVersion(gradePojo, coursePojo);
+        for (VersionPojo versionPojo : version) {
+            JsonObject object1 = new JsonObject();
+            String versionId = versionPojo.getVersion();
+            String versionName = versionPojo.getVersionName();
+            object1.addProperty("title",versionName);
+            object1.addProperty("value",versionId);
+            coursesInfo.setVersion(versionId);
+            coursesInfo.setVersionName(versionName);
+            List<ChapterPojo> chapterPojos = coursesInfoExtMapper.getAllChapter(coursesInfo);
+            //chapter
+            JsonObject object2 = new JsonObject();
+            JsonArray array1 = new JsonArray();
+            List<VCPPojo> vcpPojos1 = new ArrayList<VCPPojo>();
+            for (ChapterPojo chapterPojo : chapterPojos) {
+                JsonObject object3 = new JsonObject();
+                String chapterId = chapterPojo.getChapterId();
+                String chapterName = chapterPojo.getChapterName();
+                object3.addProperty("title",chapterName);
+                object3.addProperty("value",chapterId);
+                vcpPojos1.add(vcpPojo1);
+                //point
+                coursesInfo.setChapter(chapterId);
+                coursesInfo.setChapterName(chapterName);
+                List<PointPojo> allPoint = coursesInfoExtMapper.getAllPoint(coursesInfo);
+                JsonObject object4 = new JsonObject();
+                ArrayList<VCPPojo> vcpPojos2 = new ArrayList<>();
+                for (PointPojo pointPojo : allPoint) {
+                    VCPPojo vcpPojo2 = new VCPPojo();
+                    String pointId = pointPojo.getCourseId().toString();
+                    String pointName = pointPojo.getPointName();
+                    vcpPojo2.setTitle(pointName);
+                    vcpPojo2.setValue(pointId);
+                    vcpPojos2.add(vcpPojo2);
+                }
+                object3.addProperty("data",);
+            }
+            JsonElement jsonElement = new JsonArray();
+            object1.addProperty("data",chapterPojos);
+            array.add(object1);
+        }
+
+        return vcpPojos;
+    }*/
+
+
+
+
+
+
+    @Override
+    public List<CoursesInfo> getCoursesInfoDistinct(CoursesInfo coursesInfo, String orderByClause) {
+        CoursesInfoExample coursesInfoExample = new CoursesInfoExample();
+        CoursesInfoExample.Criteria criteria = coursesInfoExample.createCriteria();
+        coursesInfoExample.setOrderByClause(orderByClause);
+        coursesInfoExample.setDistinct(true);
+        if (coursesInfo.getGrade() != null)
+            criteria.andGradeEqualTo(coursesInfo.getGrade());
+        if (coursesInfo.getGradeName() != null)
+            criteria.andGradeNameEqualTo(coursesInfo.getGradeName());
+        if (coursesInfo.getCourse() != null)
+            criteria.andCourseEqualTo(coursesInfo.getCourse());
+        if (coursesInfo.getCourseName() != null)
+            criteria.andCourseNameEqualTo(coursesInfo.getCourseName());
+        if (coursesInfo.getVersion() != null)
+            criteria.andVersionEqualTo(coursesInfo.getVersion());
+        if (coursesInfo.getVersionName() != null)
+            criteria.andVersionNameEqualTo(coursesInfo.getVersionName());
+        if (coursesInfo.getChapter() != null)
+            criteria.andChapterEqualTo(coursesInfo.getChapter());
+        if (coursesInfo.getChapterName() != null)
+            criteria.andChapterNameEqualTo(coursesInfo.getChapterName());
+        if (coursesInfo.getPointName() != null)
+            criteria.andPointNameEqualTo(coursesInfo.getPointName());
+        List<CoursesInfo> coursesInfos = coursesInfoMapper.selectByExample(coursesInfoExample);
+        return coursesInfos;
+    }
+
 }

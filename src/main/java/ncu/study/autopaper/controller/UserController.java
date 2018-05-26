@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +19,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Ridup
@@ -124,5 +130,45 @@ public class UserController {
         request.getSession().removeAttribute("loginUser");
         return "redirect:/index.do";
     }
+
+//TODO touxiang
+    @ResponseBody
+@RequestMapping(value = "/upload_icon.do",method = RequestMethod.POST)
+public Map<String,String> icon(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request){
+        Map<String,String> result = new HashMap<>();
+        if(file.isEmpty()){
+            result.put("code","1");
+            result.put("msg","文件为空");
+        }
+        String fileName = file.getOriginalFilename();
+        int size = (int)file.getSize();
+        System.out.println(fileName+"===="+size);
+        String path = "F:/tmp/autopaper/images";
+        String realName = UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf("."), fileName.length());
+        File dest = new File(path + File.separator + realName);
+        if(!dest.getParentFile().exists()){
+            dest.getParentFile().mkdirs();
+        }
+        try{
+            file.transferTo(dest);
+            String iconUrl = "http://localhost:8080/images/"+realName;
+            HttpSession session = request.getSession();
+            if(session!=null){
+                User loginUser = (User) session.getAttribute("loginUser");
+                loginUser.setUserIcon(iconUrl);
+                userService.updatetUser(loginUser);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            result.put("code","1");
+            result.put("msg","上传文件");
+        }
+
+
+        return result;
+}
+
+
 
 }

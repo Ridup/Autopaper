@@ -62,7 +62,7 @@
     <welcome-file-list>
 
         <!--<welcome-file>/WEB-INF/views/question/question_search.jsp</welcome-file>-->
-        <welcome-file>/WEB-INF/views/paper/paper_edit.jsp</welcome-file>
+        <!--<welcome-file>/WEB-INF/views/paper/paper_auto.jsp</welcome-file>-->
 
 
         <welcome-file>/WEB-INF/views/login.jsp</welcome-file>

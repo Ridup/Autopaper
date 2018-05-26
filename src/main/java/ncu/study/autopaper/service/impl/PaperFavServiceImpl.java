@@ -1,13 +1,23 @@
 package ncu.study.autopaper.service.impl;
 
+import ncu.study.autopaper.common.enums.EnumQuestionDifficulty;
+import ncu.study.autopaper.common.pojo.PaperFavPojo;
+import ncu.study.autopaper.common.pojo.PaperPojo;
 import ncu.study.autopaper.dao.PaperFavMapper;
+import ncu.study.autopaper.dao.PaperMapper;
+import ncu.study.autopaper.model.Paper;
 import ncu.study.autopaper.model.PaperFav;
+import ncu.study.autopaper.model.PaperFavExample;
 import ncu.study.autopaper.model.PaperFavKey;
 import ncu.study.autopaper.service.PaperFavService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Ridup
@@ -17,6 +27,8 @@ import java.util.Date;
 public class PaperFavServiceImpl implements PaperFavService {
     @Resource
     private PaperFavMapper paperFavMapper;
+    @Resource
+    private PaperMapper paperMapper;
 
     @Override
     public Boolean isFav(int userId, int paperId) {
@@ -54,5 +66,29 @@ public class PaperFavServiceImpl implements PaperFavService {
         }
 
         return a;
+    }
+
+    @Override
+    public List<PaperFavPojo> getPaperPojoByUserId(int userId) {
+        ArrayList<PaperFavPojo> paperFavPojos = new ArrayList<PaperFavPojo>();
+        if(0!=userId){
+            PaperFavExample paperFavExample = new PaperFavExample();
+            PaperFavExample.Criteria criteria = paperFavExample.createCriteria();
+            criteria.andUserIdEqualTo(userId);
+            List<PaperFav> paperFavs = paperFavMapper.selectByExample(paperFavExample);
+            if(null!=paperFavs){
+                for(PaperFav paperFav:paperFavs){
+                    PaperFavPojo paperFavPojo = new PaperFavPojo();
+                    BeanUtils.copyProperties(paperFav,paperFavPojo);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH时");
+                    paperFavPojo.setCollectTimeStr(sdf.format(paperFav.getCollectTime()));
+                    Paper paper = paperMapper.selectByPrimaryKey(paperFav.getPaperId());
+                    BeanUtils.copyProperties(paper,paperFavPojo);
+                    paperFavPojo.setPaperDifficultyDesc(EnumQuestionDifficulty.find(paper.getPaperDifficulty().toString()).getDesc());
+                    paperFavPojos.add(paperFavPojo);
+                }
+            }
+        }
+        return paperFavPojos;
     }
 }

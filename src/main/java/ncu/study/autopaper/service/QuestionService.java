@@ -1,9 +1,6 @@
 package ncu.study.autopaper.service;
 
-import ncu.study.autopaper.common.pojo.CoursePojo;
-import ncu.study.autopaper.common.pojo.GradePojo;
-import ncu.study.autopaper.common.pojo.PaperQCResponsePojo;
-import ncu.study.autopaper.common.pojo.QuestionBasketPojo;
+import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.model.Question;
 
 import java.util.List;
@@ -14,7 +11,28 @@ import java.util.List;
  */
 public interface QuestionService {
     public int insertQuestionInfo(Question question);
-    public int getSearchCount(GradePojo currentGrade ,CoursePojo currentCourse,String questionType, String content);
-    public List<Question> getSearchQuestions(GradePojo currentGrade ,CoursePojo currentCourse,String questionType, String content,int start);
-    public List<PaperQCResponsePojo> getPaperQCInfo(List<QuestionBasketPojo> questionBasketPojos,int userId);
+
+    public int getSearchCount(GradePojo currentGrade, CoursePojo currentCourse, String questionType, String content);
+
+    public List<Question> getSearchQuestions(GradePojo currentGrade, CoursePojo currentCourse, String questionType, String content, int start);
+
+    public List<PaperQCResponsePojo> getPaperQCInfo(List<QuestionBasketPojo> questionBasketPojos, int userId);
+
+    public List<Question> getQuestionArrayRelated(String type, List<String> points);
+
+    public List<Question> getQuestionArrayAccurate(String type, List<String> points);
+
+    public List<Question> getQuestionListWithOutSId(Question question);
+
+    public QuestionResponsePojo getQuestionDetail(long questionId);
+
+    public int deleteRecord(long questionId);
+    public List<QuestionResponsePojo> getQuestionResponsePojoByUserId(int userId);
+
+    public List<QuestionResponsePojo> getQuestionResponsePojoByType(String type);
+
+    public int deleteQuestion(long questionId);
+    public int pass(long questionId);
+    public int noPass(long questionId);
+
 }
