@@ -1,9 +1,6 @@
 package ncu.study.autopaper.service;
 
-import ncu.study.autopaper.common.pojo.ChapterPojo;
-import ncu.study.autopaper.common.pojo.CoursePojo;
-import ncu.study.autopaper.common.pojo.CoursesPojo;
-import ncu.study.autopaper.common.pojo.GradePojo;
+import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.model.CoursesInfo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,4 +16,7 @@ public interface CoursesInfoService {
 
     //设置session中当前选择的课程信息普遍（抽象）
     public void setCurrentCourse(HttpServletRequest request, GradePojo gradePojo, CoursePojo coursePojo)  throws Exception ;
+
+    public List<VCPPojo> getVCP(CoursesInfo coursesInfo);
+    public List<CoursesInfo> getCoursesInfoDistinct(CoursesInfo coursesInfo,String orderByClause);
 }

@@ -41,9 +41,7 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {"uid":8955808,"username":"21jy_094440934","email":"","mobile":18214997310,"regip":"115.236.91.18","regdate":1521439694,"regsource":1,"lastloginip":2147483647,"lastlogintime":1521699020,"auth_key":"cTk4F8DBknO8uFrExMwujryVJ5CSs_QA","avatar":{"small_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=small","big_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=big"},"realname":"21jy_094440934","gender":null,"identity":null,"xd":null,"chid":null,"district":null,"school":null,"school_permit_id":null,"parent":"","signature":null,"memberProfile":null,"school_inf":null,"baseSchool":null,"tokenA":null,"tikuAdmin":false,"testLimit":null,"basketLimit":30,"isVip":false} ;
-        OT2.CSRF = {"_csrf": "CuLu_5_b5pKzlDz2vF0s8oF0235xNpoeksCnr1yLttF6kZu71aqP2ur7bb3oDnq4yRajGAJwxUHc8sTBZO3Ygg=="} ;
+
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9= false;</script>
@@ -102,7 +100,7 @@
         </style>
 
         <div class="header-logo">
-            <a href="<%=request.getContextPath()%>/">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="自动组卷平台" title="自动组卷平台">
             </a>
         </div>
@@ -114,7 +112,9 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" target="_blank">下载记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
+<%--
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
+--%>
                         <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/u_question.do" target="_blank">我的收藏</a></li>
@@ -176,7 +176,14 @@
             <div class="msg-box">
                 <div class="user-pic">
                     <div class="pic-border">
-                        <img src="<%=request.getContextPath()%>/static/images/10.png">
+                        <c:choose>
+                            <c:when test="${user.userIcon!=null}">
+                                <img src="${user.userIcon}" alt="${user.userName}">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="<%=request.getContextPath()%>/static/images/10.png" alt="该用户未设置头像">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -191,10 +198,7 @@
                 </div>
             </div>
             <div class="points">
-                <ul>
-                    <li><p><span>0</span>积分</p></li>
-                    <li><p class="line-border"><span>0</span>积分</p></li>
-                </ul>
+
             </div>
             <%--用户头结束--%>
 
@@ -204,8 +208,10 @@
                     <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" id="download_record"><i class="icona-download3"></i>下载记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" id="generate_record"><i class="icona-zjjl"></i>组卷记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" id="test_record"><i class="icona-csjl"></i>测试记录</a></li>
+<%--
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" id="error_record"><i class="dj-error"></i>纠错记录</a></li>
-                    <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
+--%>
+                    <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" ><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" id="error_question"><i class="icona-ctb"></i>错题本</a></li>
                     <li>
                         <div class="mt"><span href="javascript:;"><i class="icona-shoucang2"></i>我的收藏</span><b class="icona-right2"></b></div>
@@ -264,7 +270,7 @@
             <div class="user-con">
                 <%--  内容开始！！！--%>
                 <h1>纠错记录</h1>
-                <form id="w0" class="form-info" action="https://zujuan.21cnjy.com/ucenter" method="post">
+                <form id="w0" class="form-info" action="" method="post">
                 </form>
 
 

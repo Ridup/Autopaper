@@ -169,4 +169,33 @@ public class PaperServiceImpl implements PaperService {
         papers = paperExtMapper.getSearchPapers(gradeName,courseName,content,start);
         return papers;
     }
+
+    @Override
+    public List<PaperPojo> getPaperByUserId(int userId) {
+        List<PaperPojo>  paperPojos= new ArrayList<PaperPojo>();
+        if(0!=userId){
+            PaperExample paperExample = new PaperExample();
+            PaperExample.Criteria criteria = paperExample.createCriteria();
+            criteria.andOwnerEqualTo(userId);
+            List<Paper> papers = paperMapper.selectByExample(paperExample);
+            if(null!=papers){
+                for(Paper paper:papers){
+                    PaperPojo paperPojo = new PaperPojo();
+                    BeanUtils.copyProperties(paper,paperPojo);
+                    paperPojo.setPaperDifficultyDesc(EnumQuestionDifficulty.find(paper.getPaperDifficulty().toString()).getDesc());
+                    paperPojos.add(paperPojo);
+                }
+            }
+        }
+        return paperPojos;
+    }
+
+    @Override
+    public int delete(int paperId) {
+        int sa = 0;
+        if(0!=paperId){
+            sa = paperMapper.deleteByPrimaryKey(paperId);
+        }
+        return sa;
+    }
 }

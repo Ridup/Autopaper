@@ -15,13 +15,16 @@ public class PaperComment {
 
     private Integer paperCommentPraise;
 
-    public PaperComment(Long paperCommentId, Integer userId, Integer paperId, String paperComment, Date paperCommentTime, Integer paperCommentPraise) {
+    private String status;
+
+    public PaperComment(Long paperCommentId, Integer userId, Integer paperId, String paperComment, Date paperCommentTime, Integer paperCommentPraise, String status) {
         this.paperCommentId = paperCommentId;
         this.userId = userId;
         this.paperId = paperId;
         this.paperComment = paperComment;
         this.paperCommentTime = paperCommentTime;
         this.paperCommentPraise = paperCommentPraise;
+        this.status = status;
     }
 
     public PaperComment() {
@@ -74,5 +77,13 @@ public class PaperComment {
 
     public void setPaperCommentPraise(Integer paperCommentPraise) {
         this.paperCommentPraise = paperCommentPraise;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

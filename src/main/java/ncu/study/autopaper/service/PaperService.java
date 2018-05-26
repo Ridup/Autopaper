@@ -1,6 +1,7 @@
 package ncu.study.autopaper.service;
 
 import ncu.study.autopaper.common.pojo.*;
+import ncu.study.autopaper.model.CoursesInfo;
 import ncu.study.autopaper.model.Paper;
 import ncu.study.autopaper.model.PaperExample;
 import ncu.study.autopaper.model.QuestionBasket;
@@ -19,9 +20,13 @@ public interface PaperService {
 
     public String getPaperDocPath(int paperId);
 
-    public PaperPojo getPaperById(int userId,int paperId);
+    public PaperPojo getPaperById(int userId, int paperId);
 
     public int getSearchCount(GradePojo currentGrade, CoursePojo currentCourse, String content);
 
     public List<Paper> getSearchPapers(GradePojo currentGrade, CoursePojo currentCourse, String content, int start);
+
+    public List<PaperPojo> getPaperByUserId(int userId);
+
+    public int delete(int paperId);
 }

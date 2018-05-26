@@ -41,9 +41,7 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {"uid":8955808,"username":"21jy_094440934","email":"","mobile":18214997310,"regip":"115.236.91.18","regdate":1521439694,"regsource":1,"lastloginip":2147483647,"lastlogintime":1521699020,"auth_key":"cTk4F8DBknO8uFrExMwujryVJ5CSs_QA","avatar":{"small_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=small","big_avatar":"http:\/\/uc.21cnjy.com\/avatar.php?uid=8955808&size=big"},"realname":"21jy_094440934","gender":null,"identity":null,"xd":null,"chid":null,"district":null,"school":null,"school_permit_id":null,"parent":"","signature":null,"memberProfile":null,"school_inf":null,"baseSchool":null,"tokenA":null,"tikuAdmin":false,"testLimit":null,"basketLimit":30,"isVip":false} ;
-        OT2.CSRF = {"_csrf": "CuLu_5_b5pKzlDz2vF0s8oF0235xNpoeksCnr1yLttF6kZu71aqP2ur7bb3oDnq4yRajGAJwxUHc8sTBZO3Ygg=="} ;
+
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9= false;</script>
@@ -57,6 +55,9 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/artDialog-skin-ot2.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/main.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/popup.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css">
+    <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
+
     <script src="<%=request.getContextPath()%>/static/js/lib/jquery.min.js"></script>
     <script type="text/javascript">$.ajaxSetup({cache: false});</script>
     <script src="<%=request.getContextPath()%>/static/js/lib/underscore-min.js"></script>
@@ -99,10 +100,14 @@
             .vip-overtip p strong { color: red; margin:0 3px; }
             .vip-overtip .tip-notice { color: red; font-size: 16px; font-weight: bold; }
             .vip-overtip a { color: #52c684; }
+            .laytable-cell-1-7{
+                width:123px!important;
+            }
+
         </style>
 
         <div class="header-logo">
-            <a href="<%=request.getContextPath()%>/">
+            <a href="<%=request.getContextPath()%>/index.do">
                 <img src="<%=request.getContextPath()%>/static/images/login-logo1.png" alt="自动组卷平台" title="自动组卷平台">
             </a>
         </div>
@@ -114,7 +119,9 @@
                         <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" target="_blank">下载记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
+<%--
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a></li>
+--%>
                         <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a></li></c:if>
                         <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a></li>
                         <li><a href="<%=request.getContextPath()%>/ucenter/u_question.do" target="_blank">我的收藏</a></li>
@@ -176,7 +183,14 @@
             <div class="msg-box">
                 <div class="user-pic">
                     <div class="pic-border">
-                        <img src="<%=request.getContextPath()%>/static/images/10.png">
+                        <c:choose>
+                            <c:when test="${user.userIcon!=null}">
+                                <img src="${user.userIcon}" alt="${user.userName}">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="<%=request.getContextPath()%>/static/images/10.png" alt="该用户未设置头像">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -191,10 +205,7 @@
                 </div>
             </div>
             <div class="points">
-                <ul>
-                    <li><p><span>0</span>积分</p></li>
-                    <li><p class="line-border"><span>0</span>积分</p></li>
-                </ul>
+
             </div>
             <%--用户头结束--%>
 
@@ -204,7 +215,9 @@
                     <li><a href="<%=request.getContextPath()%>/ucenter/download_record.do" id="download_record"><i class="icona-download3"></i>下载记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" id="generate_record"><i class="icona-zjjl"></i>组卷记录</a></li>
                     <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" id="test_record"><i class="icona-csjl"></i>测试记录</a></li>
+<%--
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" id="error_record"><i class="dj-error"></i>纠错记录</a></li>
+--%>
                     <c:if test="${loginUser.userType=='1'}"><li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do"><i class="icona-dtk"></i>试题录入记录</a></li></c:if>
                     <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" id="error_question"><i class="icona-ctb"></i>错题本</a></li>
                     <li>
@@ -262,10 +275,9 @@
     <div class="g-mn1">
         <div class="g-mn1c">
             <div class="user-con">
+
                 <%--  内容开始！！！--%>
                 <h1>试题录入记录</h1>
-                <form id="w0" class="form-info" action="https://zujuan.21cnjy.com/ucenter" method="post">
-                </form>
 
 
 
@@ -274,7 +286,49 @@
 
 
 
-                <%--  内容结束！！！--%>
+
+
+
+
+
+
+
+                    <table class="layui-table"
+                           lay-data="{width: 892, height:600, url:'<%=request.getContextPath()%>/question/record.do?userId=${user.userId}', page:false, id:'idTest'}"
+                           lay-filter="demo">
+                        <thead>
+                        <tr>
+                            <th lay-data="{field:'gradeName', width:70, sort: true, fixed: true}">年级</th>
+                            <th lay-data="{field:'courseName', width:65, sort: true, fixed: true}">学科</th>
+                            <th lay-data="{field:'questionType1', width:76, sort: true, fixed: true}">题型</th>
+                            <th lay-data="{field:'questionClass1', width:76}">题类</th>
+                            <th lay-data="{field:'questionDifficulty1', width:76}">难度</th>
+                            <th lay-data="{field:'questionContent', width:300}">题干</th>
+                            <th lay-data="{field:'questionStatus1', width:100}">审核状态</th>
+                            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <script type="text/html" id="barDemo">
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="modify">修改</a>
+                    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <%--  内容结束！！！--%>
             </div>
         </div>
     </div>
@@ -344,45 +398,130 @@
 
 <script src="<%=request.getContextPath()%>/static/js/extends/global.min.js"></script>
 <a class="return" href="javascript:;" style="right: 9px; display: none;"><i class="icona-top"></i></a>
-<!--<script src="https://wpa.b.qq.com/cgi/wpa.php" type="text/javascript"></script>-->
-<script>
-    //    BizQQWPA.addCustom({aty: '0', a: '0', nameAccount: 4006379991, selector: 'jBizQQWPA'});
-    (function (window, undefined) {
-        try {
-            var document = window.document;
-            document.getElementById('jBizQQWPA').onclick = function(){
-                window.open('http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODE4MjQ4OF80NjM1NzhfNDAwNjM3OTk5MV8yXw&uin=', '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
-            }
-        } catch (e) {
-        }
-    }(window));
-</script>
 
 
 
-<div class="data">
-    <div class="inner-data">
-        <script type="text/javascript">
-            var _hmt = _hmt || [];
-            (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
-            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1668216'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/stat.php%3Fid%3D1668216%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-    </div>
-</div>
 
 
 <script src="<%=request.getContextPath()%>/static/js/lib/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.activeForm.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
-<script type="text/javascript">jQuery(function ($) {
-    jQuery('#w0').yiiActiveForm([], []);
-});</script>
+<script type="text/javascript">
+
+
+
+
+
+    var localObj = window.location;
+    var server_context = localObj.protocol + "//" + localObj.host + "/" + localObj.pathname.split("/")[1];
+
+
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+            console.log(obj)
+        });
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                //查看===========================================================
+                window.location.href = server_context + "/question/detail.do?questionId=" + data.questionId;
+            }
+            else if(obj.event ==='testpaper'){
+
+            }
+            else if(obj.event ==='modify'){
+                window.location.href = server_context + "/question/modify.do?questionId=" + data.questionId;
+            }
+            else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                    //删除记录========================================================
+                    $.ajax({
+                        url: server_context + '/paper/test_delete.do',
+                        type: 'POST', //GET
+                        async: true,    //或false,是否异步
+                        data: {
+                            testId: data.testId
+                        },
+                        timeout: 5000,    //超时时间
+                        dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+                        success: function (data, textStatus, jqXHR) {
+                            if (data == "success") {
+                            }
+                            if (data == "fail") {
+                                layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                            }
+                        },
+                        error: function (xhr, textStatus) {
+                            layer.closeAll('loading');
+                            layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                        }
+                    });
+                });
+            } else if (obj.event === 'edit') {
+                //编辑===================================================================================
+            }
+        });
+
+        var $ = layui.$, active = {
+            getCheckData: function () { //获取选中数据
+                //批量删除记录========================================================
+                var checkStatus = table.checkStatus('idTest')
+                    , data = checkStatus.data;
+                console.log("data=" + data);
+                layer.confirm('真的删除这' + data.length + '行么', function (index) {
+                    layer.close(index);
+                    ids = [];
+                    for (var i = 0; i < data.length; i++) {
+                        ids[i] = data[i].testId;
+                    }
+                    $.ajax({
+                        url: server_context + '/paper/test_delete.do',
+                        type: 'POST', //GET
+                        async: true,    //或false,是否异步
+                        data: {
+                            testId: 0, testIds: ids.toString()
+                        },
+                        timeout: 5000,    //超时时间
+                        dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+                        success: function (data, textStatus, jqXHR) {
+
+                            layui.layer.msg('删除成功');
+                            setTimeout(window.location.reload(), 19500);
+
+                        },
+                        error: function (xhr, textStatus) {
+                            layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                        }
+                    });
+                });
+
+            }
+            , getCheckLength: function () { //获取选中数目
+                var checkStatus = table.checkStatus('idTest')
+                    , data = checkStatus.data;
+                layer.msg('选中了：' + data.length + ' 个');
+
+            }
+            , isAll: function () { //验证是否全选
+                var checkStatus = table.checkStatus('idTest');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选')
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+
+
+</script>
 
 </body>
 </html>

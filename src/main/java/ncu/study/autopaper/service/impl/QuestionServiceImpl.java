@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author Ridup
@@ -32,7 +34,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int insertQuestionInfo(Question question) {
-        double a = DoubleUtil.div(question.getQuestionDifficulty(),5,1);
+        double a = DoubleUtil.div(question.getQuestionDifficulty(), 5, 1);
         question.setQuestionDifficulty(a);
         int status = questionMapper.insertSelective(question);
         return status;
@@ -73,15 +75,15 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<PaperQCResponsePojo> getPaperQCInfo(List<QuestionBasketPojo> questionBasketPojos, int userId) {
         List<PaperQCResponsePojo> paperQCResponsePojos = new ArrayList<PaperQCResponsePojo>();
-        for (int i = 0;i<questionBasketPojos.size();i++) {
+        for (int i = 0; i < questionBasketPojos.size(); i++) {
             QuestionBasketPojo questionBasketPojo = questionBasketPojos.get(i);
             PaperQCResponsePojo paperQCResponsePojo = new PaperQCResponsePojo();
             paperQCResponsePojo.setQuestionType(questionBasketPojo.getQuestionType());
             paperQCResponsePojo.setQuestionTypeName(questionBasketPojo.getQuestionTypeName());
             List<Long> questionIds = questionBasketPojo.getQuestionIds();
             paperQCResponsePojo.setQuestionCount(questionIds.size());
-            int code = 1+i;
-            paperQCResponsePojo.setTypeNumName(EnumNumTrans.find(code+"").getDesc());
+            int code = 1 + i;
+            paperQCResponsePojo.setTypeNumName(EnumNumTrans.find(code + "").getDesc());
             List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
             int typeTotal = 0;
             int typeTime = 0;
@@ -89,9 +91,9 @@ public class QuestionServiceImpl implements QuestionService {
             for (Long questionId : questionIds) {
 
                 Question questionContents = questionMapper.selectByPrimaryKey(questionId);
-                typeTotal = typeTotal+questionContents.getQuestionScore();
-                typeTime = typeTime +questionContents.getQuestionTime();
-                typeDiffi = DoubleUtil.add(typeDiffi,questionContents.getQuestionDifficulty());
+                typeTotal = typeTotal + questionContents.getQuestionScore();
+                typeTime = typeTime + questionContents.getQuestionTime();
+                typeDiffi = DoubleUtil.add(typeDiffi, questionContents.getQuestionDifficulty());
                 QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
                 BeanUtils.copyProperties(questionContents, questionResponsePojo);
                 questionResponsePojo.setEnumQuestionClass(EnumQuestionClass.find(questionContents.getQuestionClass()));
@@ -110,5 +112,171 @@ public class QuestionServiceImpl implements QuestionService {
             paperQCResponsePojos.add(paperQCResponsePojo);
         }
         return paperQCResponsePojos;
+    }
+
+
+    @Override
+    public List<Question> getQuestionArrayRelated(String type, List<String> points) {
+        List<Question> questionListByRuleOR = new ArrayList<Question>();
+        if (null != type && !type.equals("") && points != null) {
+            questionListByRuleOR = questionExtMapper.getQuestionListByRuleOR(type, points, points.size());
+        }
+        return questionListByRuleOR;
+    }
+
+    @Override
+    public List<Question> getQuestionArrayAccurate(String type, List<String> points) {
+        List<Question> questionListByRuleOR = new ArrayList<Question>();
+        if (null != type && !type.equals("") && points != null) {
+            questionListByRuleOR = questionExtMapper.getQuestionListByRuleOR(type, points, points.size());
+            ListIterator<Question> questionListIterator = questionListByRuleOR.listIterator();
+            while (questionListIterator.hasNext()) {
+                Question question = questionListIterator.next();
+                String[] pointArr = question.getPoint().split(",");
+                for (String point : pointArr) {
+                    //精准出题：只要知识点不包含，则remove而后break
+                    if (!points.contains(point)) {
+                        questionListIterator.remove();
+                        break;
+                    }
+                }
+            }
+        }
+        return questionListByRuleOR;
+    }
+
+
+    @Override
+    public List<Question> getQuestionListWithOutSId(Question tempQuestion) {
+        List<Question> questions = new ArrayList<Question>();
+        //获取相似试题：题型、分数、知识点.除去tempQuestion中的id
+        if (null!=tempQuestion){
+            String questionType = tempQuestion.getQuestionType();
+            int questionScore = tempQuestion.getQuestionScore();
+            String[] a = tempQuestion.getPoint().split(",");
+            List<String> points = Arrays.asList(a);
+            long questionId = tempQuestion.getQuestionId();
+            questions = questionExtMapper.getQuestionListByTempQuestion(questionType,questionId,questionScore,points,points.size());
+
+            //严格
+            ListIterator<Question> questionListIterator = questions.listIterator();
+            while (questionListIterator.hasNext()) {
+                Question question = questionListIterator.next();
+                String[] pointArr = question.getPoint().split(",");
+                for (String point : pointArr) {
+                    //精准出题：只要知识点不包含，则remove而后break
+                    if (!points.contains(point)) {
+                        questionListIterator.remove();
+                        break;
+                    }
+                }
+            }
+        }
+        return questions;
+    }
+
+    @Override
+    public QuestionResponsePojo getQuestionDetail(long questionId) {
+        QuestionResponsePojo questionResponsePojo = new QuestionResponsePojo();
+        if(0!=questionId){
+            Question question =  questionMapper.selectByPrimaryKey(questionId);
+            if(question!=null){
+                BeanUtils.copyProperties(question,questionResponsePojo);
+                questionResponsePojo.setQuestionType1(EnumQuestionType.find(question.getQuestionType()).getDesc());
+                questionResponsePojo.setQuestionDifficulty1(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()).getDesc());
+                questionResponsePojo.setQuestionStatus1(EnumQuestionStatus.find(question.getStatus()).getDesc());
+                questionResponsePojo.setQuestionClass1(EnumQuestionClass.find(question.getQuestionClass()).getDesc());
+            }
+        }
+        return questionResponsePojo;
+    }
+
+
+    @Override
+    public int deleteRecord(long questionId) {
+        return 0;
+    }
+
+    @Override
+    public List<QuestionResponsePojo> getQuestionResponsePojoByUserId(int userId) {
+        List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
+        if(0!=userId){
+            QuestionExample questionExample = new QuestionExample();
+            QuestionExample.Criteria criteria = questionExample.createCriteria();
+            criteria.andOwnnerEqualTo(userId);
+            List<Question> questions = questionMapper.selectByExample(questionExample);
+            if(null!=questions){
+                for(Question question :questions){
+                    QuestionResponsePojo questionResponsePojo =new QuestionResponsePojo();
+                    BeanUtils.copyProperties(question,questionResponsePojo);
+                    questionResponsePojo.setQuestionType1(EnumQuestionType.find(question.getQuestionType()).getDesc());
+                    questionResponsePojo.setQuestionDifficulty1(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()).getDesc());
+                    questionResponsePojo.setQuestionStatus1(EnumQuestionStatus.find(question.getStatus()).getDesc());
+                    questionResponsePojo.setQuestionClass1(EnumQuestionClass.find(question.getQuestionClass()).getDesc());
+                    questionResponsePojos.add(questionResponsePojo);
+                }
+            }
+        }
+        return questionResponsePojos;
+    }
+
+    @Override
+    public List<QuestionResponsePojo> getQuestionResponsePojoByType(String type) {
+        List<QuestionResponsePojo> questionResponsePojos = new ArrayList<QuestionResponsePojo>();
+        if(null!=type&&!type.equals("")){
+            QuestionExample questionExample = new QuestionExample();
+            QuestionExample.Criteria criteria = questionExample.createCriteria();
+            criteria.andQuestionTypeLike("%" + type+ "%");
+            List<Question> questions = questionMapper.selectByExample(questionExample);
+            if(null!=questions){
+                for(Question question :questions){
+                    QuestionResponsePojo questionResponsePojo =new QuestionResponsePojo();
+                    BeanUtils.copyProperties(question,questionResponsePojo);
+                    questionResponsePojo.setQuestionType1(EnumQuestionType.find(question.getQuestionType()).getDesc());
+                    questionResponsePojo.setQuestionDifficulty1(EnumQuestionDifficulty.find(question.getQuestionDifficulty().toString()).getDesc());
+                    questionResponsePojo.setQuestionStatus1(EnumQuestionStatus.find(question.getStatus()).getDesc());
+                    questionResponsePojo.setQuestionClass1(EnumQuestionClass.find(question.getQuestionClass()).getDesc());
+                    questionResponsePojos.add(questionResponsePojo);
+                }
+            }
+        }
+        return questionResponsePojos;
+    }
+
+
+    @Override
+    public int deleteQuestion(long questionId) {
+        int a= 0;
+        if(0!=questionId){
+            Question question= new Question();
+            question.setQuestionId(questionId);
+            question.setStatus(EnumQuestionStatus.deleted.getCode());
+            a =questionMapper.updateByPrimaryKeySelective(question);
+        }
+        return a;
+    }
+
+    @Override
+    public int pass(long questionId) {
+        int a= 0;
+        if(0!=questionId){
+            Question question= new Question();
+            question.setQuestionId(questionId);
+            question.setStatus(EnumQuestionStatus.audit_passed.getCode());
+            a =questionMapper.updateByPrimaryKeySelective(question);
+        }
+        return a;
+    }
+
+    @Override
+    public int noPass(long questionId) {
+        int a= 0;
+        if(0!=questionId){
+            Question question= new Question();
+            question.setQuestionId(questionId);
+            question.setStatus(EnumQuestionStatus.audit_failed.getCode());
+            a =questionMapper.updateByPrimaryKeySelective(question);
+        }
+        return a;
     }
 }

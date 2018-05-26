@@ -43,8 +43,6 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {};
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9 = false;</script>
@@ -157,6 +155,141 @@
             .vip-overtip a {
                 color: #52c684;
             }
+            .jieda {
+                margin-bottom: 30px;
+            }
+            .jieda li:last-child {
+                border-bottom: none;
+            }
+            .fly-edit {
+                position: relative;
+                display: block;
+                top: 1px;
+                left: 0;
+                padding: 0 10px;
+                border: 1px solid #e6e6e6;
+                border-radius: 2px 2px 0 0;
+                background-color: #FBFBFB;
+            }
+            .detail-about-reply {
+                padding: 0 0 0 55px;
+                background: none;
+            }
+            .detail-about {
+                position: relative;
+                line-height: 20px;
+                padding: 15px 15px 15px 75px;
+                font-size: 13px;
+                background-color: #f8f8f8;
+                color: #999;
+            }
+            .detail-about-reply .fly-avatar {
+                left: 0;
+                top: 11px;
+            }
+
+            .fly-avatar {
+                position: absolute;
+                left: 15px;
+                top: 15px;
+            }
+            .fly-avatar img {
+                display: block;
+                width: 45px;
+                height: 45px;
+                margin: 0;
+                border-radius: 2px;
+            }
+            .fly-detail-user {
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .fly-detail-user a {
+                padding-right: 10px;
+                font-size: 14px;
+            }
+
+            .fly-link {
+                color: #01AAED;
+            }
+            .detail-about-reply .detail-hits {
+                left: 0;
+                bottom: 0;
+            }
+            .detail-about .detail-hits {
+                position: relative;
+                top: 5px;
+                line-height: 20px;
+            }
+            .detail-hits span {
+                height: 20px;
+                line-height: 20px;
+            }
+
+            .detail-about .detail-hits {
+                position: relative;
+                top: 5px;
+                line-height: 20px;
+            }
+            .jieda-body {
+                margin: 25px 0 20px;
+                min-height: 0;
+                line-height: 24px;
+                font-size: 14px;
+            }
+
+            .detail-body {
+                margin: 20px 0 0;
+                min-height: 15px;
+                line-height: 26px;
+                font-size: 16px;
+                color: #333;
+                word-wrap: break-word;
+            }
+            .jieda-body p {
+                margin-bottom: 10px;
+            }
+
+            .detail-body p {
+                margin-bottom: 15px;
+            }
+            .fly-edit span {
+                padding: 0 6px;
+            }
+
+            .fly-edit span {
+                cursor: pointer;
+                padding: 0 10px;
+                line-height: 38px;
+                color: #009E94;
+            }
+            .fly-edit span i {
+                position: relative;
+                padding-right: 6px;
+                font-size: 18px;
+            }
+
+            .iconfont {
+                font-family: "layui-icon-fly" !important;
+                font-size: 16px;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+                -webkit-text-stroke-width: 0.2px;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            i {
+                font-style: normal;
+            }
+            user agent stylesheet
+            i, cite, em, var, address, dfn {
+                font-style: italic;
+            }
+            .fly-edit span {
+                cursor: pointer;
+                padding: 0 10px;
+                line-height: 38px;
+                color: #009E94;
+            }
         </style>
 
         <div class="header-logo">
@@ -177,7 +310,9 @@
                             <li><a href="<%=request.getContextPath()%>/ucenter/generate_record.do" target="_blank">组卷记录</a>
                             </li>
                             <li><a href="<%=request.getContextPath()%>/ucenter/test_record.do" target="_blank">测试记录</a></li>
+<%--
                             <li><a href="<%=request.getContextPath()%>/ucenter/error_record.do" target="_blank">纠错记录</a>
+--%>
                             </li>
                             <c:if test="${loginUser.userType=='1'}">
                                 <li><a href="<%=request.getContextPath()%>/ucenter/question_in_record.do" target="_blank">试题录入记录</a>
@@ -185,7 +320,7 @@
                             </c:if>
                             <li><a href="<%=request.getContextPath()%>/ucenter/error_question.do" target="_blank">错题本</a>
                             </li>
-                            <li><a href="<%=request.getContextPath()%>/ucenter/myfavorite.do" target="_blank">我的收藏</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ucenter/u_question.do" target="_blank">我的收藏</a></li>
                             <li><a href="<%=request.getContextPath()%>/ucenter/index.do" target="_blank">个人信息</a></li>
                             <li class="split-line"></li>
                             <li><a data-method="post" href="<%=request.getContextPath()%>/user/logout.do">退出</a></li>
@@ -279,7 +414,7 @@
                         <div class="search-exam">
                             <div class="exam-con">
                                 <div class="exam-q">
-                                    ${question_index+vs.index}. （&nbsp;&nbsp; ）${question.questionContent}
+                                    ${question_index+vs.index}. （&nbsp;${question.questionScore}&nbsp; ）${question.questionContent}
                                 </div>
                                 <div class="exam-s">
                                     <c:choose>
@@ -323,7 +458,9 @@
                                         </c:when>
                                         <c:otherwise><a href="javascript:;" onclick="questionFav(this, ${question.questionId} )"><i class="icona-shoucang"></i>收藏</a></c:otherwise>
                                     </c:choose>
+<%--
                                     <a href="javascript:;" onclick="questionErrorReport( ${question.questionId} )"><i class="icona-jiucuo"></i>纠错</a>
+--%>
                                 </p>
                                 <p class="exam-foot-right">
                                     <span>
@@ -351,7 +488,105 @@
 
 
             </div>
-        </div>
+
+
+
+
+
+
+
+                <%--评论-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%>
+
+                <div class="fly-panel detail-box" id="flyReply">
+                    <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+                        <legend>评论</legend>
+                    </fieldset>
+
+                    <ul class="jieda" id="jieda">
+
+                        <c:forEach items="${comments}" var="comment" varStatus="vs">
+                            <li data-id="${comment.paperCommentId}" class="jieda-daan">
+                                <a name="item-1111111111"></a>
+                                <div class="detail-about detail-about-reply">
+                                    <a class="fly-avatar" href="">
+                                        <c:if test="${comment.userIcon!=null}">
+
+                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${comment.userIcon!=null}">
+                                                <img src="${comment.userIcon}" alt="${comment.userName}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="<%=request.getContextPath()%>/static/images/10.png" alt="该用户未设置头像">
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                    </a>
+                                    <div class="fly-detail-user">
+                                        <a href="" class="fly-link">
+                                            <cite>${comment.userName}</cite>
+                                            <i class="layui-badge fly-badge-vip">${comment.getUserTypeStr}</i>
+                                        </a>
+                                        <c:if test="${vs.first}">
+                                            <span>(沙发)</span>
+                                        </c:if>
+
+                                    </div>
+                                    <div class="detail-hits">
+                                        <span>${comment.paperCommentTimeStr}</span>
+                                    </div>
+
+                                    <i class="iconfont icon-caina" title="最佳答案"></i>
+                                </div>
+                                <div class="detail-body jieda-body photos">
+                                    <p>${comment.paperComment}</p>
+                                </div>
+                            </li>
+                        </c:forEach>
+
+
+                    </ul>
+
+
+                    <div class="layui-form layui-form-pane">
+                        <form class="layui-form" action="<%=request.getContextPath()%>/paper_comment/submit.do" method="post">
+                            <div class="layui-form-item layui-form-text">
+                                <a name="comment"></a>
+                                <div class="layui-input-block">
+                                    <div class="layui-unselect fly-edit">
+                                    <span type="face" title="插入表情"><i
+                                            class="iconfont icon-yxj-expression" style="top: 1px;"></i></span><span
+                                            type="picture" title="插入图片：img[src]"><i class="iconfont icon-tupian"></i></span><span
+                                            type="href" title="超链接格式：a(href)[text]"><i
+                                            class="iconfont icon-lianjie"></i></span><span type="code" title="插入代码或引用"><i
+                                            class="iconfont icon-emwdaima" style="top: 1px;"></i></span><span type="hr"
+                                                                                                              title="插入水平线"></span><span
+                                            type="yulan" title="预览"><i class="iconfont icon-yulan1"></i></span>
+                                    </div>
+                                    <textarea id="L_content" name="content" required="" lay-verify="required"
+                                              placeholder="请输入内容" class="layui-textarea fly-editor"
+                                              style="height: 150px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <input type="hidden" name="paperId" value="${paperPojo.paperId}">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <%--评论-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------%>
+
+
+
+
+
+
+
+
+
+            </div>
     </div>
 
 
@@ -361,7 +596,7 @@
             <%--<a target="_blank" style="display:none" data-method="post"
                href="/paper/admin-edit?pid=849277&amp;xd=1&amp;chid=3"><i class="icona-bianji"></i>编辑</a>
             <a href="javascript:;" onclick="paper.setAnswerSheet(849277)"><i class="icona-dtk2"></i>答题卡下载</a>--%>
-            <a href="<%=request.getContextPath()%>/paper/test?paperId=${paperPojo.paperId}"><i class="icona-ceshi"></i>在线测试</a>
+            <a href="<%=request.getContextPath()%>/paper/test.do?paperId=${paperPojo.paperId}"><i class="icona-ceshi"></i>在线测试</a>
             <span id="paper_fav" style="float: right">
             <c:choose>
                 <c:when test="${isPaperFav}">
@@ -761,7 +996,8 @@
                     <c:otherwise>共计：（<span>0</span>）道题</c:otherwise>
                 </c:choose>
             </div>
-                <div class="baskrt-list"><c:choose><c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}"><c:forEach items="${questionBasketTypeCountPojos}" var="typeCount"><p title="${typeCount.questionTypeName}">${typeCount.questionTypeName}：<span>${typeCount.questionCount}</span>道<i class="icona-del1 f-fr" onclick="basket.removeAll('${typeCount.questionType}', 7163341)"></i></p></c:forEach></c:when><c:otherwise></c:otherwise></c:choose></div>
+                <div class="baskrt-list" style="line-height: 12px">
+                    <c:choose><c:when test="${questionBasketTotal!=null&&questionBasketTotal!=0}"><c:forEach items="${questionBasketTypeCountPojos}" var="typeCount"><p title="${typeCount.questionTypeName}">${typeCount.questionTypeName}：<span>${typeCount.questionCount}</span>道<i class="icona-del1 f-fr" onclick="basket.removeAll('${typeCount.questionType}', 7163341)"></i></p></c:forEach></c:when><c:otherwise></c:otherwise></c:choose></div>
             </div>
             <div class="basket-foot">
                 <a id="to-paper-admin-edit" data-method="post" class="basket-btn" href="/paper/admin-edit" style="display: none">编辑</a>
@@ -777,48 +1013,48 @@
 
 
     <!--footer开始-->
-    <div class="footer" >
-        <div class="footer-con g-container">
-            <div class="footer-top f-cb">
-                <div class="con-gs">
-                    <h3>系统介绍</h3>
-                    <p>System Introduction</p>
-                    <ul>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">系统简介</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">版权声明</a></li>
-                    </ul>
-                </div>
-                <div class="con-fw">
-                    <h3>服务介绍</h3>
-                    <p>Service Introduction</p>
-                    <ul class="fw-list">
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">组卷服务</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">测试服务</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">后台服务</a></li>
-                    </ul>
-                </div>
-                <div class="con-bz">
-                    <h3>帮助中心</h3>
-                    <p>Help center</p>
-                    <ul>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">常见问题</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">如何组卷</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">下载试卷</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">在线测试</a></li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">最新试题</a></li>
-                    </ul>
-                </div>
+<div class="footer" style="padding: 0px;margin: 0px">
+    <div class="footer-con g-container" >
+        <div class="footer-top f-cb" style="padding: 0px;margin: 0px">
+            <div class="con-gs" style="padding: 0px;margin: 0px;line-height: 30px">
+                <h3 >系统介绍</h3>
+                <p>System Introduction</p>
+                <ul>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">系统简介</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">版权声明</a></li>
+                </ul>
             </div>
-            <div class="footer-bottom">
-                <p class="copyright">2017-2018 版权所有©Ridup <a href="https://github.com/Ridup" rel="nofollow" target="_blank">GitHub</a>
-                </p>
-                <p class="footer-adress">
-                    <span>邮编：330031</span>
-                    <span>江西省南昌市南昌大学</span>
-                </p>
+            <div class="con-fw" style="padding: 0px;margin: 0px;line-height: 30px">
+                <h3>服务介绍</h3>
+                <p>Service Introduction</p>
+                <ul class="fw-list">
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">组卷服务</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">测试服务</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">后台服务</a></li>
+                </ul>
+            </div>
+            <div class="con-bz" style="padding: 0px;margin: 0px;line-height: 30px">
+                <h3>帮助中心</h3>
+                <p>Help center</p>
+                <ul>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">常见问题</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">如何组卷</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">下载试卷</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">在线测试</a></li>
+                    <li style="padding: 0px;margin: 0px"><i class="icona-ellipse"></i><a href="javascript:void(0);" target="_blank">最新试题</a></li>
+                </ul>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p class="copyright">2017-2018 版权所有©Ridup <a href="https://github.com/Ridup" rel="nofollow" target="_blank">GitHub</a>
+            </p>
+            <p class="footer-adress">
+                <span>邮编：330031</span>
+                <span>江西省南昌市南昌大学</span>
+            </p>
+        </div>
     </div>
+</div>
     <!--footer结束-->
 
 
@@ -861,9 +1097,76 @@
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.activeForm.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
 <script src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
-<script type="text/javascript">jQuery(function ($) {
-    jQuery('#w0').yiiActiveForm([], []);
-});</script>
+<script type="text/javascript">
+
+
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data1){
+
+            /*            layer.msg(JSON.stringify(data1.field));
+                        console.log(data1.field.content);*/
+            layer.load();
+            $.ajax({
+                url: server_context + '/paper_comment/submit.do',
+                type: 'POST', //GET
+                async: false,    //或false,是否异步
+                data: {
+                    paperId: data1.field.paperId,content:data1.field.content
+                },
+                timeout: 5000,    //超时时间
+                dataType: 'text',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success: function (data, textStatus, jqXHR) {
+                    if(data=="success"){
+                        var a= "<li data-id=\"\" class=\"jieda-daan\">\n" +
+                            "                            <a name=\"item-1111111111\"></a>\n" +
+                            "                            <div class=\"detail-about detail-about-reply\">\n" +
+                            "                                <a class=\"fly-avatar\" href=\"\">\n" +
+                            "                                    <img src=\"${user.userIcon}\" alt=\"${user.userName}\">\n" +
+                            "                                        \n" +
+                            "\n" +
+                            "                                </a>\n" +
+                            "                                <div class=\"fly-detail-user\">\n" +
+                            "                                    <a href=\"\" class=\"fly-link\">\n" +
+                            "                                        <cite>${user.userName}</cite>\n" +
+                            "                                        <i class=\"layui-badge fly-badge-vip\">我</i>\n" +
+                            "                                    </a>\n" +
+                            "                                    \n" +
+                            "\n" +
+                            "                                </div>\n" +
+                            "                                <div class=\"detail-hits\">\n" +
+                            "                                    <span>刚刚</span>\n" +
+                            "                                </div>\n" +
+                            "\n" +
+                            "                                <i class=\"iconfont icon-caina\" title=\"最佳答案\"></i>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"detail-body jieda-body photos\">\n" +
+                            "                                <p>"+data1.field.content+"</p>\n" +
+                            "                            </div>\n" +
+                            "                        </li>";
+                        $("#jieda").append(a);
+                        layer.closeAll('loading');
+                    }else {
+                        layer.closeAll('loading');
+                        layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                    }
+                },
+                error: function (xhr, textStatus) {
+                    layer.closeAll('loading');
+                    layer.alert("<span style='margin-left: 70px;text-align: center;'>系统异常，请重试</span>");
+                }
+            });
+
+        });
+    });
+
+
+
+
+</script>
 
 </body>
 </html>

@@ -7,15 +7,15 @@ public class PaperTest {
 
     private Integer userId;
 
-    private String userType;
-
     private Integer paperId;
 
-    private String wrongQuestions;
+    private String paperName;
 
     private Integer answerTime;
 
-    private Integer testScore;
+    private Double testScore;
+
+    private Double totalScore;
 
     private Integer costTime;
 
@@ -23,20 +23,17 @@ public class PaperTest {
 
     private Date startTime;
 
-    private Date endTime;
-
-    public PaperTest(Integer testId, Integer userId, String userType, Integer paperId, String wrongQuestions, Integer answerTime, Integer testScore, Integer costTime, String testAnswer, Date startTime, Date endTime) {
+    public PaperTest(Integer testId, Integer userId, Integer paperId, String paperName, Integer answerTime, Double testScore, Double totalScore, Integer costTime, String testAnswer, Date startTime) {
         this.testId = testId;
         this.userId = userId;
-        this.userType = userType;
         this.paperId = paperId;
-        this.wrongQuestions = wrongQuestions;
+        this.paperName = paperName;
         this.answerTime = answerTime;
         this.testScore = testScore;
+        this.totalScore = totalScore;
         this.costTime = costTime;
         this.testAnswer = testAnswer;
         this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public PaperTest() {
@@ -59,14 +56,6 @@ public class PaperTest {
         this.userId = userId;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType == null ? null : userType.trim();
-    }
-
     public Integer getPaperId() {
         return paperId;
     }
@@ -75,12 +64,12 @@ public class PaperTest {
         this.paperId = paperId;
     }
 
-    public String getWrongQuestions() {
-        return wrongQuestions;
+    public String getPaperName() {
+        return paperName;
     }
 
-    public void setWrongQuestions(String wrongQuestions) {
-        this.wrongQuestions = wrongQuestions == null ? null : wrongQuestions.trim();
+    public void setPaperName(String paperName) {
+        this.paperName = paperName == null ? null : paperName.trim();
     }
 
     public Integer getAnswerTime() {
@@ -91,12 +80,20 @@ public class PaperTest {
         this.answerTime = answerTime;
     }
 
-    public Integer getTestScore() {
+    public Double getTestScore() {
         return testScore;
     }
 
-    public void setTestScore(Integer testScore) {
+    public void setTestScore(Double testScore) {
         this.testScore = testScore;
+    }
+
+    public Double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Double totalScore) {
+        this.totalScore = totalScore;
     }
 
     public Integer getCostTime() {
@@ -121,13 +118,5 @@ public class PaperTest {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 }

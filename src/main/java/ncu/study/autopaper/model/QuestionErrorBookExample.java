@@ -235,52 +235,52 @@ public class QuestionErrorBookExample {
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreEqualTo(Integer value) {
+        public Criteria andMyScoreEqualTo(Double value) {
             addCriterion("MY_SCORE =", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreNotEqualTo(Integer value) {
+        public Criteria andMyScoreNotEqualTo(Double value) {
             addCriterion("MY_SCORE <>", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreGreaterThan(Integer value) {
+        public Criteria andMyScoreGreaterThan(Double value) {
             addCriterion("MY_SCORE >", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMyScoreGreaterThanOrEqualTo(Double value) {
             addCriterion("MY_SCORE >=", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreLessThan(Integer value) {
+        public Criteria andMyScoreLessThan(Double value) {
             addCriterion("MY_SCORE <", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreLessThanOrEqualTo(Integer value) {
+        public Criteria andMyScoreLessThanOrEqualTo(Double value) {
             addCriterion("MY_SCORE <=", value, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreIn(List<Integer> values) {
+        public Criteria andMyScoreIn(List<Double> values) {
             addCriterion("MY_SCORE in", values, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreNotIn(List<Integer> values) {
+        public Criteria andMyScoreNotIn(List<Double> values) {
             addCriterion("MY_SCORE not in", values, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreBetween(Integer value1, Integer value2) {
+        public Criteria andMyScoreBetween(Double value1, Double value2) {
             addCriterion("MY_SCORE between", value1, value2, "myScore");
             return (Criteria) this;
         }
 
-        public Criteria andMyScoreNotBetween(Integer value1, Integer value2) {
+        public Criteria andMyScoreNotBetween(Double value1, Double value2) {
             addCriterion("MY_SCORE not between", value1, value2, "myScore");
             return (Criteria) this;
         }

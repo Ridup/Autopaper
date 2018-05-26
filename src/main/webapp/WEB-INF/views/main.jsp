@@ -161,7 +161,7 @@
             }
         </style>
         <div class="slogan">
-            <a href="<%=request.getContextPath()%>/">Ridup旗下产品</a>
+
         </div>
 
         <%--登录成功显示用户信息--%>
@@ -293,16 +293,6 @@
                 </script>
             </div>
         </div>
-        <%--<div class="contactbox">
-            <a class="link-into" href="https://zujuan.21cnjy.com/payment/vip" target="_blank">
-                <img src="<%=request.getContextPath()%>/static/images/VIP.gif">
-                <strong>购买VIP</strong>
-            </a>
-            <a class="link-into" href="https://zujuan.21cnjy.com/help/request" target="_blank">
-                <img src="<%=request.getContextPath()%>/static/images/xwt.gif">
-                <strong>开通学校服务</strong>
-            </a>
-        </div>--%>
     </div>
 </div>
 <!--头部搜索部分结束-->
@@ -315,7 +305,7 @@
 <div class="top-navbox">
     <div class="top-nav g-container">
         <div class="nav-items">
-            <a href="https://zujuan.21cnjy.com/?1=1#" class="item">当前：<span>${currentGrade.gradeName}${currentCourse.courseName}</span><i class="icona-tri2"></i></a>
+            <a href="" class="item">当前：<span>${currentGrade.gradeName}${currentCourse.courseName}</span><i class="icona-tri2"></i></a>
             <div class="item-list">
                 <c:forEach items="${allCourses}" var="courses">
                     <div class="list-${courses.gradeId}">
@@ -338,28 +328,26 @@
                 <li class="complex-nav-item">
                     <a href="javascript:;" class="">手动组卷</a>
                     <div class="dd-list">
-                        <a href="https://zujuan.21cnjy.com/question?tree_type=category&amp;chid=3&amp;xd=2"><i>章节同步选题</i></a>
-                        <a href="https://zujuan.21cnjy.com/question?tree_type=knowledge&amp;chid=3&amp;xd=2"><i>知识点选题</i></a>
+                        <a href="<%=request.getContextPath()%>/paper/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content="><i>手动选题</i></a>
+                 <%--       <a href="<%=request.getContextPath()%>/paper/search_point.do"><i>知识点选题</i></a>--%>
                     </div>
                 </li>
                 <li class="complex-nav-item">
                     <a href="javascript:;" class="">智能组卷</a>
                     <div class="dd-list">
-                        <a href="https://zujuan.21cnjy.com/smarter?tree_type=category"><i>章节智能组卷</i></a>
-                        <a href="https://zujuan.21cnjy.com/smarter?tree_type=knowledge"><i>知识点智能组卷</i></a>
-                        <a onclick="return OT2.Global.initLogin();"><i>双向细目表组卷</i></a>
+                        <%--<a href="<%=request.getContextPath()%>/paper/auto_chapter.do"><i>章节智能组卷</i></a>--%>
+                        <a href="<%=request.getContextPath()%>/paper/auto_point.do"><i>知识点智能组卷</i></a>
                     </div>
                 </li>
                 <li class="complex-nav-item">
                     <a class="" href="javascript:;" onclick=" return true;">试卷库</a>
                     <div class="dd-list">
-                        <a href="https://zujuan.21cnjy.com/paper/new-index"><i>同步试卷</i></a>
-                        <a href="https://zujuan.21cnjy.com/paper/new-index?tree_type=sync"><i>测试试卷</i></a>
-                        <a href="https://zujuan.21cnjy.com/paper/new-index?tree_type=exam"><i>真卷&amp;模拟卷</i></a>
+<%--
+                        <a href="<%=request.getContextPath()%>/paper/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content="><i>同步试卷</i></a>
+--%>
+                        <a href="<%=request.getContextPath()%>/paper/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content="><i>测试试卷</i></a>
+<%--                        <a href="<%=request.getContextPath()%>/paper/search.do?grade=${currentGrade.grade}&amp;gradeName=${currentGrade.gradeName}&amp;course=${currentCourse.course}&amp;courseName=${currentCourse.courseName}&amp;content="><i>真卷&amp;模拟卷</i></a>--%>
                     </div>
-                </li>
-                <li>
-                    <a class="" href="https://zujuan.21cnjy.com/subject" onclick=" return true;">专题特供</a>
                 </li>
             </ul>
         </div>
@@ -378,44 +366,6 @@
 <!--头部导航部分结束-->
 
 
-<!--banner部分开始-->
-<div class="banner">
-    <div class="silderbox">
-        <ul style="position: relative; width: 100%; height: 350px;">
-            <li style="background: url('http://tikupic.21cnjy.com/5a/86/5a8625a40d290a00385138c1763c048b.') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=38" target="_blank"></a>
-            </li>
-            <li style="background: url('http://tikupic.21cnjy.com/36/36/3636216cfefc9bbaf76c48b88ae7aaee') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=34" target="_blank"></a>
-            </li>
-            <li style="background: url('http://tikupic.21cnjy.com/36/36/3636216cfefc9bbaf76c48b88ae7aaee') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=36" target="_blank"></a>
-            </li>
-            <li style="background: url('http://tikupic.21cnjy.com/36/36/3636216cfefc9bbaf76c48b88ae7aaee') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=40" target="_blank"></a>
-            </li>
-            <li style="background: url('http://tikupic.21cnjy.com/36/36/3636216cfefc9bbaf76c48b88ae7aaee') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=32" target="_blank"></a>
-            </li>
-            <li style="background: url('http://tikupic.21cnjy.com/36/36/3636216cfefc9bbaf76c48b88ae7aaee') center center no-repeat rgb(17, 137, 171); position: absolute; width: 100%; left: 0px; top: 0px; display: none;">
-                <a href="https://zujuan.21cnjy.com/merge?id=28" target="_blank"></a>
-            </li>
-        </ul>
-        <div class="control-l prev"><i class="iconb-banner-left"></i></div>
-        <div class="control-r next"><i class="iconb-banner-right"></i></div>
-        <div class="control-s">
-            <ul>
-                <li class=""></li>
-                <li class="on"></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!--banner部分结束-->
 
 
 <!--主体部分开始-->
@@ -472,8 +422,8 @@
                             </td>
                             <td>
                                 <p class="sub-list-txt1"><a href="javascript:void (0);">同步跟踪训练</a></p>
-                                <p class="sub-list-txt2"><a href="javascript:void (0);"
-                                                            title="2017-2018学年部编版初中道德与法治八年级下册同步跟踪训练">2017-2018学年部编版初中道德与法治八年级下册同步跟踪训练</a>
+                                <p class="sub-list-txt2"><a href="http://localhost:8080/autopaper/paper/view.do?paperId=32"
+                                                            title="2018年05月18日初一数学试卷">2018年05月18日初一数学试卷</a>
                                 </p>
                             </td>
                         </tr>
@@ -483,8 +433,8 @@
                             </td>
                             <td>
                                 <p class="sub-list-txt1"><a href="javascript:void (0);">同步跟踪训练</a></p>
-                                <p class="sub-list-txt2"><a href="javascript:void (0);"
-                                                            title="2017-2018学年部编版初中历史八年级下册同步跟踪训练">2017-2018学年部编版初中历史八年级下册同步跟踪训练</a>
+                                <p class="sub-list-txt2"><a href="http://localhost:8080/autopaper/paper/view.do?paperId=33"
+                                                            title="2018年05月18日初一数学试卷">2018年05月18日初一数学试卷</a>
                                 </p>
                             </td>
                         </tr>
@@ -494,18 +444,8 @@
                             </td>
                             <td>
                                 <p class="sub-list-txt1"><a href="javascript:void (0);">同步跟踪训练</a></p>
-                                <p class="sub-list-txt2"><a href="javascript:void (0);"
-                                                            title="2017-2018学年部编版初中道德与法治七年级下册同步跟踪训练">2017-2018学年部编版初中道德与法治七年级下册同步跟踪训练</a>
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="zt-tbgz2">
-                            <td>
-                                <div class="zt-pic"><i></i></div>
-                            </td>
-                            <td>
-                                <p class="sub-list-txt1"><a href="javascript:void (0);">中考复习</a></p>
-                                <p class="sub-list-txt2"><a href="javascript:void (0);" title="2018年初中英语中考备战一轮复习（语法专题）">2018年初中英语中考备战一轮复习（语法专题）</a>
+                                <p class="sub-list-txt2"><a href="http://localhost:8080/autopaper/paper/view.do?paperId=34"
+                                                            title="2018年05月18日初一数学试卷">2018年05月18日初一数学试卷</a>
                                 </p>
                             </td>
                         </tr>
@@ -517,17 +457,14 @@
 
                     <ul>
 
-                        <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="组卷编辑页面" target="_blank">组卷编辑页面</a>
+                        <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="组卷编辑页面" target="_blank">通知南昌大学......</a>
                             <span class="gg-time">2017-4-11</span>
-                            <div id="test2">
-
-                            </div>
                         </li>
                         <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="组卷"
-                                                            target="_blank">组卷</a>
+                                                            target="_blank">通知南昌大学......</a>
                             <span class="gg-time">2016-9-12</span>
                         </li>
-                        <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="双向细目表组卷" target="_blank">双向细目表组卷</a>
+                        <li><i class="icona-ellipse"></i><a href="javascript:void (0);" title="双向细目表组卷" target="_blank">通知南昌大学......</a>
                             <span class="gg-time">2017-3-31</span>
                         </li>
                     </ul>
@@ -548,8 +485,8 @@
                             <a href="javascript:void (0);"><i class="iconb-book1"></i></a>
                             <a href="javascript:void (0);"><h2>试题库</h2></a>
                             <p class="p-cl1">试题总量</p>
-                            <h4>3344179</h4>
-                            <p class="p-cl2">今日更新试题：2894道</p>
+                            <h4>682</h4>
+                            <p class="p-cl2">今日更新试题：2道</p>
                         </div>
                     </li>
                     <li>
@@ -557,8 +494,8 @@
                             <a href="javascript:void (0);"><i class="iconb-book2"></i></a>
                             <a href="javascript:void (0);"><h2>试卷库</h2></a>
                             <p class="p-cl1">试卷总量</p>
-                            <h4>496272</h4>
-                            <p class="p-cl2">今日更新试卷：221份</p>
+                            <h4>352</h4>
+                            <p class="p-cl2">今日更新试卷：2份</p>
                         </div>
                     </li>
                     <li>
@@ -566,8 +503,8 @@
                             <a href="javascript:void (0);"><i class="iconb-computer"></i></a>
                             <a href="javascript:void (0);"><h2>智能组卷</h2></a>
                             <p class="p-cl1">组卷总量</p>
-                            <h4>406986</h4>
-                            <p class="p-cl2">今日组卷数量：4301份</p>
+                            <h4>300</h4>
+                            <p class="p-cl2">今日组卷数量：1份</p>
                         </div>
                     </li>
                     <li>
@@ -575,57 +512,8 @@
                             <a href="javascript:void (0);"><i class="iconb-data1"></i></a>
                             <a href="javascript:void (0);"><h2>在线测试</h2></a>
                             <p class="p-cl1">测试总量</p>
-                            <h4>225818</h4>
-                            <p class="p-cl2">今日测试次数：424次</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sj-list sj-list-last">
-                            <a href="javascript:void (0);"><i class="iconb-hezuoschool"></i></a>
-                            <a href="javascript:void (0);"><h2>合作学校</h2></a>
-                            <p class="p-cl1">学校总量</p>
-                            <h4>121276</h4>
-                            <p class="p-cl2">今日新增学校：12所</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="section-ts">
-                <h3><i class="iconb-fk"></i>特色</h3>
-                <ul>
-                    <li>
-                        <div class="ts-list">
-                            <div><i class="iconb-tese1"></i></div>
-                            <p class="ts-txt">为老师用户提供</p>
-                            <p class="ts-nav">
-                                <a href="javascript:void (0);" target="_blank">优质试题</a>
-                                <a href="javascript:void (0);" target="_blank">海量试卷</a>
-                                <a href="javascript:void (0);" target="_blank">精品专题</a>
-                                <a href="javascript:void (0);" target="_blank">在线组卷</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ts-list">
-                            <div><i class="iconb-tese2"></i></div>
-                            <p class="ts-txt">为学生用户提供</p>
-                            <p class="ts-nav">
-                                <a href="javascript:void (0);" target="_blank">自我测试</a>
-                                <a href="javascript:void (0);" target="_blank">测试报告</a>
-                                <a href="javascript:void (0);" target="_blank">好题本</a>
-                                <a href="javascript:void (0);" target="_blank">错题本</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ts-list">
-                            <div><i class="iconb-tese3"></i></div>
-                            <p class="ts-txt">为学校用户提供</p>
-                            <p class="ts-nav">
-                                <a href="javascript:void (0);" target="_blank">优质资源</a>
-                                <a href="javascript:void (0);" target="_blank">智能组卷</a>
-                                <a href="javascript:void (0);" target="_blank">定制化服务</a>
-                            </p>
+                            <h4>245</h4>
+                            <p class="p-cl2">今日测试次数：1次</p>
                         </div>
                     </li>
                 </ul>
@@ -767,11 +655,11 @@
             </div>
             <div class="login-line">
                 <div class="login-auto">
-                    <span class="checkbox checked f-usn" onselectstart="return false"><i class="icona-check"></i><input
-                            type="checkbox" checked="" value="1" class="f-dn" name="LoginForm[rememberMe]">自动登录</span>
+                <%--    <span class="checkbox checked f-usn" onselectstart="return false"><i class="icona-check"></i><input
+                            type="checkbox" checked="" value="1" class="f-dn" name="LoginForm[rememberMe]">自动登录</span>--%>
                 </div>
                 <div class="login-pwd">
-                    <a href="javascript:void (0);" target="_blank">忘记密码</a>
+                    <%--<a href="javascript:void (0);" target="_blank">忘记密码</a>--%>
                 </div>
             </div>
             <div class="reg-btn">
@@ -779,10 +667,10 @@
             </div>
         </form>
         <div class="login-others">
-            <div class="login-others-method">其它登录方式：
+            <%--<div class="login-others-method">其它登录方式：
                 <a href="javascript:void (0);"><i class="icona-wxloginbtn"> </i></a>
                 <a href="javascript:void (0);"><i class="icona-qqloginbtn"> </i></a>
-            </div>
+            </div>--%>
             <div class="login-reg">
                 <a target="_blank" href="<%=request.getContextPath()%>/user/register.do">免费注册<i
                         class="icona-right-arrow"></i></a>
@@ -797,34 +685,9 @@
 <script src="<%=request.getContextPath()%>/static/js/extends/global.min.js"></script>
 
 <a class="return" href="javascript:;" style="right: 9px;"><i class="icona-top"></i></a>
-<!--<script src="https://wpa.b.qq.com/cgi/wpa.php" type="text/javascript"></script>-->
-<script>
-    //    BizQQWPA.addCustom({aty: '0', a: '0', nameAccount: 4006379991, selector: 'jBizQQWPA'});
-    (function (window, undefined) {
-        try {
-            var document = window.document;
-            document.getElementById('jBizQQWPA').onclick = function () {
-                window.open('http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODE4MjQ4OF80NjM1NzhfNDAwNjM3OTk5MV8yXw&uin=', '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
-            }
-        } catch (e) {
-        }
-    }(window));
-</script>
 
-<div class="data">
-    <div class="inner-data">
-        <script type="text/javascript">
-            var _hmt = _hmt || [];
-            (function () {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
-            //var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1668216'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/stat.php%3Fid%3D1668216%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-    </div>
-</div>
+
+
 <script src="<%=request.getContextPath()%>/static/js/extends/yii.js"></script>
 <script src="<%=request.getContextPath()%>/static/js/lib/layer.js"></script>
 </body>

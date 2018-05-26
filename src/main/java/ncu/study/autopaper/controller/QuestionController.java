@@ -9,11 +9,9 @@ import ncu.study.autopaper.common.enums.EnumQuestionStatus;
 import ncu.study.autopaper.common.enums.EnumQuestionType;
 import ncu.study.autopaper.common.pojo.*;
 import ncu.study.autopaper.common.result.JsonResult;
+import ncu.study.autopaper.common.result.TableResult;
 import ncu.study.autopaper.model.*;
-import ncu.study.autopaper.service.CoursesInfoService;
-import ncu.study.autopaper.service.QuestionBasketService;
-import ncu.study.autopaper.service.QuestionFavService;
-import ncu.study.autopaper.service.QuestionService;
+import ncu.study.autopaper.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +41,9 @@ public class QuestionController {
 
     @Resource
     private QuestionBasketService questionBasketService;
+
+    @Resource
+    private QuestionCommentService questionCommentService;
 
     //带着条件首次进入试题查询
     @RequestMapping(value = "/search.do")
@@ -218,7 +219,7 @@ public class QuestionController {
         ModelAndView modelAndView = new ModelAndView();
         HttpSession session = request.getSession(false);
         String point = question.getPoint();
-        if(point!=null&&!point.equals("")){
+        if (point != null && !point.equals("")) {
             if (session != null) {
                 User obj = (User) session.getAttribute("loginUser");
                 if (obj != null) {
@@ -252,7 +253,7 @@ public class QuestionController {
             } else {
                 modelAndView.setViewName("redirect:/index.do");
             }
-        }else {
+        } else {
             modelAndView.addObject("tips", "请添加知识点！！！");
             modelAndView.addObject("insertStatus", "5");
             modelAndView.setViewName("/question/question_in");
@@ -306,5 +307,89 @@ public class QuestionController {
 
         return pointsPojos;
     }
+
+    @RequestMapping(value = "/detail.do")
+    public ModelAndView detail(HttpServletRequest request, long questionId) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Gson gson = new Gson();
+        HttpSession session = request.getSession(false);
+        GradePojo currentGrade = (GradePojo) session.getAttribute("currentGrade");
+        CoursePojo currentCourse = (CoursePojo) session.getAttribute("currentCourse");
+        String course = currentCourse.getCourse();
+        Boolean isLogin = false;
+        int userId = 0;
+        if (0 != questionId) {
+            List<QuestionCommentPojo> commentByQuestionId = questionCommentService.getCommentByQuestionId(questionId);
+            modelAndView.addObject("comments",commentByQuestionId);
+            QuestionResponsePojo questionDetail = questionService.getQuestionDetail(questionId);
+            if (session != null) {
+                User user = (User) session.getAttribute("loginUser");
+
+                if (user != null) {
+                    isLogin = true;
+                    userId = user.getUserId();
+                    //查询用户信息并与展示
+                    modelAndView.addObject("user", user);
+                    QuestionFav questionFavInfo = questionFavService.getQuestionFavInfo(userId, questionId);
+                    if(questionFavInfo!=null){
+                        questionDetail.setQuestionFav(questionFavInfo);
+                    }
+                }
+            }
+            modelAndView.addObject("isLogin", isLogin);
+            if (isLogin) {
+                //试题篮信息查询
+                QuestionBasket questionBasket = questionBasketService.getQuestionBasketInfo(userId, course);
+                if (null != questionBasket) {
+                    String questionBasketTypeCountPojosStr = questionBasket.getTypeCountCollection();
+                    List<QuestionBasketTypeCountPojo> questionBasketTypeCountPojos = gson.fromJson(questionBasketTypeCountPojosStr, new TypeToken<List<QuestionBasketTypeCountPojo>>() {
+                    }.getType());
+                    int questionBasketTotal = questionBasket.getTotal();
+                    modelAndView.addObject("questionBasketTypeCountPojos", questionBasketTypeCountPojos);
+                    modelAndView.addObject("questionBasketTotal", questionBasketTotal);
+                }
+            }
+            modelAndView.addObject("question",questionDetail);
+
+            modelAndView.setViewName("question/question_detail");
+        } else {
+            modelAndView.setViewName("redirect:/index.do");
+        }
+        return modelAndView;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/record.do")
+    public TableResult<QuestionResponsePojo> testRecord(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        TableResult<QuestionResponsePojo> questionResponsePojoTableResult = new TableResult<QuestionResponsePojo>();
+        if (session != null) {
+            User user = (User) session.getAttribute("loginUser");
+            if (user != null) {
+                List<QuestionResponsePojo> questionResponsePojos = questionService.getQuestionResponsePojoByUserId(user.getUserId());
+                if(questionResponsePojos!=null){
+                    questionResponsePojoTableResult.setData(questionResponsePojos);
+                    questionResponsePojoTableResult.setCount(questionResponsePojos.size());
+                }
+            } else {
+                //超时重登
+                //modelAndView.setViewName("redirect:/index.do?tips=e01");
+            }
+        } else {
+            //modelAndView.setViewName("redirect:/index.do");
+        }
+        return questionResponsePojoTableResult;
+    }
+
+
+
+
+
+
+
+
+
 
 }

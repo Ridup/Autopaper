@@ -10,8 +10,7 @@
     <meta name="force-rendering" content="webkit"><!--用在其它-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="https://zujuan.21cnjy.com/images/favicon.ico">
-    <link rel="apple-touch-icon" href="https://zujuan.21cnjy.com/images/touchicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/static/images/favicon.ico">
     <meta name="csrf-param" content="_csrf">
     <meta name="csrf-token"
           content="2tObdh4PcaU3_IZf-TfVW6GrfER5u1R8xJCNGWaFLkSNot8hREU9zFzE3C2wZp8EzOMMLjLXZjiOvftRDNdGAA==">
@@ -45,9 +44,6 @@
             }
             return container;
         };
-        var HostInfo = "https://zujuan.21cnjy.com/";
-        USER = {};//通知js用户的信息
-        OT2.CSRF = {"_csrf": "2tObdh4PcaU3_IZf-TfVW6GrfER5u1R8xJCNGWaFLkSNot8hREU9zFzE3C2wZp8EzOMMLjLXZjiOvftRDNdGAA=="};
     </script>
     <!--[if lt IE 9]>
     <script> OT2.AboveIE9 = false;</script>
@@ -218,7 +214,7 @@
                     </div>
                     <div class="search-list-right">
                         <%--<a href="javascript:;" onclick="OT2.PaperAnalysis.show('/paper/pie/929606')"><i class="icona-fenxi2"></i>试卷分析</a>--%>
-                        <a href="<%=request.getContextPath()%>/paper/test?paperId=${paper.paperId}" target="_blank"><i class="icona-ceshi"></i>开始测试</a>
+                        <a href="<%=request.getContextPath()%>/paper/test.do?paperId=${paper.paperId}" target="_blank"><i class="icona-ceshi"></i>开始测试</a>
                         <a href="javascript:;" onclick="paper_download(${paper.paperId})" class="download-btn"><i class="icona-download1"></i>下载</a>
                     </div>
                 </li>
@@ -349,37 +345,7 @@
     </div>
     <div class="page">
         <div id="pagenum1"></div>
-        <%--<div class="pagenum">
 
-            <a data-page="1" href="javascript:;" class="current">1</a>
-            <a data-page="2" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=2&amp;per-page=10">2</a>
-            <a data-page="3" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=3&amp;per-page=10">3</a>
-            <a data-page="4" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=4&amp;per-page=10">4</a>
-            <a data-page="5" href="https://zujuan.21cnjy.com/question/search?content=&amp;page=5&amp;per-page=10">5</a>
-
-            <a data-page="2"
-               href="<%=request.getContextPath()%>/question/search?content=&amp;page=2&amp;per-page=10">下一页</a>
-
-            <input style="
-                border: 1px solid #dcdcdc;
-                color: #333;
-                display: inline-block;
-                font-size: 12px;
-                height: 32px;
-                width: 30px;
-                line-height: 32px;
-                margin: 0 5px;
-                padding: 0 5px;
-                text-align: center;
-                white-space: nowrap;" name="page" onkeyup="toPaperNum(this)" type="text" value="1">
-            <button type="submit" id="paper-jump" class="current">跳转</button>
-            <script>
-                function toPaperNum(ob) {
-                    var v = parseInt($.trim(ob.value).toString().replace(/\D/, '').substr(0, 4)) || 0;
-                    ob.value = v ? v : '';
-                }
-            </script>
-        </div>--%>
     </div>
 </div>
 
@@ -596,7 +562,7 @@
                                         "                    </div>\n" +
                                         "                    <div class=\"search-list-right\">\n" +
                                         "                        <%--<a href=\"javascript:;\" onclick=\"OT2.PaperAnalysis.show('/paper/pie/929606')\"><i class=\"icona-fenxi2\"></i>试卷分析</a>--%>\n" +
-                                        "                        <a href=\"<%=request.getContextPath()%>/paper/test?paperId="+item.paperId+"\" target=\"_blank\"><i class=\"icona-ceshi\"></i>开始测试</a>\n" +
+                                        "                        <a href=\"<%=request.getContextPath()%>/paper/test.do?paperId="+item.paperId+"\" target=\"_blank\"><i class=\"icona-ceshi\"></i>开始测试</a>\n" +
                                         "                        <a href=\"javascript:;\" onclick=\"paper_download("+item.paperId+")\" class=\"download-btn\"><i class=\"icona-download1\"></i>下载</a>\n" +
                                         "                    </div>\n" +
                                         "                </li>";

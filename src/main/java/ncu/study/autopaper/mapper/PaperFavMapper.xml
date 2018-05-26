@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ncu.study.autopaper.dao.PaperFavMapper">
+  <resultMap id="BaseResultMap" type="ncu.study.autopaper.model.PaperFav">
+    <constructor>
+      <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="PAPER_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="COLLECT_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="PAPER_DIFFICULTY" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USER_ID, PAPER_ID, COLLECT_TIME, PAPER_DIFFICULTY
+  </sql>
+  <select id="selectByExample" parameterType="ncu.study.autopaper.model.PaperFavExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper_fav
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperFavKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from paper_fav
+    where USER_ID = #{userId,jdbcType=INTEGER}
+      and PAPER_ID = #{paperId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperFavKey">
+    delete from paper_fav
+    where USER_ID = #{userId,jdbcType=INTEGER}
+      and PAPER_ID = #{paperId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ncu.study.autopaper.model.PaperFavExample">
+    delete from paper_fav
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="ncu.study.autopaper.model.PaperFav">
+    insert into paper_fav (USER_ID, PAPER_ID, COLLECT_TIME, 
+      PAPER_DIFFICULTY)
+    values (#{userId,jdbcType=INTEGER}, #{paperId,jdbcType=INTEGER}, #{collectTime,jdbcType=TIMESTAMP}, 
+      #{paperDifficulty,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="ncu.study.autopaper.model.PaperFav">
+    insert into paper_fav
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="paperId != null">
+        PAPER_ID,
+      </if>
+      <if test="collectTime != null">
+        COLLECT_TIME,
+      </if>
+      <if test="paperDifficulty != null">
+        PAPER_DIFFICULTY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="paperId != null">
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="collectTime != null">
+        #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paperDifficulty != null">
+        #{paperDifficulty,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ncu.study.autopaper.model.PaperFavExample" resultType="java.lang.Long">
+    select count(*) from paper_fav
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update paper_fav
+    <set>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperId != null">
+        PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectTime != null">
+        COLLECT_TIME = #{record.collectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paperDifficulty != null">
+        PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update paper_fav
+    set USER_ID = #{record.userId,jdbcType=INTEGER},
+      PAPER_ID = #{record.paperId,jdbcType=INTEGER},
+      COLLECT_TIME = #{record.collectTime,jdbcType=TIMESTAMP},
+      PAPER_DIFFICULTY = #{record.paperDifficulty,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ncu.study.autopaper.model.PaperFav">
+    update paper_fav
+    <set>
+      <if test="collectTime != null">
+        COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paperDifficulty != null">
+        PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+      and PAPER_ID = #{paperId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ncu.study.autopaper.model.PaperFav">
+    update paper_fav
+    set COLLECT_TIME = #{collectTime,jdbcType=TIMESTAMP},
+      PAPER_DIFFICULTY = #{paperDifficulty,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+      and PAPER_ID = #{paperId,jdbcType=INTEGER}
+  </update>
+</mapper>
