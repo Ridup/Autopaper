@@ -35,16 +35,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
-   /* @RequestMapping("/showUser.do")
-    public void selectUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        long userId = Long.parseLong(request.getParameter("id"));
-        User user = this.userService.selectUser(userId);
-        ObjectMapper mapper = new ObjectMapper();
-        response.getWriter().write(mapper.writeValueAsString(user));
-        response.getWriter().close();
-    }*/
+
 
     @RequestMapping("/login.do")
     public ModelAndView login(Model model){
@@ -56,7 +47,7 @@ public class UserController {
 
     @RequestMapping(value = "/loginIn.do",method= RequestMethod.POST)
     public String loginIn(HttpServletRequest request, String username, String password,RedirectAttributes attr){
-        String msg = new String();
+        String msg;
         User user = userService.login(username,password);
         if (user!=null){
             if(user.getUserPassword().equals(password)&&user.getUserType()!="0"){
@@ -131,10 +122,9 @@ public class UserController {
         return "redirect:/index.do";
     }
 
-//TODO touxiang
     @ResponseBody
-@RequestMapping(value = "/upload_icon.do",method = RequestMethod.POST)
-public Map<String,String> icon(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request){
+    @RequestMapping(value = "/upload_icon.do",method = RequestMethod.POST)
+    public Map<String,String> icon(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request){
         Map<String,String> result = new HashMap<>();
         if(file.isEmpty()){
             result.put("code","1");
@@ -167,7 +157,7 @@ public Map<String,String> icon(@RequestParam(value = "file", required = false) M
 
 
         return result;
-}
+    }
 
 
 
