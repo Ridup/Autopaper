@@ -28,7 +28,7 @@
         <jcl-slf4j_version>1.6.2</jcl-slf4j_version>
         <slf4j_version>1.6.2</slf4j_version>
         <guava_version>17.0</guava_version>
-        <commons_fileupload_version>1.3.1</commons_fileupload_version>
+        <commons_fileupload_version>1.5</commons_fileupload_version>
 
 
 
